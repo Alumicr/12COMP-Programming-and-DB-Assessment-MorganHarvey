@@ -1,47 +1,52 @@
 // Start of Code
-// game control vars 
+// misc vars 
 var gameOver = false;
 var waveStarted = false;
+var damageText;
 // player vars
 var player;
 var deadPlayer;
 var bullet;
 //normal enemy vars
 var enemy1;
-var normalEnemyScoreValue = 2; //will change these to const if i don't get around to making ablitys or lets if i do ablitys
-var normalEnemySpawnCount = 6;
+var normalEnemySpawnCount = 6;//will change these to const if i don't get around to making more ablitys
 //strong enemy vars
 var enemy2;
 var strongEnemySpawnCount = 3;
-var strongEnemyScoreValue = 3;
 //speed enemy vars
 var enemy3;
 var speedEnemySpawnCount = 5;
-var speedEnemyScoreValue = 1;
+//ablity items
+var doublePointAblity;
+var doublePointAblitySpawned = false;
+var ablityText;
 //deadText vars 
 var deadText = {
   fill: "white"
 };
 var deadTextPostionX;
 var deadTextPostionY;
+// other vars
 //player lets
 let playerHealth = 100;
 let bulletDamage = 1;
 let bulletSpawnDistance = 40;
 //normal enemy lets
 let enemy1Health = 2;
-let normalEnemySpeed = 1.35
+let normalEnemyScoreValue = 2;
+let normalEnemySpeed = 1.7;
 //strong enemy lets
 let enemy2Health = 3;
-let strongEnemySpeed = 1;
+let strongEnemySpeed = 1.1;
+let strongEnemyScoreValue = 3;
 //speed enemy lets
 let enemy3Health = 1;
-let speedEnemySpeed = 2.9;
+let speedEnemySpeed = 2.9
+let speedEnemyScoreValue = 1;
 //other lets
 let score = 0;
 let timer = 3;
-let TimerChanger = 1;
-let damageText;
+let doublePointTimer = 0;
 //player consts
 const PLAYERSAFESPAWNINGZONE = 130;
 const PLAYERDEADVALUE = 0;
@@ -53,7 +58,7 @@ const ENEMY2DAMAGE = 50;
 const ENEMY3DAMAGE = 10;
 //other consts
 const PLAYERFLASHTIME = 0300;
-const TEXTREMOVERTIMER = 0700;
+const DOUBLEPOINTABLITYSPAWNCOUNT = 1;
 // main code
 function setup() {
   //creats canvas and main player
@@ -62,6 +67,7 @@ function setup() {
   player.color = color("white");
 
   //groups
+  pointGroup = new Group();
   normalEnemy = new Group();
   playerBullets = new Group();
   wallGroup = new Group();
@@ -124,10 +130,9 @@ function walls() {
 //function gives the player a grace period
 function pre_game() {
   if (waveStarted == false && gameOver == false) {
-    timer -= TimerChanger;
+    timer -= 1;
     console.log("Game starting in " + timer);
   }
-
   if (timer <= 0 && waveStarted == false && gameOver == false) {
     console.log("Wave starting");
     enemyThree();
@@ -144,13 +149,14 @@ function waveStarter() {
     setInterval(enemy, 5000);
     setInterval(enemyTwo, 8000);
     setInterval(enemyThree, 11000);
+    setInterval(ablityOne, 10500);
   }
 }
 
 //function is for game timer
 function gameTimer() {
   if (gameOver == false && waveStarted == true) {
-    timer += TimerChanger;
+    timer += 1;
   }
 }
 
@@ -163,11 +169,11 @@ function enemy() {
     // calculates spawn sure it is a certain distance from player
     // calculates values
     for (i = 0; i < normalEnemySpawnCount; i++) {
-      enemyX = random(width);
-      enemyY = random(height);
+      var enemyX = random(width);
+      var enemyY = random(height);
       var dx = enemyX - player.pos.x;
       var dy = enemyY - player.pos.y
-      var distance = sqrt(dx * dx + dy * dy);
+      distance = sqrt(dx * dx + dy * dy);
 
       //checks if distance from player is allowed
       if (distance < PLAYERSAFESPAWNINGZONE) {
@@ -193,11 +199,11 @@ function enemyTwo() {
   if (gameOver == false) {
     //calculates values
     for (i = 0; i < strongEnemySpawnCount; i++) {
-      enemyX = random(width);
-      enemyY = random(height);
-      var dx = enemyX - player.pos.x;
-      var dy = enemyY - player.pos.y
-      var distance = sqrt(dx * dx + dy * dy);
+      let enemyX = random(width);
+      let enemyY = random(height);
+      let dx = enemyX - player.pos.x;
+      let dy = enemyY - player.pos.y
+      let distance = sqrt(dx * dx + dy * dy);
 
       //checks if distance from player is allowed
       if (distance < PLAYERSAFESPAWNINGZONE) {
@@ -222,11 +228,11 @@ function enemyThree() {
   if (gameOver == false) {
     // calculates values
     for (i = 0; i < speedEnemySpawnCount; i++) {
-      enemyX = random(width);
-      enemyY = random(height);
-      var dx = enemyX - player.pos.x;
-      var dy = enemyY - player.pos.y;
-      var distance = sqrt(dx * dx + dy * dy);
+      let enemyX = random(width);
+      let enemyY = random(height);
+      let dx = enemyX - player.pos.x;
+      let dy = enemyY - player.pos.y;
+      let distance = sqrt(dx * dx + dy * dy);
 
       //checks if distance from plyer is allowed
       if (distance < PLAYERSAFESPAWNINGZONE) {
@@ -273,6 +279,7 @@ function playerDeath() {
     normalEnemy.remove();
     strongEnemy.remove();
     speedEnemy.remove();
+    pointGroup.remove();
     player.remove();
     playerBullets.remove();
     // calls DeadPlayerSpawn function
@@ -288,16 +295,15 @@ function DeadPlayerSpawn() {
   }
 }
 
-
 //players gun when clicked
 function mouseClicked() {
   //Calculates values (making sure it spawns a certain distance from the player)
-  var dx = mouseX - player.pos.x;
-  var dy = mouseY - player.pos.y;
-  var angle = atan2(dy, dx);
-  bulletX = player.pos.x + cos(angle) * bulletSpawnDistance;
-  bulletY = player.pos.y + sin(angle) * bulletSpawnDistance;
-  bulletSpeed = createVector(dx, dy).setMag(8);
+  let dx = mouseX - player.pos.x;
+  let dy = mouseY - player.pos.y;
+  let angle = atan2(dy, dx);
+  let bulletX = player.pos.x + cos(angle) * bulletSpawnDistance;
+  let bulletY = player.pos.y + sin(angle) * bulletSpawnDistance;
+  let bulletSpeed = createVector(dx, dy).setMag(8);
 
   //Creates bullet (using values above) and makes sets colour + speed + adds to group
   bullet = new Sprite(bulletX, bulletY, 13);
@@ -306,6 +312,51 @@ function mouseClicked() {
   playerBullets.add(bullet);
 }
 
+// ABLITY FUNCTION
+function ablityOne() {
+  // function creates doulbepoint sprite
+  if (gameOver == false) {
+    // calculates values
+    for (i = 0; i < DOUBLEPOINTABLITYSPAWNCOUNT; i++) {
+      let ablityX = random(width);
+      let ablityY = random(height);
+      let dx = ablityX - player.pos.x;
+      let dy = ablityY - player.pos.y;
+      let distance = sqrt(dx * dx + dy * dy);
+
+      //checks if distance from plyer is allowed so player has to move for ablity
+      if (distance < PLAYERSAFESPAWNINGZONE) {
+        console.log("Ablity spawn too close, remaking");
+        i--;
+        continue;
+      }
+      // ceats spawns using values above and sets items below + add to group
+      doublePointAblity = new Sprite(ablityX, ablityY, 60, "d");
+      doublePointAblity.color = color("white");
+      doublePointAblity.text = "x2";
+      console.log("Ablity spawn found, spawning double time ablity!");
+      pointGroup.add(doublePointAblity);
+      doublePointAblitySpawned = true;
+    }
+  }
+}
+
+// function doubles value of enemys and resets them
+function doublePoints() {
+  if (doublePointTimer <= 10) {
+    speedEnemyScoreValue * 2;
+    normalEnemyScoreValue * 2;
+    strongEnemyScoreValue * 2;
+    doublePointTimer += 1;
+    setTimeout(doublePoints, 1000);
+  }
+  else {
+    speedEnemyScoreValue / 2;
+    normalEnemyScoreValue / 2;
+    strongEnemyScoreValue / 2;
+    console.log("Double points over")
+  }
+}
 
 function draw() {
   //background for canvas
@@ -314,6 +365,14 @@ function draw() {
   //player items
   // player rotation
   player.rotation = atan2(mouseY - player.pos.y, mouseX - player.pos.x);
+
+  // player collied with ablity
+  player.collide(pointGroup, function(player, doublePointAblity) {
+    doublePointAblity.remove();
+    console.log("DOUBLE POINTS!");
+    doublePoints();
+    ablityText = "DOUBLE POINTS!\nDouble points for 10 secconds!";
+  });
 
   //player damage for Normal enemy
   player.collide(normalEnemy, function(player, enemy) {
@@ -361,21 +420,21 @@ function draw() {
   //enemy 1 control
   for (i = 0; i < normalEnemy.length; i++) {
     enemy1 = normalEnemy[i];
-    var direction = p5.Vector.sub(player.pos, enemy1.pos);
+    direction = p5.Vector.sub(player.pos, enemy1.pos);
     enemy1.vel = direction.limit(normalEnemySpeed);
   }
 
   //enemy 2 control
   for (i = 0; i < strongEnemy.length; i++) {
     enemy2 = strongEnemy[i];
-   var direction = p5.Vector.sub(player.pos, enemy2.pos);
+    direction = p5.Vector.sub(player.pos, enemy2.pos);
     enemy2.vel = direction.limit(strongEnemySpeed);
   }
 
   //enemy 3 control
   for (i = 0; i < speedEnemy.length; i++) {
     enemy3 = speedEnemy[i];
-    var direction = p5.Vector.sub(player.pos, enemy3.pos);
+    direction = p5.Vector.sub(player.pos, enemy3.pos);
     enemy3.vel = direction.limit(speedEnemySpeed);
   }
 
@@ -437,12 +496,28 @@ function draw() {
   fill('white');
   text(timer, width - 65, 60);
 
-  //removes damage notfication at a set time
+  // ablity text
+  textSize(25)
+  text(ablityText, 10, 170);
+  fill("white");
+  
+  //removes text notfication at a set time
   if (damageText) {
     setTimeout(function() {
       damageText = '';
-    }, TEXTREMOVERTIMER);
+    }, 0700);
+  }
+  if (ablityText) {
+    setTimeout(function() {
+      ablityText = '';
+    }, 1000);
+  }
+  if (doublePointAblitySpawned == true) {
+    setTimeout(function() {
+      pointGroup.remove();
+    }, 4500);
   }
 }
+
 //end of code 
 

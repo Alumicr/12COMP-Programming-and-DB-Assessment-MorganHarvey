@@ -7,7 +7,9 @@ body{
   background-color:black;
 }
 
+/*1st page header*/
 .header{
   color:white;
   font-family: 'Libre Baskerville', serif;
+  text-align: center;
 }
