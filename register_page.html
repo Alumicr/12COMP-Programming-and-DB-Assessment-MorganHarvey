@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="style/css" />
+
+  <!-- firebase start ****************************************-->
+  <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+
+
+
+  <script src="/Website JS code/fb_startUp.js"></script>
+  <script src="/Website JS code/script.js"></script>
+  <script src="/Website JS code/FB_main.js"></script>
+</head>
+
+<body>
+  <!--Registration form -->
+
+  <h1> Registration page:</h1>
+  <p> Please register to continue to game page!</p>
+  <form onsubmit="return false;">
+    <label for="HTML_screen_name">Screen name:</label><br>
+    <input type="text" id="HTML_screen_name" name="name"><br>
+    <label for="HTML_password">Password: </label> <br>
+    <input id="HTML_password" name="password" type="password" <br><br>
+    <input onclick="fb_authenticator(fb_register)" type="submit" value="Submit">
+  </form>
+
+</body>
+
+</html>

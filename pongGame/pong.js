@@ -77,7 +77,6 @@ function pre_game() {
   }
 }
 
-
 function draw() {
   // background color
   background("black");
@@ -92,7 +91,6 @@ function draw() {
       text("Game over! you got a score of: " + score + "!\nThe game lasted " + timer + " secconds!", width / 4, 200);
       gameOver = true;
       noLoop();
-      return;
     }
   }
 
