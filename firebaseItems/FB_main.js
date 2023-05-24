@@ -3,16 +3,18 @@ var userScreenName;
 var userPassword;
 var usersEmail;
 var userID;
+var score = 0;
 var userName;
 var userPhoto;
 var score;
+let gameDataObject;
 let userDataObject;
 
 //check to see if user is registerd with database
 
 function fb_checkRegistration() {
   console.log("Checking Registration");
-  firebase.database().ref('userDetails/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
+  firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
 }
 
 function _readUID(snapshot) {
@@ -37,14 +39,14 @@ function fb_authenticator(_DOTHIS) {
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      
+
       userDataObject = {
         userID: user.uid,
         usersEmail: user.email,
         userName: user.displayName,
         userPhoto: user.photoURL,
       }
-      
+
       console.log(userDataObject);
       // If user is already logged in, check that
       console.log("Logged in");
@@ -74,11 +76,17 @@ function fb_register() {
   userPassword = (HTML_password.value);
 
   // saves data to new object
-  var webDataObject = {
+  let webDataObject = {
     userDisplayName: userScreenName,
     userPassword: userPassword,
   }
 
+  gameDataObject = {
+     userDisplayName: userScreenName,
+    highScore:0,
+    score:0,
+  }
+  
   // combines the objects into one
   Object.assign(userDataObject, webDataObject);
   console.log(userDataObject);
@@ -88,7 +96,15 @@ function fb_register() {
 // save data to database
 function fb_saveData() {
   console.log("Saving users data to database");
-  firebase.database().ref('userDetails/userRegDetails/' + userDataObject.userID + '/').set(
+
+  firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/').set(
+    gameDataObject,
+  );
+  firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/').set(
+    gameDataObject,
+  );
+
+  firebase.database().ref('userRegDetails/' + userDataObject.userID + '/').set(
     userDataObject,
   ).then(_DOTHIS);
   function _DOTHIS() {

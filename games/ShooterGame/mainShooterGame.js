@@ -149,7 +149,7 @@ function waveStarter() {
     setInterval(enemy, 5000);
     setInterval(enemyTwo, 8000);
     setInterval(enemyThree, 11000);
-    setInterval(ablityOne, 10500);
+    setInterval(ablityOne, 16000);
   }
 }
 
@@ -343,18 +343,24 @@ function ablityOne() {
 
 // function doubles value of enemys and resets them
 function doublePoints() {
-  if (doublePointTimer <= 10) {
-    speedEnemyScoreValue * 2;
-    normalEnemyScoreValue * 2;
-    strongEnemyScoreValue * 2;
-    doublePointTimer += 1;
-    setTimeout(doublePoints, 1000);
+  // doubles the values
+  if (doublePointTimer <= 0) {
+    speedEnemyScoreValue = 2;
+    normalEnemyScoreValue = 4;
+    strongEnemyScoreValue = 6;
+  }
+  // resets the values
+  if (doublePointTimer >= 10) {
+    speedEnemyScoreValue = 1;
+    normalEnemyScoreValue = 2;
+    strongEnemyScoreValue = 3;
+    doublePointTimer = 0;
+    console.log("Double points over");
   }
   else {
-    speedEnemyScoreValue / 2;
-    normalEnemyScoreValue / 2;
-    strongEnemyScoreValue / 2;
-    console.log("Double points over")
+    //adds to timer, recalls function
+    doublePointTimer += 1;
+    setTimeout(doublePoints, 1000);
   }
 }
 
@@ -500,17 +506,17 @@ function draw() {
   textSize(25)
   text(ablityText, 10, 170);
   fill("white");
-  
+
   //removes text notfication at a set time
   if (damageText) {
     setTimeout(function() {
       damageText = '';
-    }, 0700);
+    }, 100);
   }
   if (ablityText) {
     setTimeout(function() {
       ablityText = '';
-    }, 1000);
+    }, 10000);
   }
   if (doublePointAblitySpawned == true) {
     setTimeout(function() {
@@ -518,6 +524,4 @@ function draw() {
     }, 4500);
   }
 }
-
-//end of code 
-
+//end of code

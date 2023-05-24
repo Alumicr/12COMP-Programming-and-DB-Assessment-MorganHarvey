@@ -12,4 +12,10 @@ body{
   color:white;
   font-family: 'Libre Baskerville', serif;
   text-align: center;
+  padding-bottom: 20px;
+}
+
+.registration_form{
+  font-family: 'Libre Baskerville', serif;
+  color:white;
 }

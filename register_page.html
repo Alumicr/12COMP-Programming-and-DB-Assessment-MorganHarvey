@@ -44,10 +44,23 @@
 <!--*************************************************************
   BODY
 **************************************************************-->
-
 <body>
+  <h1 class="header"> Random Game Website</h1>
+  <div class="registration_form">
+  <!--Registration form -->
+  <h1> Registration page:</h1>
+  <p> Please register to continue to game page!</p>
+  <form onsubmit="return false;">
+    <label for="HTML_screen_name">Screen name:</label><br>
+    <input type="text" id="HTML_screen_name" name="name"><br>
+    <label for="HTML_password">Password: </label> <br>
+    <input id="HTML_password" name="password" type="password" <br><br>
+    <input onclick="fb_authenticator(fb_register)" type="submit" value="Submit">
+  </form>
 
+  </div>
 </body>
+
 
 </html>
 
