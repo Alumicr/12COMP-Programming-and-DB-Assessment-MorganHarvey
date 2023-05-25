@@ -84,7 +84,7 @@ function fb_register() {
   gameDataObject = {
      userDisplayName: userScreenName,
     highScore:0,
-    score:0,
+    lastScore:0,
   }
   
   // combines the objects into one

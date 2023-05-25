@@ -4,12 +4,12 @@ html {
 }
 
 body{  
-  background-color:black;
+  background-color:white;
 }
 
 /*1st page header*/
 .header{
-  color:white;
+  color:black;
   font-family: 'Libre Baskerville', serif;
   text-align: center;
   padding-bottom: 20px;
@@ -17,5 +17,5 @@ body{
 
 .registration_form{
   font-family: 'Libre Baskerville', serif;
-  color:white;
+  color:black;
 }
