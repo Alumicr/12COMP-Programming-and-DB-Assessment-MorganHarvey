@@ -1,16 +1,16 @@
 //  start of code 
 // vars
-var gameOver = false;
+var gameOver_pong = false;
 var timerStart = false;
 var gameStarted = false;
 // lets
-let score = 0;
+let score_pong = 0;
 let paddleSpeedUp = -8;
 let paddleSpeedDown = 8;
-let timer = 3;
+let timer_pong = 3;
 
 function setup() {
-  if (gameOver == false) {
+  if (gameOver_pong == false) {
     // creats canvas and ball
     cnv = new Canvas(windowWidth, windowHeight - 10);
     ball = new Sprite(width - 50, height / 2, 50, "d");
@@ -68,9 +68,9 @@ function walls() {
 //pre_game configerations
 function pre_game() {
   if (gameStarted == false) {
-    timer -= 1;
+    timer_pong -= 1;
   }
-  if (timer == 0 && gameStarted == false) {
+  if (timer_pong == 0 && gameStarted == false) {
     gameStarter();
     ball.vel.x = -5;
     ball.vel.y = 9;
@@ -88,7 +88,7 @@ function draw() {
       textSize(30);
       ball.color = color("red");
       fill("red");
-      text("Game over! you got a score of: " + score + "!\nThe game lasted " + timer + " secconds!", width / 4, 200);
+      text("Game over! you got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " secconds!", width / 4, 200);
       gameOver = true;
       noLoop();
     }
@@ -97,27 +97,27 @@ function draw() {
   //displays score text
   textSize(40);
   fill('white');
-  text("Score: " + score, 20, 42);
+  text("Score: " + score_pong, 20, 42);
 
   //timer text
   textSize(50);
   fill('white');
-  text(timer, width - 65, 60);
+  text(timer_pong, width - 65, 60);
 }
 
 //players score
 function increaseScore() {
-  score++;
-  console.log("players score is " + score);
+  score_pong++;
+  console.log("players score is " + score_pong);
   
   //starts timer 
   timerStart = true;
   
   // makes game harder
-  if (score == 3) {
+  if (score_pong == 3) {
     wallRH.bounciness = 1.2;
   }
-  if (score == 7) {
+  if (score_pong == 7) {
     wallRH.bounciness = 1.5;
     paddleSpeedDown = 10;
     paddleSpeedUp = -10;
@@ -126,15 +126,15 @@ function increaseScore() {
 // starts timer 
 function gameStarter() {
   gameStarted = true;
-  if (gameOver == false) {
+  if (gameOver_pong == false) {
     setInterval(gameTimer, 1000);
   }
 }
 
 // game timer
 function gameTimer() {
-  if (gameOver == false && timerStart == true) {
-    timer += 1;
+  if (gameOver_pong == false && timerStart == true) {
+    timer_pong += 1;
   }
 }
 
