@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Game Page</title>
+  <title>Shooter Game</title>
   <meta charset="UTF-8">
   <meta name="description" content="12COMP assessment">
   <meta name="author" content="Morgan Harvey">
@@ -37,7 +37,8 @@
   <script src="/firebaseItems/fb_startUp.js"></script>
   <script src="/firebaseItems/script.js"></script>
   <script src="/firebaseItems/FB_main.js"></script>
-
+  <script src=/games/shooterGamemainShooterGame.js> </script>
+   
 
 </head>
 
@@ -45,13 +46,10 @@
   BODY
 **************************************************************-->
 
-<body>
-  <h1 class="header"> Random Game Website</h1>
+<body onLoad="fb_authenticator()">
 
-<!--notes: create buttons with picture -->
-  <div class="shooterButton"> 
-  <img src="assets/images/ShooterIMG.png" alt="Shooter Game" onclick="shooterGamePageSender()">
-  </div>
+<h1 class="header"> Random Game Website</h1>
+  
 </body>
 
 </html>

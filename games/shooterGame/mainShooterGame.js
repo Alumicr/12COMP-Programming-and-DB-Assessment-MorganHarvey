@@ -58,7 +58,7 @@ const ENEMY2DAMAGE = 50;
 const ENEMY3DAMAGE = 10;
 //other consts
 const PLAYERFLASHTIME = 0300;
-const DOUBLEPOINTABLITYSPAWNCOUNT = 1;
+const ABLITYSPAWNCOUNT = 1;
 // main code
 function setup() {
   //creats canvas and main player
@@ -317,7 +317,7 @@ function ablityOne() {
   // function creates doulbepoint sprite
   if (gameOver == false) {
     // calculates values
-    for (i = 0; i < DOUBLEPOINTABLITYSPAWNCOUNT; i++) {
+    for (i = 0; i < ABLITYSPAWNCOUNT; i++) {
       let ablityX = random(width);
       let ablityY = random(height);
       let dx = ablityX - player.pos.x;
@@ -507,7 +507,7 @@ function draw() {
   text(ablityText, 10, 170);
   fill("white");
 
-  //removes text notfication at a set time
+  //removes text notfication and ablity sprites at a set time
   if (damageText) {
     setTimeout(function() {
       damageText = '';
@@ -521,6 +521,7 @@ function draw() {
   if (doublePointAblitySpawned == true) {
     setTimeout(function() {
       pointGroup.remove();
+      doublePointAblitySpawned = false;
     }, 4500);
   }
 }

@@ -82,7 +82,7 @@ function fb_register() {
   }
 
   gameDataObject = {
-     userDisplayName: userScreenName,
+    userDisplayName: userScreenName,
     highScore:0,
     lastScore:0,
   }
@@ -111,6 +111,14 @@ function fb_saveData() {
     window.location = "gameHomePage.html";
   }
 }
+
+
+function shooterGamePageSender() {
+console.log("Sending user to shooter game")
+window.location = "games/shooterGame/shooter.html";
+  
+}
+
 
 //sends out error if rules are wrong
 function fb_error(error) {

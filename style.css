@@ -7,7 +7,7 @@ body{
   background-color:white;
 }
 
-/*1st page header*/
+/*header*/
 .header{
   color:black;
   font-family: 'Libre Baskerville', serif;
@@ -15,6 +15,7 @@ body{
   padding-bottom: 20px;
 }
 
+/*registartion form css*/
 .registration_form{
   font-family: 'Libre Baskerville', serif;
   color:black;
