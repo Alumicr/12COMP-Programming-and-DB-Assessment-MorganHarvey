@@ -1,16 +1,16 @@
 // Start of Code
 // misc vars 
 var gameOver = false;
-var fireBaseShooterHighScore;
 var waveStarted = false;
 var damageText;
+var fireBaseShooterHighScore;
 // player vars
 var player;
 var deadPlayer;
 var bullet;
 //normal enemy vars
 var enemy1;
-var normalEnemySpawnCount = 6;//will change these to const if i don't get around to making more ablitys
+var normalEnemySpawnCount = 6;//will change these to const/remove if i don't get around to making more ablitys
 //strong enemy vars
 var enemy2;
 var strongEnemySpawnCount = 3;
@@ -50,16 +50,13 @@ let timer = 3;
 let doublePointTimer = 0;
 //player consts
 const PLAYERSAFESPAWNINGZONE = 130;
-const PLAYERDEADVALUE = 0;
 //normal enemy consts
 const ENEMY1DAMAGE = 25;
 //strong enemy consts
 const ENEMY2DAMAGE = 50;
 //speed enemy consts
 const ENEMY3DAMAGE = 10;
-//other consts
-const PLAYERFLASHTIME = 0300;
-const ABLITYSPAWNCOUNT = 1;
+
 // main code
 function setup() {
   //creats canvas and main player
@@ -144,8 +141,10 @@ function pre_game() {
 //spawn intervals for enemys and timer
 function waveStarter() {
   waveStarted = true;
-  console.log("Enemy spawning started")
+  console.log("Enemy spawning started");
+  // runs if vars are correct
   if (gameOver == false && waveStarted == true) {
+    // calls functions after set time
     setInterval(gameTimer, 1000);
     setInterval(enemy, 5000);
     setInterval(enemyTwo, 8000);
@@ -154,9 +153,11 @@ function waveStarter() {
   }
 }
 
-//function is for game timer
+//function for game timer
 function gameTimer() {
+  // runs if vars are correct
   if (gameOver == false && waveStarted == true) {
+    // adds 1 to timer
     timer += 1;
   }
 }
@@ -170,11 +171,11 @@ function enemy() {
     // calculates spawn sure it is a certain distance from player
     // calculates values
     for (i = 0; i < normalEnemySpawnCount; i++) {
-      var enemyX = random(width);
-      var enemyY = random(height);
-      var dx = enemyX - player.pos.x;
-      var dy = enemyY - player.pos.y
-      distance = sqrt(dx * dx + dy * dy);
+      let enemyX = random(width);
+      let enemyY = random(height);
+      let dx = enemyX - player.pos.x;
+      let dy = enemyY - player.pos.y
+      let distance = sqrt(dx * dx + dy * dy);
 
       //checks if distance from player is allowed
       if (distance < PLAYERSAFESPAWNINGZONE) {
@@ -187,7 +188,6 @@ function enemy() {
       //asigns properties 
       enemy1 = new Sprite(enemyX, enemyY, 29, 29, "d");
       enemy1.color = color("red");
-      console.log("enemy spawns found, enemys spawning");
       enemy1.health = enemy1Health;
       normalEnemy.add(enemy1);
     }
@@ -216,7 +216,6 @@ function enemyTwo() {
       //asigns properties 
       enemy2 = new Sprite(enemyX, enemyY, 60, "d");
       enemy2.color = color("red");
-      console.log("Strong enemy spawns found, enemys spawning");
       enemy2.health = enemy2Health;
       strongEnemy.add(enemy2);
     }
@@ -250,7 +249,6 @@ function enemyThree() {
       //asigns properties 
       enemy3.health = enemy3Health;
       enemy3.color = color("red");
-      console.log("Speed enemy spawns found, enemys spawning");
       speedEnemy.add(enemy3);
     }
   }
@@ -264,7 +262,7 @@ function playerDamage() {
   player.color = color("red");
   setTimeout(function() {
     player.color = color("white");
-  }, PLAYERFLASHTIME);
+  }, 0300);
 }
 
 function playerDeath() {
@@ -318,7 +316,7 @@ function ablityOne() {
   // function creates doulbepoint sprite
   if (gameOver == false) {
     // calculates values
-    for (i = 0; i < ABLITYSPAWNCOUNT; i++) {
+    for (i = 0; i < 1; i++) {
       let ablityX = random(width);
       let ablityY = random(height);
       let dx = ablityX - player.pos.x;
@@ -335,7 +333,6 @@ function ablityOne() {
       doublePointAblity = new Sprite(ablityX, ablityY, 60, "d");
       doublePointAblity.color = color("white");
       doublePointAblity.text = "x2";
-      console.log("Ablity spawn found, spawning double time ablity!");
       pointGroup.add(doublePointAblity);
       doublePointAblitySpawned = true;
     }
@@ -406,11 +403,11 @@ function draw() {
   });
 
   // checks player health and stops game
-  if (playerHealth <= PLAYERDEADVALUE) {
-    fb_readHighScore1();
+  if (playerHealth <= 0) {
     console.log("Game over!");
-    playerHealth = PLAYERDEADVALUE;
+    playerHealth = 0;
     gameOver = true;
+    fb_readHighScore1();
     playerDeath();
     noLoop();
   }
@@ -452,7 +449,6 @@ function draw() {
       bullet.remove();
       enemy.remove();
       score_shooterGame += normalEnemyScoreValue;
-      console.log("enemy dead");
     } else {
       bullet.remove();
       enemy.health -= bulletDamage;
@@ -465,7 +461,6 @@ function draw() {
       bullet.remove();
       enemy.remove();
       score_shooterGame += strongEnemyScoreValue;
-      console.log("strong enemy dead");
     } else {
       bullet.remove();
       enemy.health -= bulletDamage;
@@ -478,7 +473,6 @@ function draw() {
       bullet.remove();
       enemy.remove();
       score_shooterGame += speedEnemyScoreValue;
-      console.log("speed enemy dead");
     } else {
       bullet.remove();
       enemy.health -= bulletDamage;
@@ -524,7 +518,7 @@ function draw() {
     setTimeout(function() {
       pointGroup.remove();
       doublePointAblitySpawned = false;
-    }, 4500);
+    }, 4000);
   }
 }
 
@@ -542,13 +536,19 @@ function fb_readHighScore1() {
 }
 
 
-function checkIfHighScoreGreater(){
+function checkIfHighScoreGreater() {
   console.log(fireBaseShooterHighScore);
-  if (fireBaseShooterHighScore < score_shooterGame){
-    firebase.database().ref 
-    // complete database write then yay :)
+  // saves score to firebase
+  firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
+    score_shooterGame
+  );
+  // checks if current score is bigger than highscore
+  if (fireBaseShooterHighScore < score_shooterGame) {
+    // writes score ti highscore
+    firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').set(
+      score_shooterGame
+    );
   }
-  
 }
 
 //end of code

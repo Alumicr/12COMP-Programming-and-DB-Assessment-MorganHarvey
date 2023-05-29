@@ -9,6 +9,7 @@ let paddleSpeedUp = -8;
 let paddleSpeedDown = 8;
 let timer_pong = 3;
 
+// main code
 function setup() {
   if (gameOver_pong == false) {
     // creats canvas and ball
@@ -138,3 +139,4 @@ function gameTimer() {
   }
 }
 
+// end of code

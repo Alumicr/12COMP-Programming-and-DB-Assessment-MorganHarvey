@@ -12,7 +12,6 @@ let gameDataObject;
 let userDataObject;
 
 //check to see if user is registerd with database
-
 function fb_checkRegistration() {
   console.log("Checking Registration");
   firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
@@ -116,7 +115,6 @@ function fb_saveData() {
 function shooterGamePageSender() {
 console.log("Sending user to shooter game")
 window.location = "games/shooterGame/shooter.html";
-  
 }
 
 //sends out error if rules are wrong
@@ -125,4 +123,4 @@ function fb_error(error) {
   console.error(error);
 }
 
-// 
+// end of code
