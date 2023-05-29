@@ -3,7 +3,8 @@ var userScreenName;
 var userPassword;
 var usersEmail;
 var userID;
-var score = 0;
+var score;
+var highScore;
 var userName;
 var userPhoto;
 var score;
@@ -40,6 +41,7 @@ function fb_authenticator(_DOTHIS) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
 
+      // asigns users to object
       userDataObject = {
         userID: user.uid,
         usersEmail: user.email,
@@ -80,7 +82,7 @@ function fb_register() {
     userDisplayName: userScreenName,
     userPassword: userPassword,
   }
-
+  // asigns items to object
   gameDataObject = {
     userDisplayName: userScreenName,
     highScore:0,
@@ -96,14 +98,12 @@ function fb_register() {
 // save data to database
 function fb_saveData() {
   console.log("Saving users data to database");
-
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/').set(
     gameDataObject,
   );
   firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/').set(
     gameDataObject,
   );
-
   firebase.database().ref('userRegDetails/' + userDataObject.userID + '/').set(
     userDataObject,
   ).then(_DOTHIS);
@@ -112,16 +112,17 @@ function fb_saveData() {
   }
 }
 
-
+// if users clicks shooter game sends to game
 function shooterGamePageSender() {
 console.log("Sending user to shooter game")
 window.location = "games/shooterGame/shooter.html";
   
 }
 
-
 //sends out error if rules are wrong
 function fb_error(error) {
   console.log("Error found");
   console.error(error);
 }
+
+// 

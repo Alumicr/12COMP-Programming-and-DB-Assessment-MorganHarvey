@@ -1,6 +1,7 @@
 // Start of Code
 // misc vars 
 var gameOver = false;
+var fireBaseShooterHighScore;
 var waveStarted = false;
 var damageText;
 // player vars
@@ -44,7 +45,7 @@ let enemy3Health = 1;
 let speedEnemySpeed = 2.9
 let speedEnemyScoreValue = 1;
 //other lets
-let score = 0;
+let score_shooterGame = 0;
 let timer = 3;
 let doublePointTimer = 0;
 //player consts
@@ -274,7 +275,7 @@ function playerDeath() {
     deadTextPostionY = height / 2;
     //displays death text
     deadText = textSize(32);
-    deadText = text("You have died!\nYou survived for " + timer + " seconds\nYou had a score of: " + score + "!", deadTextPostionX, deadTextPostionY);
+    deadText = text("You have died!\nYou survived for " + timer + " seconds\nYou had a score of: " + score_shooterGame + "!", deadTextPostionX, deadTextPostionY);
     // removes all entities
     normalEnemy.remove();
     strongEnemy.remove();
@@ -406,6 +407,7 @@ function draw() {
 
   // checks player health and stops game
   if (playerHealth <= PLAYERDEADVALUE) {
+    fb_readHighScore1();
     console.log("Game over!");
     playerHealth = PLAYERDEADVALUE;
     gameOver = true;
@@ -449,7 +451,7 @@ function draw() {
     if (enemy.health <= bulletDamage) {
       bullet.remove();
       enemy.remove();
-      score += normalEnemyScoreValue;
+      score_shooterGame += normalEnemyScoreValue;
       console.log("enemy dead");
     } else {
       bullet.remove();
@@ -462,7 +464,7 @@ function draw() {
     if (enemy.health <= bulletDamage) {
       bullet.remove();
       enemy.remove();
-      score += strongEnemyScoreValue;
+      score_shooterGame += strongEnemyScoreValue;
       console.log("strong enemy dead");
     } else {
       bullet.remove();
@@ -475,7 +477,7 @@ function draw() {
     if (enemy.health <= bulletDamage) {
       bullet.remove();
       enemy.remove();
-      score += speedEnemyScoreValue;
+      score_shooterGame += speedEnemyScoreValue;
       console.log("speed enemy dead");
     } else {
       bullet.remove();
@@ -487,7 +489,7 @@ function draw() {
   // players score
   textSize(30);
   fill("white");
-  text("Score: " + score, 10, 35);
+  text("Score: " + score_shooterGame, 10, 35);
 
   //players health
   text("Health: " + playerHealth, 10, 70);
@@ -511,7 +513,7 @@ function draw() {
   if (damageText) {
     setTimeout(function() {
       damageText = '';
-    }, 100);
+    }, 1000);
   }
   if (ablityText) {
     setTimeout(function() {
@@ -525,4 +527,28 @@ function draw() {
     }, 4500);
   }
 }
+
+// FIREBASE FUNCTIONS
+function fb_readHighScore1() {
+  // reads high score
+
+  firebase.database().ref('/userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
+  //saves high score
+  function DO_THIS(snapshot) {
+    fireBaseShooterHighScore = snapshot.val();
+    console.log(fireBaseShooterHighScore);
+    checkIfHighScoreGreater();
+  }
+}
+
+
+function checkIfHighScoreGreater(){
+  console.log(fireBaseShooterHighScore);
+  if (fireBaseShooterHighScore < score_shooterGame){
+    firebase.database().ref 
+    // complete database write then yay :)
+  }
+  
+}
+
 //end of code
