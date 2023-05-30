@@ -144,7 +144,6 @@ function gameTimer() {
 
 function fb_readHighScore2() {
   // reads high score
-
   firebase.database().ref('/userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
   //saves high score
   function DO_THIS(snapshot) {

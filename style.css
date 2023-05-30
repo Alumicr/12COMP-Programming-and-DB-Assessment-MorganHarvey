@@ -2,6 +2,7 @@ html {
   height: 100%;
   width: 100%;
 }
+/*background  */
 body{  
   background-color:white;
 }
@@ -21,12 +22,18 @@ body{
 }
 /* game button items */
 .shooterButton {
-  padding-top: 30px;
-  padding-left: 30px;
+  margin-left:5%;
+  background-color: transparent;
+  width: 40%;
+  border: none;
 }
 .pongButton{
-  padding-top: 30px;
-  padding-left: 30px;
+  float:right;
+  border: none;
+  display: inline-block;
+  background-color: transparent;
+  width: 40%;
+  margin-right: 5%;
 }
 .shooterButton:hover{opacity: 0.6}
 .pongButton:hover{opacity: 0.6}

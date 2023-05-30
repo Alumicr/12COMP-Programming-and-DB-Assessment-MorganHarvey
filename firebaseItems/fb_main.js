@@ -111,10 +111,15 @@ function fb_saveData() {
   }
 }
 
-// if users clicks shooter game sends to game
+// send user to game when button clicked
 function shooterGamePageSender() {
 console.log("Sending user to shooter game")
 window.location = "games/shooterGame/shooter.html";
+}
+
+function pongGameSender(){
+  console.log("Sending user to pong game");
+  window.location = "games/pongGame/pong1.html";
 }
 
 //sends out error if rules are wrong
