@@ -20,12 +20,30 @@ body{
   font-family: 'Libre Baskerville', serif;
   color:black;
 }
-
+/* game button items  */
 .shooterButton{
   padding-top: 30px;
   padding-left: 30px;
 }
 
+.pongButton{
+  padding-top: 30px;
+  padding-left: 30px;
+}
+
+/* button text */
 .shooterHeader{
  font-family: 'Libre Baskerville', serif;
+}
+
+.pongHeader{
+   font-family: 'Libre Baskerville', serif;
+}
+
+/* game page header */
+.pageHeader{
+  color:black;
+  font-family: 'Libre Baskerville', serif;
+  text-align: center;
+  padding-bottom: 20px;
 }
