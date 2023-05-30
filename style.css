@@ -21,3 +21,11 @@ body{
   color:black;
 }
 
+.shooterButton{
+  padding-top: 30px;
+  padding-left: 30px;
+}
+
+.shooterHeader{
+ font-family: 'Libre Baskerville', serif;
+}

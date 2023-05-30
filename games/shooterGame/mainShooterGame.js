@@ -407,7 +407,7 @@ function draw() {
     console.log("Game over!");
     playerHealth = 0;
     gameOver = true;
-    fb_readHighScore1();
+    checkIfHighScoreGreater1();
     playerDeath();
     noLoop();
   }
@@ -530,14 +530,12 @@ function fb_readHighScore1() {
   //saves high score
   function DO_THIS(snapshot) {
     fireBaseShooterHighScore = snapshot.val();
-    console.log(fireBaseShooterHighScore);
-    checkIfHighScoreGreater();
   }
 }
 
 
-function checkIfHighScoreGreater() {
-  console.log(fireBaseShooterHighScore);
+function checkIfHighScoreGreater1() {
+ console.log("users high score is" +fireBaseShooterHighScore);
   // saves score to firebase
   firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
     score_shooterGame

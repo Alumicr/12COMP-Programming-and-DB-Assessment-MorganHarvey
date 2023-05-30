@@ -90,6 +90,7 @@ function draw() {
       ball.color = color("red");
       fill("red");
       text("Game over! you got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " secconds!", width / 4, 200);
+      checkIfHighScoreGreater2();
       gameOver = true;
       noLoop();
     }
@@ -138,5 +139,34 @@ function gameTimer() {
     timer_pong += 1;
   }
 }
+
+// FIREBASE ITEMS
+
+function fb_readHighScore2() {
+  // reads high score
+
+  firebase.database().ref('/userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
+  //saves high score
+  function DO_THIS(snapshot) {
+    fireBaseShooterHighScore = snapshot.val();
+  }
+}
+
+
+function checkIfHighScoreGreater2() {
+ console.log("users high score is" +fireBaseShooterHighScore);
+  // saves score to firebase
+  firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
+    score_shooterGame
+  );
+  // checks if current score is bigger than highscore
+  if (fireBaseShooterHighScore < score_shooterGame) {
+    // writes score ti highscore
+    firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').set(
+      score_shooterGame
+    );
+  }
+}
+
 
 // end of code
