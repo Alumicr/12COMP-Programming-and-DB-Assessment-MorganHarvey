@@ -166,7 +166,7 @@ function gameTimer() {
 
 function enemy() {
   // normal enemy function
-  // functions runs if var is false
+  //runs if set var is correct
   if (gameOver == false) {
     // calculates spawn sure it is a certain distance from player
     // calculates values
@@ -195,8 +195,9 @@ function enemy() {
 }
 
 function enemyTwo() {
+  // strong enemy function
   //function spawns stronger enemy
-  //runs if var is false
+  //runs if set var is correct
   if (gameOver == false) {
     //calculates values
     for (i = 0; i < strongEnemySpawnCount; i++) {
@@ -223,8 +224,9 @@ function enemyTwo() {
 }
 
 function enemyThree() {
+  // speed enemy function
   // function spawns speed enemy
-  //runs if var is false
+  //runs if set var is correct
   if (gameOver == false) {
     // calculates values
     for (i = 0; i < speedEnemySpawnCount; i++) {
@@ -341,24 +343,27 @@ function ablityOne() {
 
 // function doubles value of enemys and resets them
 function doublePoints() {
-  // doubles the values
-  if (doublePointTimer <= 0) {
-    speedEnemyScoreValue = 2;
-    normalEnemyScoreValue = 4;
-    strongEnemyScoreValue = 6;
-  }
-  // resets the values
-  if (doublePointTimer >= 10) {
-    speedEnemyScoreValue = 1;
-    normalEnemyScoreValue = 2;
-    strongEnemyScoreValue = 3;
-    doublePointTimer = 0;
-    console.log("Double points over");
-  }
-  else {
-    //adds to timer, recalls function
-    doublePointTimer += 1;
-    setTimeout(doublePoints, 1000);
+  // runs if set vars are correct
+  if (gameOver == false) {
+    // doubles the values
+    if (doublePointTimer <= 0) {
+      speedEnemyScoreValue = 2;
+      normalEnemyScoreValue = 4;
+      strongEnemyScoreValue = 6;
+    }
+    // resets the values
+    if (doublePointTimer >= 10) {
+      speedEnemyScoreValue = 1;
+      normalEnemyScoreValue = 2;
+      strongEnemyScoreValue = 3;
+      doublePointTimer = 0;
+      console.log("Double points over");
+    }
+    else {
+      //adds to timer, recalls function
+      doublePointTimer += 1;
+      setTimeout(doublePoints, 1000);
+    }
   }
 }
 
@@ -404,6 +409,7 @@ function draw() {
 
   // checks player health and stops game
   if (playerHealth <= 0) {
+    ablityText = '';
     console.log("Game over!");
     playerHealth = 0;
     gameOver = true;
@@ -503,7 +509,7 @@ function draw() {
   text(ablityText, 10, 170);
   fill("white");
 
-  //removes text notfication and ablity sprites at a set time
+  //removes text and ablity sprites
   if (damageText) {
     setTimeout(function() {
       damageText = '';
@@ -525,7 +531,6 @@ function draw() {
 // FIREBASE FUNCTIONS
 function fb_readHighScore1() {
   // reads high score
-
   firebase.database().ref('/userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
   //saves high score
   function DO_THIS(snapshot) {
@@ -533,9 +538,8 @@ function fb_readHighScore1() {
   }
 }
 
-
 function checkIfHighScoreGreater1() {
- console.log("users high score is" +fireBaseShooterHighScore);
+  console.log("users high score is " + fireBaseShooterHighScore);
   // saves score to firebase
   firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
     score_shooterGame
