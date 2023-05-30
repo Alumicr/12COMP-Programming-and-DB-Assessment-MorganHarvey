@@ -3,6 +3,8 @@
 var gameOver_pong = false;
 var timerStart = false;
 var gameStarted = false;
+// firebase vars
+var fireBasePongHighScore;
 // lets
 let score_pong = 0;
 let paddleSpeedUp = -8;
@@ -144,25 +146,26 @@ function gameTimer() {
 
 function fb_readHighScore2() {
   // reads high score
-  firebase.database().ref('/userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
+  firebase.database().ref('/userGameScores/pongGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
   //saves high score
   function DO_THIS(snapshot) {
-    fireBaseShooterHighScore = snapshot.val();
+    fireBasePongHighScore = snapshot.val();
   }
 }
 
 
 function checkIfHighScoreGreater2() {
- console.log("users high score is" +fireBaseShooterHighScore);
+ console.log("fb, users high score is " +fireBasePongHighScore);
   // saves score to firebase
-  firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
-    score_shooterGame
+  firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/lastScore/').set(
+    score_pong
   );
   // checks if current score is bigger than highscore
-  if (fireBaseShooterHighScore < score_shooterGame) {
+  if (fireBasePongHighScore < score_pong) {
+    console.log("updating users highscore")
     // writes score ti highscore
-    firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').set(
-      score_shooterGame
+    firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/highScore/').set(
+      score_pong
     );
   }
 }
