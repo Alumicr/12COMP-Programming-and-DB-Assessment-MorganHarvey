@@ -11,7 +11,7 @@ body{
   /*background */
   background: white;
 }
-/*header*/
+/*header css*/
 .header{
   color:black;
   font-family: 'Libre Baskerville', serif;
@@ -23,7 +23,7 @@ body{
   font-family: 'Libre Baskerville', serif;
   color:black;
 }
-/* game button items */
+/*game button items*/
 .shooterButton {
   margin-left:5%;
   background-color: transparent;
@@ -50,7 +50,7 @@ body{
    font-family: 'Libre Baskerville', serif;
 }
 
-/* game page header */
+/*game page header*/
 .pageHeader{
   color:black;
   font-family: 'Libre Baskerville', serif;

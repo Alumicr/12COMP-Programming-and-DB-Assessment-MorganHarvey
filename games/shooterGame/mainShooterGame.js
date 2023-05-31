@@ -157,12 +157,12 @@ function waveStarter() {
 function gameTimer() {
   // runs if vars are correct
   if (gameOver == false && waveStarted == true) {
-    // adds 1 to timer
+    // adds 1 to timer ez
     timer += 1;
   }
 }
 
-// ENEMY FUNCTIONS BELOW
+// ENEMY FUNCTIONS BELOW    
 
 function enemy() {
   // normal enemy function
@@ -313,7 +313,7 @@ function mouseClicked() {
   playerBullets.add(bullet);
 }
 
-// ABLITY FUNCTION
+// ABLITY FUNCTIONS BELOW  
 function ablityOne() {
   // function creates doulbepoint sprite
   if (gameOver == false) {
@@ -366,7 +366,7 @@ function doublePoints() {
     }
   }
 }
-
+//draw function
 function draw() {
   //background for canvas
   background("black");
@@ -546,7 +546,8 @@ function checkIfHighScoreGreater1() {
   );
   // checks if current score is bigger than highscore
   if (fireBaseShooterHighScore < score_shooterGame) {
-    // writes score ti highscore
+    console.log("USER HAS NEW HIGHSCORE");
+    // writes score to highscore
     firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').set(
       score_shooterGame
     );

@@ -8,11 +8,13 @@ var fireBasePongHighScore;
 // lets
 let score_pong = 0;
 let paddleSpeedUp = -8;
+let fb_data;
 let paddleSpeedDown = 8;
 let timer_pong = 3;
 
 // main code
 function setup() {
+  highScoreReader();
   if (gameOver_pong == false) {
     // creats canvas and ball
     cnv = new Canvas(windowWidth, windowHeight - 10);
@@ -113,10 +115,10 @@ function draw() {
 function increaseScore() {
   score_pong++;
   console.log("players score is " + score_pong);
-  
+
   //starts timer 
   timerStart = true;
-  
+
   // makes game harder
   if (score_pong == 3) {
     wallRH.bounciness = 1.2;
@@ -155,7 +157,7 @@ function fb_readHighScore2() {
 
 
 function checkIfHighScoreGreater2() {
- console.log("fb, users high score is " +fireBasePongHighScore);
+  console.log("fb, users high score is " + fireBasePongHighScore);
   // saves score to firebase
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/lastScore/').set(
     score_pong
@@ -169,6 +171,25 @@ function checkIfHighScoreGreater2() {
     );
   }
 }
+
+// highscore items below
+// reads highsore from databse
+function highScoreReader() {
+  console.log("Readig highscores");
+  firebase.database().ref('/userGameScores/pongGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
+    console.log(snapshot.val());
+    snapshot.forEach(savesHighScoreInfo);
+  }, fb_error);
+}
+
+// saves stuff to variable
+function savesHighScoreInfo(child) {
+  console.log(child.val());
+  fb_data = child.val();
+  console.log(fb_data.highScore);
+  console.log(fb_data.userDisplayName);
+}
+
 
 
 // end of code
