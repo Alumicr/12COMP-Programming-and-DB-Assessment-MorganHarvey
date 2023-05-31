@@ -14,8 +14,8 @@ let timer_pong = 3;
 
 // main code
 function setup() {
-  highScoreReader();
   if (gameOver_pong == false) {
+    highScoreReader();
     // creats canvas and ball
     cnv = new Canvas(windowWidth, windowHeight - 10);
     ball = new Sprite(width - 50, height / 2, 50, "d");
@@ -111,6 +111,7 @@ function draw() {
   text(timer_pong, width - 65, 60);
 }
 
+
 //players score
 function increaseScore() {
   score_pong++;
@@ -182,13 +183,15 @@ function highScoreReader() {
   }, fb_error);
 }
 
-// saves stuff to variable
+// saves firebase highscore items to variable
 function savesHighScoreInfo(child) {
   console.log(child.val());
   fb_data = child.val();
   console.log(fb_data.highScore);
   console.log(fb_data.userDisplayName);
 }
+
+
 
 
 

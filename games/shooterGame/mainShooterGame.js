@@ -4,6 +4,7 @@ var gameOver = false;
 var waveStarted = false;
 var damageText;
 var fireBaseShooterHighScore;
+var fb_data2;
 // player vars
 var player;
 var deadPlayer;
@@ -59,6 +60,7 @@ const ENEMY3DAMAGE = 10;
 
 // main code
 function setup() {
+  highScoreReader();
   //creats canvas and main player
   cnv = new Canvas(windowWidth, windowHeight);
   player = new Sprite(width / 2, height / 2, 50, 50, "d");
@@ -553,5 +555,27 @@ function checkIfHighScoreGreater1() {
     );
   }
 }
+
+
+// highscore items below
+// reads highsore from databse
+function highScoreReader() {
+  console.log("Readig highscores");
+  firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
+    console.log(snapshot.val());
+    snapshot.forEach(savesHighScoreInfo);
+  }, fb_error);
+}
+
+// saves firebase highscore items to variable
+function savesHighScoreInfo(child) {
+  console.log(child.val());
+  fb_data2 = child.val();
+  console.log(fb_data2.highScore);
+  console.log(fb_data2.userDisplayName);
+}
+
+
+
 
 //end of code
