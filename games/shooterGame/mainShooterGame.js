@@ -109,9 +109,9 @@ function setup() {
 }
 
 // GAME FUNCTIONS BELOW
-
+// walll function
 function walls() {
-  // function makes walls and sets the colours + adds to group
+  // creats makes walls and sets the colours + adds to group
   wallRH = new Sprite(width, height / 2, 8, height, 'k');
   wallRH.color = color('white');
   wallLH = new Sprite(0, height / 2, 8, height, 'k');
@@ -126,21 +126,22 @@ function walls() {
   wallGroup.add(wallBot);
 }
 
-
-//function gives the player a grace period
+//pre game function
 function pre_game() {
+  // minus 1 from timer (allows user to have a safe period)
   if (waveStarted == false && gameOver == false) {
     timer -= 1;
     console.log("Game starting in " + timer);
   }
   if (timer <= 0 && waveStarted == false && gameOver == false) {
+    //calls functions to start game
     console.log("Wave starting");
     enemyThree();
     waveStarter();
   }
 }
 
-//spawn intervals for enemys and timer
+//spawn intervals  
 function waveStarter() {
   waveStarted = true;
   console.log("Enemy spawning started");
@@ -246,7 +247,7 @@ function enemyThree() {
       }
       //creates speed enemies with random postions using values from above 
       enemy3 = new Sprite(enemyX, enemyY, "d");
-      //draws the triangle
+      //draws the triangle over sprite
       enemy3.draw = function() {
         triangle(0, 30, 30, 0, 35, 35);
       }
@@ -277,7 +278,18 @@ function playerDeath() {
     deadTextPostionY = height / 2;
     //displays death text
     deadText = textSize(32);
-    deadText = text("You have died!\nYou survived for " + timer + " seconds\nYou had a score of: " + score_shooterGame + "!", deadTextPostionX, deadTextPostionY);
+    if (score_shooterGame > fireBaseShooterHighScore) {
+      deadText = text(
+        "You have died!\n" +
+        "You survived for " + timer + " seconds\n" +
+        "You had a score of: " + score_shooterGame + "!" + "\n" +
+        "You have gotten a new HighScore!",
+        deadTextPostionX,
+        deadTextPostionY
+      );
+    } else {
+      deadText = text("You have died!\nYou survived for " + timer + " seconds\nYou had a score of: " + score_shooterGame + "!", deadTextPostionX, deadTextPostionY);
+    }
     // removes all entities
     normalEnemy.remove();
     strongEnemy.remove();
@@ -308,8 +320,9 @@ function mouseClicked() {
   let bulletY = player.pos.y + sin(angle) * bulletSpawnDistance;
   let bulletSpeed = createVector(dx, dy).setMag(8);
 
-  //Creates bullet (using values above) and makes sets colour + speed + adds to group
+  //Creates bullet (using values above)
   bullet = new Sprite(bulletX, bulletY, 13);
+  // asigns properties
   bullet.vel = bulletSpeed;
   bullet.color = color("white");
   playerBullets.add(bullet);
@@ -335,6 +348,7 @@ function ablityOne() {
       }
       // ceats spawns using values above and sets items below + add to group
       doublePointAblity = new Sprite(ablityX, ablityY, 60, "d");
+      // asigns properties
       doublePointAblity.color = color("white");
       doublePointAblity.text = "x2";
       pointGroup.add(doublePointAblity);
@@ -556,7 +570,6 @@ function checkIfHighScoreGreater1() {
   }
 }
 
-
 // highscore items below
 // reads highsore from databse
 function highScoreReader() {
@@ -574,8 +587,5 @@ function savesHighScoreInfo(child) {
   console.log(fb_data2.highScore);
   console.log(fb_data2.userDisplayName);
 }
-
-
-
 
 //end of code
