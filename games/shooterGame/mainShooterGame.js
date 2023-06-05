@@ -509,11 +509,14 @@ function draw() {
 
   //players health
   text("Health: " + playerHealth, 10, 70);
-
+  // player highscore
+  if (fireBaseShooterHighScore > 0){
+  text("Highscore: "+ fireBaseShooterHighScore, 10, 110);
+  }
   //damage notification
   textSize(25);
   fill('red');
-  text(damageText, 10, 105);
+  text(damageText, 10, 140);
 
   //display timer
   textSize(50);
@@ -522,8 +525,7 @@ function draw() {
 
   // ablity text
   textSize(25)
-  text(ablityText, 10, 170);
-  fill("white");
+  text(ablityText, 10, 210);
 
   //removes text and ablity sprites
   if (damageText) {
