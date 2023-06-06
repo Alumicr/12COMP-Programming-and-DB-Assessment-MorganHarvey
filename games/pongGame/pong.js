@@ -101,10 +101,13 @@ function draw() {
   }
 
   //displays score text
-  textSize(40);
+  textSize(30);
   fill('white');
   text("Score: " + score_pong, 20, 42);
-
+  // displays users highscore
+  if (fireBasePongHighScore > 0){
+  text("HighScore: " + fireBasePongHighScore, 20, 75)
+  }
   //timer text
   textSize(50);
   fill('white');

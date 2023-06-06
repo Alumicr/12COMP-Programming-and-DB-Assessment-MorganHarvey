@@ -46,6 +46,7 @@ let enemy3Health = 1;
 let speedEnemySpeed = 2.9
 let speedEnemyScoreValue = 1;
 //other lets
+let button;
 let score_shooterGame = 0;
 let timer = 3;
 let doublePointTimer = 0;
@@ -303,6 +304,7 @@ function playerDeath() {
 }
 
 function DeadPlayerSpawn() {
+  // runs if vars are set
   if (gameOver == true && playerHealth >= 0) {
     // function creates dead player that spawns next to deadText
     deadPlayer = new Sprite(deadTextPostionX - 30, deadTextPostionY + 57, 50, 50);
@@ -510,8 +512,8 @@ function draw() {
   //players health
   text("Health: " + playerHealth, 10, 70);
   // player highscore
-  if (fireBaseShooterHighScore > 0){
-  text("Highscore: "+ fireBaseShooterHighScore, 10, 110);
+  if (fireBaseShooterHighScore > 0) {
+    text("Highscore: " + fireBaseShooterHighScore, 10, 110);
   }
   //damage notification
   textSize(25);
