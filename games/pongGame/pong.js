@@ -3,15 +3,11 @@
 var gameOver_pong = false;
 var timerStart = false;
 var gameStarted = false;
-// firebase vars
-var fireBasePongHighScore;
 // lets
 let score_pong = 0;
 let paddleSpeedUp = -8;
-let fb_data;
 let paddleSpeedDown = 8;
 let timer_pong = 3;
-
 let intervalTimer;
 let intervalTimer2;
 
@@ -27,16 +23,15 @@ function setup() {
     ball.friction = 0;
     ball.drag = 0;
     wallGroup = new Group();
+    
     // makes the paddle
     paddle = new Sprite(200, 500, 10, 90, 'k');
     paddle.color = color("white");
     paddle.vel.y = 0;
 
-
     walls();
     intervalTimer = setInterval(pre_game, 1000);
     ball.collide(paddle, increaseScore);
-
 
     // paddle movement
     document.addEventListener("keydown", function(event) {
@@ -195,51 +190,6 @@ function buttonDisplay_pong() {
     console.log("Sending user to game Page");
     window.location = "/../gameHomePage.html";
   }
-}
-
-// FIREBASE ITEMS
-
-function fb_readHighScore2() {
-  // reads high score
-  firebase.database().ref('/userGameScores/pongGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
-  //saves high score
-  function DO_THIS(snapshot) {
-    fireBasePongHighScore = snapshot.val();
-  }
-}
-
-function checkIfHighScoreGreater2() {
-  console.log("fb, users high score is " + fireBasePongHighScore);
-  // saves score to firebase
-  firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/lastScore/').set(
-    score_pong
-  );
-  // checks if current score is bigger than highscore
-  if (fireBasePongHighScore < score_pong) {
-    console.log("updating users highscore")
-    // writes score ti highscore
-    firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/highScore/').set(
-      score_pong
-    );
-  }
-}
-
-// highscore items below
-// reads highsore from databse
-function highScoreReader() {
-  console.log("Reading highscores");
-  firebase.database().ref('/userGameScores/pongGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
-    console.log(snapshot.val());
-    snapshot.forEach(savesHighScoreInfo);
-  }, fb_error);
-}
-
-// saves firebase highscore items to variable
-function savesHighScoreInfo(child) {
-  console.log(child.val());
-  fb_data = child.val();
-  console.log(fb_data.highScore);
-  console.log(fb_data.userDisplayName);
 }
 
 // end of code
