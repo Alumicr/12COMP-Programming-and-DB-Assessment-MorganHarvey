@@ -12,17 +12,35 @@ body{
   background: white;
 }
 
-/*header css*/
+/* page headers */
 .header{
   color:black;
   font-family: 'Libre Baskerville', serif;
   text-align: center;
   padding-bottom: 20px;
 }
+
+/*game page header*/
+.pageHeader{
+  color:black;
+  font-family: 'Libre Baskerville', serif;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
 /*registartion form css*/
 .registration_form{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
   font-family: 'Libre Baskerville', serif;
   color:black;
+  text-align: center;
+}
+
+.RegisterButton{
+  margin: 5px;
+  
 }
 /*game button items*/
 .shooterButton {
@@ -51,10 +69,3 @@ body{
    font-family: 'Libre Baskerville', serif;
 }
 
-/*game page header*/
-.pageHeader{
-  color:black;
-  font-family: 'Libre Baskerville', serif;
-  text-align: center;
-  padding-bottom: 20px;
-}

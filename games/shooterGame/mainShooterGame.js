@@ -3,21 +3,16 @@
 var gameOver = false;
 var waveStarted = false;
 var damageText;
-var fireBaseShooterHighScore;
+var fb_ShooterHighScore;
 var fb_data2;
 // player vars
 var player;
 var deadPlayer;
 var bullet;
-//normal enemy vars
+// enemy vars
 var enemy1;
-var normalEnemySpawnCount = 6;//will change these to const/remove if i don't get around to making more ablitys
-//strong enemy vars
 var enemy2;
-var strongEnemySpawnCount = 3;
-//speed enemy vars
 var enemy3;
-var speedEnemySpawnCount = 5;
 //ablity items
 var doublePointAblity;
 var doublePointAblitySpawned = false;
@@ -28,15 +23,13 @@ var deadText = {
 };
 var deadTextPostionX;
 var deadTextPostionY;
-// other vars
 //player lets
 let playerHealth = 100;
 let bulletDamage = 1;
-let bulletSpawnDistance = 40;
 //normal enemy lets
 let enemy1Health = 2;
 let normalEnemyScoreValue = 2;
-let normalEnemySpeed = 1.7;
+let normalEnemySpeed = 1.7;   //will change these to const/remove if i don't add more ablitys
 //strong enemy lets
 let enemy2Health = 3;
 let strongEnemySpeed = 1.1;
@@ -46,7 +39,6 @@ let enemy3Health = 1;
 let speedEnemySpeed = 2.9
 let speedEnemyScoreValue = 1;
 //other lets
-let button;
 let score_shooterGame = 0;
 let timer = 3;
 let doublePointTimer = 0;
@@ -174,7 +166,7 @@ function enemy() {
   if (gameOver == false) {
     // calculates spawn sure it is a certain distance from player
     // calculates values
-    for (i = 0; i < normalEnemySpawnCount; i++) {
+    for (i = 0; i < 6; i++) {
       let enemyX = random(width);
       let enemyY = random(height);
       let dx = enemyX - player.pos.x;
@@ -204,7 +196,7 @@ function enemyTwo() {
   //runs if set var is correct
   if (gameOver == false) {
     //calculates values
-    for (i = 0; i < strongEnemySpawnCount; i++) {
+    for (i = 0; i < 3; i++) {
       let enemyX = random(width);
       let enemyY = random(height);
       let dx = enemyX - player.pos.x;
@@ -233,7 +225,7 @@ function enemyThree() {
   //runs if set var is correct
   if (gameOver == false) {
     // calculates values
-    for (i = 0; i < speedEnemySpawnCount; i++) {
+    for (i = 0; i < 5; i++) {
       let enemyX = random(width);
       let enemyY = random(height);
       let dx = enemyX - player.pos.x;
@@ -279,12 +271,12 @@ function playerDeath() {
     deadTextPostionY = height / 2;
     //displays death text
     deadText = textSize(32);
-    if (score_shooterGame > fireBaseShooterHighScore) {
+    if (score_shooterGame > fb_ShooterHighScore) {
       deadText = text(
         "You have died!\n" +
         "You survived for " + timer + " seconds\n" +
         "You had a score of: " + score_shooterGame + "!" + "\n" +
-        "You have gotten a new HighScore!",
+        "You have gotten a new Highscore!",
         deadTextPostionX,
         deadTextPostionY
       );
@@ -318,8 +310,8 @@ function mouseClicked() {
   let dx = mouseX - player.pos.x;
   let dy = mouseY - player.pos.y;
   let angle = atan2(dy, dx);
-  let bulletX = player.pos.x + cos(angle) * bulletSpawnDistance;
-  let bulletY = player.pos.y + sin(angle) * bulletSpawnDistance;
+  let bulletX = player.pos.x + cos(angle) * 40;
+  let bulletY = player.pos.y + sin(angle) * 40;
   let bulletSpeed = createVector(dx, dy).setMag(8);
 
   //Creates bullet (using values above)
@@ -446,21 +438,21 @@ function draw() {
   }
 
   //enemy items
-  //enemy 1 control
+  //enemy 1 movement
   for (i = 0; i < normalEnemy.length; i++) {
     enemy1 = normalEnemy[i];
     direction = p5.Vector.sub(player.pos, enemy1.pos);
     enemy1.vel = direction.limit(normalEnemySpeed);
   }
 
-  //enemy 2 control
+  //enemy 2 movement
   for (i = 0; i < strongEnemy.length; i++) {
     enemy2 = strongEnemy[i];
     direction = p5.Vector.sub(player.pos, enemy2.pos);
     enemy2.vel = direction.limit(strongEnemySpeed);
   }
 
-  //enemy 3 control
+  //enemy 3 movement
   for (i = 0; i < speedEnemy.length; i++) {
     enemy3 = speedEnemy[i];
     direction = p5.Vector.sub(player.pos, enemy3.pos);
@@ -505,15 +497,15 @@ function draw() {
 
   // text items
   // players score
-  textSize(30);
   fill("white");
+  textSize(30);
   text("Score: " + score_shooterGame, 10, 35);
 
   //players health
   text("Health: " + playerHealth, 10, 70);
-  // player highscore
-  if (fireBaseShooterHighScore > 0) {
-    text("Highscore: " + fireBaseShooterHighScore, 10, 110);
+  // player highscore displays if its not 0
+  if (fb_ShooterHighScore > 0) {
+    text("Highscore: " + fb_ShooterHighScore, 10, 110);
   }
   //damage notification
   textSize(25);
@@ -521,8 +513,8 @@ function draw() {
   text(damageText, 10, 140);
 
   //display timer
-  textSize(50);
   fill('white');
+  textSize(50);
   text(timer, width - 65, 60);
 
   // ablity text
@@ -549,23 +541,24 @@ function draw() {
 }
 
 // FIREBASE FUNCTIONS
+
 function fb_readHighScore1() {
   // reads high score
   firebase.database().ref('/userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').once('value', DO_THIS);
   //saves high score
   function DO_THIS(snapshot) {
-    fireBaseShooterHighScore = snapshot.val();
+    fb_ShooterHighScore = snapshot.val();
   }
 }
 
 function checkIfHighScoreGreater1() {
-  console.log("users high score is " + fireBaseShooterHighScore);
+  console.log("users high score is " + fb_ShooterHighScore);
   // saves score to firebase
   firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
     score_shooterGame
   );
   // checks if current score is bigger than highscore
-  if (fireBaseShooterHighScore < score_shooterGame) {
+  if (fb_ShooterHighScore < score_shooterGame) {
     console.log("USER HAS NEW HIGHSCORE");
     // writes score to highscore
     firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/highScore/').set(
@@ -574,7 +567,7 @@ function checkIfHighScoreGreater1() {
   }
 }
 
-// highscore items below
+// highscore firebase items below 
 // reads highsore from databse
 function highScoreReader() {
   console.log("Readig highscores");

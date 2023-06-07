@@ -194,8 +194,4 @@ function savesHighScoreInfo(child) {
   console.log(fb_data.userDisplayName);
 }
 
-
-
-
-
 // end of code
