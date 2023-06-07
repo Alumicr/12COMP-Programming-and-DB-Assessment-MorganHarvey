@@ -373,6 +373,8 @@ function buttonDisplay() {
 
   // if button clicked restarts game
   function restartGame() {
+    // rechecks users highscore 
+    fb_readHighScore1();
     console.log("RESTARTING GAME!");
     // clears intervals
     clearInterval(timerInterval_shooter);
@@ -391,6 +393,7 @@ function buttonDisplay() {
     button2.remove();
     button.remove();
     deadText = " ";
+    //re-loops game and calls setup
     setup();
     loop();
   }

@@ -39,7 +39,6 @@ function fb_authenticator(_DOTHIS) {
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-
       // asigns users to object
       userDataObject = {
         userID: user.uid,

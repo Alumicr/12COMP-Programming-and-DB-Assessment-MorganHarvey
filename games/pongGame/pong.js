@@ -164,6 +164,8 @@ function buttonDisplay_pong() {
 
 
   function restartGame_pong() {
+    // rechecks users highscore 
+    fb_readHighScore2();
     console.log("RESTARTING GAME");
     // if reset button clicked resets and remove items 
     button_pong.remove();
@@ -182,7 +184,6 @@ function buttonDisplay_pong() {
     //re-loops game and calls setup
     loop();
     setup();
-
   }
 
   // if return to game home button clicked sends user back to home page
