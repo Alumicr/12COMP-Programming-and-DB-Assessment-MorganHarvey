@@ -1,15 +1,15 @@
 // Start of Code
-// misc vars 
+// random vars 
 var gameOver = false;
 var waveStarted = false;
 var damageText;
+// fb vars
 var fb_ShooterHighScore;
 var fb_data2;
-// player vars
+// player and enemy vars
 var player;
 var deadPlayer;
 var bullet;
-// enemy vars
 var enemy1;
 var enemy2;
 var enemy3;
@@ -53,6 +53,7 @@ const ENEMY3DAMAGE = 10;
 
 // main code
 function setup() {
+  // calls highscore function
   highScoreReader();
   //creats canvas and main player
   cnv = new Canvas(windowWidth, windowHeight);
@@ -263,47 +264,6 @@ function playerDamage() {
   }, 0300);
 }
 
-function playerDeath() {
-  // runs if player is dead
-  if (playerHealth >= 0 && gameOver == true) {
-    // calculates deadText spawn postions
-    deadTextPostionX = width / 2;
-    deadTextPostionY = height / 2;
-    //displays death text
-    deadText = textSize(32);
-    if (score_shooterGame > fb_ShooterHighScore) {
-      deadText = text(
-        "You have died!\n" +
-        "You survived for " + timer + " seconds\n" +
-        "You had a score of: " + score_shooterGame + "!" + "\n" +
-        "You have gotten a new Highscore!",
-        deadTextPostionX,
-        deadTextPostionY
-      );
-    } else {
-      deadText = text("You have died!\nYou survived for " + timer + " seconds\nYou had a score of: " + score_shooterGame + "!", deadTextPostionX, deadTextPostionY);
-    }
-    // removes all entities
-    normalEnemy.remove();
-    strongEnemy.remove();
-    speedEnemy.remove();
-    pointGroup.remove();
-    player.remove();
-    playerBullets.remove();
-    // calls DeadPlayerSpawn function
-    DeadPlayerSpawn();
-  }
-}
-
-function DeadPlayerSpawn() {
-  // runs if vars are set
-  if (gameOver == true && playerHealth >= 0) {
-    // function creates dead player that spawns next to deadText
-    deadPlayer = new Sprite(deadTextPostionX - 30, deadTextPostionY + 57, 50, 50);
-    deadPlayer.color = ("red");
-  }
-}
-
 //players gun when clicked
 function mouseClicked() {
   //Calculates values (making sure it spawns a certain distance from the player)
@@ -320,6 +280,71 @@ function mouseClicked() {
   bullet.vel = bulletSpeed;
   bullet.color = color("white");
   playerBullets.add(bullet);
+}
+
+function playerDeath() {
+  // runs if player is dead
+  if (gameOver == true) {
+    // calculates deadText spawn postions
+    deadTextPostionX = width / 2;
+    deadTextPostionY = height / 2;
+    //displays death text
+    deadText = textSize(32);
+    if (score_shooterGame > fb_ShooterHighScore) {
+      deadText = text(
+        "You have died!\n" +
+        "You survived for " + timer + " seconds\n" +
+        "You had a score of: " + score_shooterGame + "!" + "\n" +
+        "You have a new Highscore!",
+        deadTextPostionX,
+        deadTextPostionY
+      );
+    } else {
+      deadText = text("You have died!\nYou survived for " + timer + " seconds\nYou had a score of: " + score_shooterGame + "!", deadTextPostionX, deadTextPostionY);
+    }
+    // removes all entities
+    normalEnemy.remove();
+    strongEnemy.remove();
+    speedEnemy.remove();
+    pointGroup.remove();
+    player.remove();
+    playerBullets.remove();
+    // calls DeadPlayerSpawn function
+    buttonDisplay();
+    DeadPlayerSpawn();
+  }
+}
+
+function DeadPlayerSpawn() {
+  // runs if vars are set
+  // function creates dead player that spawns next to deadText
+  deadPlayer = new Sprite(deadTextPostionX - 30, deadTextPostionY + 57, 50, 50);
+  deadPlayer.color = ("red");
+}
+
+// BUTTON FUNCTIONS BELOW
+
+function buttonDisplay() {
+  // displays reset button
+  button = createButton('Reset game!');
+  button.position(deadTextPostionX, deadTextPostionY + 100);
+  button.mousePressed(restartGame);
+
+  button2 = createButton('Go back to game page!');
+  button2.position(deadTextPostionX + 150, deadTextPostionY + 100);
+  button2.mousePressed(SendPlayerBack);
+  
+  function SendPlayerBack() {
+    console.log("Sending user to game Page");
+    window.location = "/../gameHomePage.html";
+  }
+
+  // if button clicked restarts game
+  function restartGame() {
+    console.log("RESTARTING GAME!");
+  }
+  // displays home button
+
 }
 
 // ABLITY FUNCTIONS BELOW  
@@ -423,6 +448,7 @@ function draw() {
     console.log("Game over!");
     playerHealth = 0;
     gameOver = true;
+    waveStarted = false;
     checkIfHighScoreGreater1();
     playerDeath();
     noLoop();
@@ -495,7 +521,7 @@ function draw() {
     }
   });
 
-  // text items
+  // TEXT ITEMS
   // players score
   fill("white");
   textSize(30);
@@ -507,6 +533,7 @@ function draw() {
   if (fb_ShooterHighScore > 0) {
     text("Highscore: " + fb_ShooterHighScore, 10, 110);
   }
+
   //damage notification
   textSize(25);
   fill('red');
@@ -555,7 +582,7 @@ function checkIfHighScoreGreater1() {
   console.log("users high score is " + fb_ShooterHighScore);
   // saves score to firebase
   firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
-    .
+    score_shooterGame
   );
   // checks if current score is bigger than highscore
   if (fb_ShooterHighScore < score_shooterGame) {

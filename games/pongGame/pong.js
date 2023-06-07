@@ -94,6 +94,7 @@ function draw() {
       ball.color = color("red");
       fill("red");
       text("Game over! you got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " secconds!", width / 4, 200);
+      buttonDisplay_pong();
       checkIfHighScoreGreater2();
       gameOver = true;
       noLoop();
@@ -105,8 +106,8 @@ function draw() {
   fill('white');
   text("Score: " + score_pong, 20, 42);
   // displays users highscore
-  if (fireBasePongHighScore > 0){
-  text("HighScore: " + fireBasePongHighScore, 20, 75)
+  if (fireBasePongHighScore > 0) {
+    text("HighScore: " + fireBasePongHighScore, 20, 75)
   }
   //timer text
   textSize(50);
@@ -148,6 +149,44 @@ function gameTimer() {
   }
 }
 
+// BUTTON FUNCTIONS
+
+function buttonDisplay_pong() {
+  // displays buttons
+  button_pong = createButton('Reset game!');
+  button_pong.position(width / 4, 260);
+  button_pong.mousePressed(restartGame_pong);
+
+  button2_pong = createButton('Go back to game page!');
+  button2_pong.position(width / 4 + 150, 260);
+  button2_pong.mousePressed(SendPlayerBack_pong);
+
+  // if button clicked resets game
+  function restartGame_pong() {
+    button_pong.remove();
+    button2_pong.remove();
+    ball.remove();
+    paddle.remove();
+    console.log("RESTARTING GAME");
+    gameOver_pong = false;
+    timerStart = false;
+    gameStarted = false;
+    score_pong = 0;
+    paddleSpeedUp = -8;
+    paddleSpeedDown = 8;
+    timer_pong = 3;
+    loop();
+    setup();
+
+  }
+  // if button clicked sends user back to game home page
+  function SendPlayerBack_pong() {
+    console.log("Sending user to game Page");
+    window.location = "/../gameHomePage.html";
+  }
+}
+
+
 // FIREBASE ITEMS
 
 function fb_readHighScore2() {
@@ -156,6 +195,9 @@ function fb_readHighScore2() {
   //saves high score
   function DO_THIS(snapshot) {
     fireBasePongHighScore = snapshot.val();
+    if (fireBasePongHighScore > 0) {
+      text("HighScore: " + fireBasePongHighScore, 20, 75)
+    }
   }
 }
 
