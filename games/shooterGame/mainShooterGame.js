@@ -38,16 +38,17 @@ let strongEnemyScoreValue = 3;
 let enemy3Health = 1;
 let speedEnemySpeed = 2.9
 let speedEnemyScoreValue = 1;
-//other lets
-let score_shooterGame = 0;
-let timer = 3;
-let doublePointTimer = 0;
+// interval 
 let timerInterval_shooter;
 let preGameTimerInterval;
 let enemy1Interval;
 let enemy2Interval;
 let enemy3Interval
 let ablity1Interval;
+//other lets
+let score_shooterGame = 0;
+let timer = 3;
+let doublePointTimer = 0;
 //player consts
 const PLAYERSAFESPAWNINGZONE = 130;
 //normal enemy consts
@@ -258,6 +259,34 @@ function enemyThree() {
     }
   }
 }
+// ABLITY FUNCTIONS BELOW  
+function ablityOne() {
+  // function creates doulbepoint sprite
+  if (gameOver == false) {
+    // calculates values
+    for (i = 0; i < 1; i++) {
+      let ablityX = random(width);
+      let ablityY = random(height);
+      let dx = ablityX - player.pos.x;
+      let dy = ablityY - player.pos.y;
+      let distance = sqrt(dx * dx + dy * dy);
+
+      //checks if distance from plyer is allowed so player has to move for ablity
+      if (distance < PLAYERSAFESPAWNINGZONE) {
+        console.log("Ablity spawn too close, remaking");
+        i--;
+        continue;
+      }
+      // ceats spawns using values above and sets items below + add to group
+      doublePointAblity = new Sprite(ablityX, ablityY, 60, "d");
+      // asigns properties
+      doublePointAblity.color = color("white");
+      doublePointAblity.text = "x2";
+      pointGroup.add(doublePointAblity);
+      doublePointAblitySpawned = true;
+    }
+  }
+}
 
 // PLAYER FUNCTIONS BELOW
 
@@ -333,11 +362,11 @@ function DeadPlayerSpawn() {
 function buttonDisplay() {
   // displays reset button
   button = createButton('Reset game!');
-  button.position(deadTextPostionX, deadTextPostionY + 100);
+  button.position(deadTextPostionX, deadTextPostionY + 140);
   button.mousePressed(restartGame);
   // displays home button
   button2 = createButton('Return to home page!');
-  button2.position(deadTextPostionX + 150, deadTextPostionY + 100);
+  button2.position(deadTextPostionX + 150, deadTextPostionY + 140);
   button2.mousePressed(SendPlayerBack);
 
   function SendPlayerBack() {
@@ -355,7 +384,7 @@ function buttonDisplay() {
     clearInterval(enemy1Interval);
     clearInterval(enemy2Interval);
     clearInterval(enemy3Interval);
-      // resets values
+    // resets values
     timer = 3;
     gameOver = false;
     playerHealth = 100;
@@ -367,37 +396,6 @@ function buttonDisplay() {
     deadText = " ";
     setup();
     loop();
-  }
-
-
-}
-
-// ABLITY FUNCTIONS BELOW  
-function ablityOne() {
-  // function creates doulbepoint sprite
-  if (gameOver == false) {
-    // calculates values
-    for (i = 0; i < 1; i++) {
-      let ablityX = random(width);
-      let ablityY = random(height);
-      let dx = ablityX - player.pos.x;
-      let dy = ablityY - player.pos.y;
-      let distance = sqrt(dx * dx + dy * dy);
-
-      //checks if distance from plyer is allowed so player has to move for ablity
-      if (distance < PLAYERSAFESPAWNINGZONE) {
-        console.log("Ablity spawn too close, remaking");
-        i--;
-        continue;
-      }
-      // ceats spawns using values above and sets items below + add to group
-      doublePointAblity = new Sprite(ablityX, ablityY, 60, "d");
-      // asigns properties
-      doublePointAblity.color = color("white");
-      doublePointAblity.text = "x2";
-      pointGroup.add(doublePointAblity);
-      doublePointAblitySpawned = true;
-    }
   }
 }
 
@@ -426,6 +424,7 @@ function doublePoints() {
     }
   }
 }
+
 //draw function
 function draw() {
   //background for canvas
