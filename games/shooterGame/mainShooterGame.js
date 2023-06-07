@@ -42,6 +42,12 @@ let speedEnemyScoreValue = 1;
 let score_shooterGame = 0;
 let timer = 3;
 let doublePointTimer = 0;
+let timerInterval_shooter;
+let preGameTimerInterval;
+let enemy1Interval;
+let enemy2Interval;
+let enemy3Interval
+let ablity1Interval;
 //player consts
 const PLAYERSAFESPAWNINGZONE = 130;
 //normal enemy consts
@@ -99,7 +105,7 @@ function setup() {
   })
 
   // calls function after a certain time
-  setInterval(pre_game, 1000);
+  preGameTimerInterval = setInterval(pre_game, 1000);
 }
 
 // GAME FUNCTIONS BELOW
@@ -142,11 +148,11 @@ function waveStarter() {
   // runs if vars are correct
   if (gameOver == false && waveStarted == true) {
     // calls functions after set time
-    setInterval(gameTimer, 1000);
-    setInterval(enemy, 5000);
-    setInterval(enemyTwo, 8000);
-    setInterval(enemyThree, 11000);
-    setInterval(ablityOne, 16000);
+    timerInterval_shooter = setInterval(gameTimer, 1000);
+    enemy1Interval = setInterval(enemy, 5000);
+    enemy2Interval = setInterval(enemyTwo, 8000);
+    enemy3Interval = setInterval(enemyThree, 11000);
+    ablity1Interval = setInterval(ablityOne, 16000);
   }
 }
 
@@ -329,11 +335,11 @@ function buttonDisplay() {
   button = createButton('Reset game!');
   button.position(deadTextPostionX, deadTextPostionY + 100);
   button.mousePressed(restartGame);
-
+  // displays home button
   button2 = createButton('Return to home page!');
   button2.position(deadTextPostionX + 150, deadTextPostionY + 100);
   button2.mousePressed(SendPlayerBack);
-  
+
   function SendPlayerBack() {
     console.log("Sending user to home Page");
     window.location = "/../gameHomePage.html";
@@ -342,8 +348,27 @@ function buttonDisplay() {
   // if button clicked restarts game
   function restartGame() {
     console.log("RESTARTING GAME!");
+    // clears intervals
+    clearInterval(timerInterval_shooter);
+    clearInterval(preGameTimerInterval);
+    clearInterval(ablity1Interval);
+    clearInterval(enemy1Interval);
+    clearInterval(enemy2Interval);
+    clearInterval(enemy3Interval);
+      // resets values
+    timer = 3;
+    gameOver = false;
+    playerHealth = 100;
+    score_shooterGame = 0;
+    // removes enitys
+    deadPlayer.remove();
+    button2.remove();
+    button.remove();
+    deadText = " ";
+    setup();
+    loop();
   }
-  // displays home button
+
 
 }
 
@@ -597,7 +622,7 @@ function checkIfHighScoreGreater1() {
 // highscore firebase items below 
 // reads highsore from databse
 function highScoreReader() {
-  console.log("Readig highscores");
+  console.log("Reading highscores");
   firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
     console.log(snapshot.val());
     snapshot.forEach(savesHighScoreInfo);
