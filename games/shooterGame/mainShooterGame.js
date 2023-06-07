@@ -555,7 +555,7 @@ function checkIfHighScoreGreater1() {
   console.log("users high score is " + fb_ShooterHighScore);
   // saves score to firebase
   firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/lastScore/').set(
-    score_shooterGame
+    .
   );
   // checks if current score is bigger than highscore
   if (fb_ShooterHighScore < score_shooterGame) {
