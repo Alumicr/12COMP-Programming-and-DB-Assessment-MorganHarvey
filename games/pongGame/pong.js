@@ -12,6 +12,9 @@ let fb_data;
 let paddleSpeedDown = 8;
 let timer_pong = 3;
 
+let intervalTimer;
+let intervalTimer2;
+
 // main code
 function setup() {
   if (gameOver_pong == false) {
@@ -31,14 +34,13 @@ function setup() {
 
 
     walls();
-    setInterval(pre_game, 1000);
+    intervalTimer = setInterval(pre_game, 1000);
     ball.collide(paddle, increaseScore);
 
 
     // paddle movement
     document.addEventListener("keydown", function(event) {
       if (event.code == 'ArrowUp' || event.code == "KeyW") {
-
         paddle.vel.y = paddleSpeedUp;
       }
       else if (event.code == 'ArrowDown' || event.code == "KeyS") {
@@ -70,12 +72,13 @@ function walls() {
   wallGroup.add(wallTop);
   wallGroup.add(wallBot);
 }
+
 //pre_game configerations
 function pre_game() {
   if (gameStarted == false) {
     timer_pong -= 1;
   }
-  if (timer_pong == 0 && gameStarted == false) {
+  if (timer_pong <= 0 && gameStarted == false) {
     gameStarter();
     ball.vel.x = -5;
     ball.vel.y = 9;
@@ -105,16 +108,18 @@ function draw() {
   textSize(30);
   fill('white');
   text("Score: " + score_pong, 20, 42);
-  // displays users highscore
+
   if (fireBasePongHighScore > 0) {
+    fill("white");
+    textSize(30);
     text("HighScore: " + fireBasePongHighScore, 20, 75)
   }
+
   //timer text
   textSize(50);
   fill('white');
   text(timer_pong, width - 65, 60);
 }
-
 
 //players score
 function increaseScore() {
@@ -138,7 +143,7 @@ function increaseScore() {
 function gameStarter() {
   gameStarted = true;
   if (gameOver_pong == false) {
-    setInterval(gameTimer, 1000);
+    intervalTimer2 = setInterval(gameTimer, 1000);
   }
 }
 
@@ -153,21 +158,25 @@ function gameTimer() {
 
 function buttonDisplay_pong() {
   // displays buttons
+  // reset button
   button_pong = createButton('Reset game!');
   button_pong.position(width / 4, 260);
   button_pong.mousePressed(restartGame_pong);
-
-  button2_pong = createButton('Go back to game page!');
+  // return to game page button
+  button2_pong = createButton('Return to home page!');
   button2_pong.position(width / 4 + 150, 260);
   button2_pong.mousePressed(SendPlayerBack_pong);
 
-  // if button clicked resets game
+
   function restartGame_pong() {
+    console.log("RESTARTING GAME");
+    // if reset button clicked resets and remove items 
     button_pong.remove();
     button2_pong.remove();
     ball.remove();
     paddle.remove();
-    console.log("RESTARTING GAME");
+    clearInterval(intervalTimer);
+    clearInterval(intervalTimer2);
     gameOver_pong = false;
     timerStart = false;
     gameStarted = false;
@@ -175,17 +184,18 @@ function buttonDisplay_pong() {
     paddleSpeedUp = -8;
     paddleSpeedDown = 8;
     timer_pong = 3;
+    //re-loops game and calls setup
     loop();
     setup();
 
   }
-  // if button clicked sends user back to game home page
+
+  // if return to game home button clicked sends user back to home page
   function SendPlayerBack_pong() {
     console.log("Sending user to game Page");
     window.location = "/../gameHomePage.html";
   }
 }
-
 
 // FIREBASE ITEMS
 
@@ -195,12 +205,8 @@ function fb_readHighScore2() {
   //saves high score
   function DO_THIS(snapshot) {
     fireBasePongHighScore = snapshot.val();
-    if (fireBasePongHighScore > 0) {
-      text("HighScore: " + fireBasePongHighScore, 20, 75)
-    }
   }
 }
-
 
 function checkIfHighScoreGreater2() {
   console.log("fb, users high score is " + fireBasePongHighScore);
@@ -221,7 +227,7 @@ function checkIfHighScoreGreater2() {
 // highscore items below
 // reads highsore from databse
 function highScoreReader() {
-  console.log("Readig highscores");
+  console.log("Reading highscores");
   firebase.database().ref('/userGameScores/pongGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
     console.log(snapshot.val());
     snapshot.forEach(savesHighScoreInfo);

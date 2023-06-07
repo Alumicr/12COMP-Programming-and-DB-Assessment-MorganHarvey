@@ -330,12 +330,12 @@ function buttonDisplay() {
   button.position(deadTextPostionX, deadTextPostionY + 100);
   button.mousePressed(restartGame);
 
-  button2 = createButton('Go back to game page!');
+  button2 = createButton('Return to home page!');
   button2.position(deadTextPostionX + 150, deadTextPostionY + 100);
   button2.mousePressed(SendPlayerBack);
   
   function SendPlayerBack() {
-    console.log("Sending user to game Page");
+    console.log("Sending user to home Page");
     window.location = "/../gameHomePage.html";
   }
 
