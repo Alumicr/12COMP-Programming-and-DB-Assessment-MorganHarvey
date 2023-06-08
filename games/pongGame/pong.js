@@ -1,6 +1,7 @@
 //  start of code 
 // vars
 var gameOver_pong = false;
+var highScoreTitle_pong = "HIGHSCORES";
 var timerStart = false;
 var gameStarted = false;
 // lets
@@ -14,7 +15,6 @@ let intervalTimer2;
 // main code
 function setup() {
   if (gameOver_pong == false) {
-    highScoreReader();
     // creats canvas and ball
     cnv = new Canvas(windowWidth, windowHeight - 10);
     ball = new Sprite(width - 50, height / 2, 50, "d");
@@ -81,56 +81,6 @@ function pre_game() {
   }
 }
 
-function draw() {
-  // background color
-  background("black");
-  // checks if ball collies with left wall and stops game
-  if (ball.collide(wallGroup)) {
-    if (ball.collide(wallLH)) {
-      //game over text
-      console.log("game over");
-      textSize(30);
-      ball.color = color("red");
-      fill("red");
-      if (fireBasePongHighScore < score_pong) {
-        text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!\nYou have a new Highscore!", width / 4, 200);
-      }
-      else {
-        text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!", width / 4, 200);
-      }
-      buttonDisplay_pong();
-      checkIfHighScoreGreater2();
-      gameOver_pong = true;
-      noLoop();
-    }
-  }
-
-  // makes game harder when score reaches an amount
-  if (score_pong == 3) {
-    wallRH.bounciness = 1.2;
-  }
-  if (score_pong == 8) {
-    wallRH.bounciness = 1.5;
-    paddleSpeedDown = 10;
-    paddleSpeedUp = -10;
-  }
-
-  //displays score text
-  textSize(30);
-  fill('white');
-  text("Score: " + score_pong, 20, 42);
-  //displays users highscore if greater than 0
-  if (fireBasePongHighScore > 0) {
-    fill("white");
-    textSize(30);
-    text("HighScore: " + fireBasePongHighScore, 20, 75)
-  }
-
-  //timer text
-  textSize(50);
-  fill('white');
-  text(timer_pong, width - 65, 60);
-}
 
 //players score
 function increaseScore() {
@@ -148,7 +98,6 @@ function gameStarter() {
     intervalTimer2 = setInterval(gameTimer, 1000);
   }
 }
-
 // game timer
 function gameTimer() {
   if (gameOver_pong == false && timerStart == true) {
@@ -191,6 +140,9 @@ function buttonDisplay_pong() {
     //re-loops game and calls setup
     loop();
     setup();
+    // rechecks players score 
+    fb_readHighScore2();
+    fb_highScoresTableReader();
   }
 
   // if return to game home button clicked sends user back to home page
@@ -199,4 +151,66 @@ function buttonDisplay_pong() {
     window.location = "/../gameHomePage.html";
   }
 }
+
+// draw function
+function draw() {
+  // background color
+  background("black");
+  // checks if ball collies with left wall and stops game
+  if (ball.collide(wallGroup)) {
+    if (ball.collide(wallLH)) {
+      //game over text
+      console.log("game over");
+      textSize(30);
+      ball.color = color("red");
+      fill("red");
+      if (fireBasePongHighScore < score_pong) {
+        text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!\nYou have a new Highscore!", width / 4, 200);
+      }
+      else {
+        text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!", width / 4, 200);
+      }
+      buttonDisplay_pong();
+      checkIfHighScoreGreater2();
+      gameOver_pong = true;
+      noLoop();
+    }
+  }
+
+  // makes game harder when score reaches an amount
+  if (score_pong == 3) {
+    wallRH.bounciness = 1.2;
+  }
+  if (score_pong == 8) {
+    wallRH.bounciness = 1.5;
+    paddleSpeedDown = 10;
+    paddleSpeedUp = -10;
+  }
+
+  //displays score text
+  textSize(25);
+  fill('white');
+  text("Score: " + score_pong, 20, 42);
+  //displays users highscore if greater than 0
+  if (fireBasePongHighScore > 0) {
+    fill("white");
+    textSize(25);
+    text("HighScore: " + fireBasePongHighScore, 20, 73)
+  }
+
+  // HIGHSCORE TABLE
+  text(highScoreTitle_pong, 20, 130);
+  for (i = firebasePongHighScoreTable.length - 1; i >= 0; i--) {
+    // flips array 
+    valueFlip_pong = firebasePongHighScoreTable.length - i - 1;
+    // displays highscore table
+    text(firebasePongHighScoreTable[i], 20, 160 + 30 * valueFlip_pong);
+  }
+
+  //timer text
+  textSize(50);
+  fill('white');
+  text(timer_pong, width - 65, 60);
+}
+
 // end of code

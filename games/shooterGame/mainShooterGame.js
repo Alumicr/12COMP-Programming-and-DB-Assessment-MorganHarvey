@@ -398,7 +398,7 @@ function buttonDisplay() {
     loop();
     // starts rechecking of scores 
     fb_readHighScore1();
-    highScoreReader();
+    fb_highScoresTableReader2();
   }
 }
 
@@ -572,7 +572,9 @@ function draw() {
   //highscore table
   text(highScoreTitle, 10, height / 2 - 30);
   for (i = shooterHighScoreTable.length - 1; i >= 0; i--) {
+    // flips array 
     valueFlip = shooterHighScoreTable.length - i - 1;
+    // displays highscore table
     text(shooterHighScoreTable[i], 10, height / 2 + 30 * valueFlip);
   }
   //damage notification

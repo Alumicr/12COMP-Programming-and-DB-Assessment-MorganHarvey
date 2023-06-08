@@ -34,7 +34,7 @@ function checkIfHighScoreGreater1() {
 
 // highscore firebase items below 
 // reads highsore from databse
-function highScoreReader() {
+function fb_highScoresTableReader2() {
   console.log("Reading highscores");
   shooterHighScoreTable = [];
   firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
@@ -45,7 +45,7 @@ function highScoreReader() {
 
 // saves firebase highscore items to variable
 function savesHighScoreInfo(child) {
-  var fb_data2 = child.val().userDisplayName + ": "+  child.val().highScore;
+  var fb_data2 = child.val().userDisplayName + ": " + child.val().highScore;
   // asigns items to an array
   shooterHighScoreTable.push(fb_data2);
   console.log(shooterHighScoreTable);
