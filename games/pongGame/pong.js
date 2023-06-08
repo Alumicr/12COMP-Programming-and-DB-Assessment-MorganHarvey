@@ -8,7 +8,7 @@ let score_pong = 0;
 let paddleSpeedUp = -8;
 let paddleSpeedDown = 8;
 let timer_pong = 3;
-let intervalTimer;
+let startTimerInterval;
 let intervalTimer2;
 
 // main code
@@ -22,15 +22,16 @@ function setup() {
     ball.bounciness = 1;
     ball.friction = 0;
     ball.drag = 0;
+    // groups
     wallGroup = new Group();
-    
+
     // makes the paddle
     paddle = new Sprite(200, 500, 10, 90, 'k');
     paddle.color = color("white");
     paddle.vel.y = 0;
 
     walls();
-    intervalTimer = setInterval(pre_game, 1000);
+    startTimerInterval = setInterval(pre_game, 1000);
     ball.collide(paddle, increaseScore);
 
     // paddle movement
@@ -76,7 +77,7 @@ function pre_game() {
   if (timer_pong <= 0 && gameStarted == false) {
     gameStarter();
     ball.vel.x = -5;
-    ball.vel.y = 9;
+    ball.vel.y = 8;
   }
 }
 
@@ -91,19 +92,34 @@ function draw() {
       textSize(30);
       ball.color = color("red");
       fill("red");
-      text("Game over! you got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " secconds!", width / 4, 200);
+      if (fireBasePongHighScore < score_pong) {
+        text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!\nYou have a new Highscore!", width / 4, 200);
+      }
+      else {
+        text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!", width / 4, 200);
+      }
       buttonDisplay_pong();
       checkIfHighScoreGreater2();
-      gameOver = true;
+      gameOver_pong = true;
       noLoop();
     }
+  }
+
+  // makes game harder when score reaches an amount
+  if (score_pong == 3) {
+    wallRH.bounciness = 1.2;
+  }
+  if (score_pong == 8) {
+    wallRH.bounciness = 1.5;
+    paddleSpeedDown = 10;
+    paddleSpeedUp = -10;
   }
 
   //displays score text
   textSize(30);
   fill('white');
   text("Score: " + score_pong, 20, 42);
-
+  //displays users highscore if greater than 0
   if (fireBasePongHighScore > 0) {
     fill("white");
     textSize(30);
@@ -124,15 +140,6 @@ function increaseScore() {
   //starts timer 
   timerStart = true;
 
-  // makes game harder
-  if (score_pong == 3) {
-    wallRH.bounciness = 1.2;
-  }
-  if (score_pong == 7) {
-    wallRH.bounciness = 1.5;
-    paddleSpeedDown = 10;
-    paddleSpeedUp = -10;
-  }
 }
 // starts timer 
 function gameStarter() {
@@ -154,12 +161,12 @@ function gameTimer() {
 function buttonDisplay_pong() {
   // displays buttons
   // reset button
-  button_pong = createButton('Reset game!');
-  button_pong.position(width / 4, 260);
+  button_pong = createButton('Play again!');
+  button_pong.position(width / 4, 300);
   button_pong.mousePressed(restartGame_pong);
   // return to game page button
   button2_pong = createButton('Return to home page!');
-  button2_pong.position(width / 4 + 150, 260);
+  button2_pong.position(width / 4 + 150, 300);
   button2_pong.mousePressed(SendPlayerBack_pong);
 
 
@@ -172,7 +179,7 @@ function buttonDisplay_pong() {
     button2_pong.remove();
     ball.remove();
     paddle.remove();
-    clearInterval(intervalTimer);
+    clearInterval(startTimerInterval);
     clearInterval(intervalTimer2);
     gameOver_pong = false;
     timerStart = false;
@@ -192,5 +199,4 @@ function buttonDisplay_pong() {
     window.location = "/../gameHomePage.html";
   }
 }
-
 // end of code

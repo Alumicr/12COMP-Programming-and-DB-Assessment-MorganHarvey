@@ -83,10 +83,10 @@ function fb_register() {
   // asigns items to object
   gameDataObject = {
     userDisplayName: userScreenName,
-    highScore:0,
-    lastScore:0,
+    highScore: 0,
+    lastScore: 0,
   }
-  
+
   // combines the objects into one
   Object.assign(userDataObject, webDataObject);
   console.log(userDataObject);
@@ -112,11 +112,11 @@ function fb_saveData() {
 
 // send user to game when button clicked
 function shooterGamePageSender() {
-console.log("Sending user to shooter game")
-window.location = "games/shooterGame/shooter.html";
+  console.log("Sending user to shooter game")
+  window.location = "games/shooterGame/shooter.html";
 }
 
-function pongGameSender(){
+function pongGameSender() {
   console.log("Sending user to pong game");
   window.location = "games/pongGame/pong1.html";
 }

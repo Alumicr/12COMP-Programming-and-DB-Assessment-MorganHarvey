@@ -64,13 +64,13 @@ body{
   width: 40%;
   margin-right: 5%;
 }
-.shooterButton:hover{opacity: 0.6}
-.pongButton:hover{opacity: 0.6}
+.shooterIMG:hover{opacity: 0.6}
+.pongIMG:hover{opacity: 0.6}
 
 /*game names*/
 .shooterHeader{
   padding-top:10px;
- font-family: 'Libre Baskerville', serif;
+  font-family: 'Libre Baskerville', serif;
 }
 .pongHeader{
    font-family: 'Libre Baskerville', serif;

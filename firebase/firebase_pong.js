@@ -2,6 +2,8 @@
 // VARS
 var fb_data;
 var fireBasePongHighScore;
+// HIGHSCORE TABLE
+var firebasePongHighScoreTable = [];
 
 // FIREBASE FUNCTIONS BELOW
 function fb_readHighScore2() {

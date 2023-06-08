@@ -1,7 +1,8 @@
 // FIREBASE SHOOTER GAME ITEMS
 // VARS 
-var fb_data2;
 var fb_ShooterHighScore;
+// shooter Text 
+var shooterHighScoreTable = [];
 // FIREBASE FUNCTIONS BELOW
 
 // highscore read function
@@ -35,7 +36,7 @@ function checkIfHighScoreGreater1() {
 // reads highsore from databse
 function highScoreReader() {
   console.log("Reading highscores");
-firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
+  firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
     console.log(snapshot.val());
     snapshot.forEach(savesHighScoreInfo);
   }, fb_error);
@@ -43,8 +44,8 @@ firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore'
 
 // saves firebase highscore items to variable
 function savesHighScoreInfo(child) {
-  console.log(child.val());
-  fb_data2 = child.val();
-  console.log(fb_data2.highScore);
-  console.log(fb_data2.userDisplayName);
+  var fb_data2 = child.val().userDisplayName + ": "+  child.val().highScore;
+  // asigns items to an array
+  shooterHighScoreTable.push(fb_data2);
+  console.log(shooterHighScoreTable);
 }

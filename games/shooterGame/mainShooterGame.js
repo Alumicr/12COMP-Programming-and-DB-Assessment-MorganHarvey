@@ -15,9 +15,7 @@ var doublePointAblity;
 var doublePointAblitySpawned = false;
 var ablityText;
 //deadText vars 
-var deadText = {
-  fill: "white"
-};
+var deadText;
 var deadTextPostionX;
 var deadTextPostionY;
 //player lets
@@ -35,7 +33,7 @@ let strongEnemyScoreValue = 3;
 let enemy3Health = 1;
 let speedEnemySpeed = 2.9
 let speedEnemyScoreValue = 1;
-// interval 
+// interval lets
 let timerInterval_shooter;
 let preGameTimerInterval;
 let enemy1Interval;
@@ -256,6 +254,7 @@ function enemyThree() {
     }
   }
 }
+
 // ABLITY FUNCTIONS BELOW  
 function ablityOne() {
   // function creates doulbepoint sprite
@@ -274,8 +273,8 @@ function ablityOne() {
         i--;
         continue;
       }
-      // ceats spawns using values above and sets items below + add to group
-      doublePointAblity = new Sprite(ablityX, ablityY, 60, "d");
+      // creates spawns using values above and sets items below + add to group
+      doublePointAblity = new Sprite(ablityX, ablityY, 60, 'd');
       // asigns properties
       doublePointAblity.color = color("white");
       doublePointAblity.text = "x2";
@@ -292,8 +291,9 @@ function playerDamage() {
   console.log("player health is now " + playerHealth);
   player.color = color("red");
   setTimeout(function() {
+    // resets colour after time
     player.color = color("white");
-  }, 0300);
+  }, 0500);
 }
 
 //players gun when clicked
@@ -322,6 +322,7 @@ function playerDeath() {
     deadTextPostionY = height / 2;
     //displays death text
     deadText = textSize(32);
+    deadText = fill("red");
     if (score_shooterGame > fb_ShooterHighScore) {
       deadText = text(
         "You have died!\n" +
@@ -343,22 +344,18 @@ function playerDeath() {
     playerBullets.remove();
     // calls DeadPlayerSpawn function
     buttonDisplay();
-    DeadPlayerSpawn();
+    // creats dead player next to text
+    deadPlayer = new Sprite(deadTextPostionX - 30, deadTextPostionY + 57, 50, 50);
+    deadPlayer.color = ("red");
   }
 }
 
-function DeadPlayerSpawn() {
-  // runs if vars are set
-  // function creates dead player that spawns next to deadText
-  deadPlayer = new Sprite(deadTextPostionX - 30, deadTextPostionY + 57, 50, 50);
-  deadPlayer.color = ("red");
-}
 
 // BUTTON FUNCTIONS BELOW
 
 function buttonDisplay() {
   // displays reset button
-  button = createButton('Reset game!');
+  button = createButton('Play again!');
   button.position(deadTextPostionX, deadTextPostionY + 140);
   button.mousePressed(restartGame);
   // displays home button
@@ -366,6 +363,7 @@ function buttonDisplay() {
   button2.position(deadTextPostionX + 150, deadTextPostionY + 140);
   button2.mousePressed(SendPlayerBack);
 
+  // if home button presssed sends user back to home page
   function SendPlayerBack() {
     console.log("Sending user to home Page");
     window.location = "/../gameHomePage.html";
@@ -384,6 +382,9 @@ function buttonDisplay() {
     clearInterval(enemy2Interval);
     clearInterval(enemy3Interval);
     // resets values
+    speedEnemyScoreValue = 1;
+    normalEnemyScoreValue = 2;
+    strongEnemyScoreValue = 3;
     gameOver = false;
     timer = 3;
     playerHealth = 100;
@@ -402,26 +403,24 @@ function buttonDisplay() {
 // function doubles value of enemys and resets them
 function doublePoints() {
   // runs if set vars are correct
-  if (gameOver == false) {
-    // doubles the values
-    if (doublePointTimer <= 0) {
-      speedEnemyScoreValue = 2;
-      normalEnemyScoreValue = 4;
-      strongEnemyScoreValue = 6;
-    }
-    // resets the values
-    if (doublePointTimer >= 10) {
-      speedEnemyScoreValue = 1;
-      normalEnemyScoreValue = 2;
-      strongEnemyScoreValue = 3;
-      doublePointTimer = 0;
-      console.log("Double points over");
-    }
-    else {
-      //adds to timer, recalls function
-      doublePointTimer += 1;
-      setTimeout(doublePoints, 1000);
-    }
+  // doubles the values
+  if (doublePointTimer <= 0 && gameOver == false) {
+    speedEnemyScoreValue = 2;
+    normalEnemyScoreValue = 4;
+    strongEnemyScoreValue = 6;
+  }
+  // resets the values
+  if (doublePointTimer >= 10 && gamerOver == false) {
+    speedEnemyScoreValue = 1;
+    normalEnemyScoreValue = 2;
+    strongEnemyScoreValue = 3;
+    doublePointTimer = 0;
+    console.log("Double points over");
+  }
+  else if (gameOver == false) {
+    //adds to timer, recalls function
+    doublePointTimer += 1;
+    setTimeout(doublePoints, 1000);
   }
 }
 
@@ -553,24 +552,28 @@ function draw() {
 
   //players health
   text("Health: " + playerHealth, 10, 70);
+
   // player highscore displays if its not 0
   if (fb_ShooterHighScore > 0) {
-    text("Highscore: " + fb_ShooterHighScore, 10, 110);
+    text("Highscore: " + fb_ShooterHighScore, 10, 105);
   }
 
-  //damage notification
-  textSize(25);
-  fill('red');
-  text(damageText, 10, 140);
-
   //display timer
-  fill('white');
   textSize(50);
   text(timer, width - 65, 60);
 
   // ablity text
   textSize(25)
   text(ablityText, 10, 210);
+
+  //highscore table
+  for (i = shooterHighScoreTable.length - 1; i>=0; i--){
+    valueFlip = shooterHighScoreTable.length - i - 1;
+    text(shooterHighScoreTable[i], width/2, height/2  + 30 * valueFlip);
+  }
+  //damage notification
+  fill('red');
+  text(damageText, 10, 140);
 
   //removes text and ablity sprites
   if (damageText) {
