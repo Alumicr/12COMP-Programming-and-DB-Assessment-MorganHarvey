@@ -570,12 +570,13 @@ function draw() {
   text(ablityText, 10, 210);
 
   //highscore table
-  text(highScoreTitle, 10, height / 2 - 30);
   for (i = shooterHighScoreTable.length - 1; i >= 0; i--) {
+    // title
+    text(highScoreTitle, 10, height / 2 - 30);
     // flips array 
-    valueFlip = shooterHighScoreTable.length - i - 1;
+    let valueFlip_shooter = shooterHighScoreTable.length - i - 1;
     // displays highscore table
-    text(shooterHighScoreTable[i], 10, height / 2 + 30 * valueFlip);
+    text(shooterHighScoreTable[i], 10, height / 2 + 30 * valueFlip_shooter);
   }
   //damage notification
   fill('red');

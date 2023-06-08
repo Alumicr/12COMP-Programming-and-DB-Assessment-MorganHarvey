@@ -47,5 +47,4 @@ function savesHighScoreInfo(child) {
   // asigns items to array
   firebasePongHighScoreTable.push(fb_data);
   console.log(firebasePongHighScoreTable);
-
 }

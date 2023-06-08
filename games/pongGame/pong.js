@@ -199,10 +199,11 @@ function draw() {
   }
 
   // HIGHSCORE TABLE
-  text(highScoreTitle_pong, 20, 130);
   for (i = firebasePongHighScoreTable.length - 1; i >= 0; i--) {
+    // title
+    text(highScoreTitle_pong, 20, 130);
     // flips array 
-    valueFlip_pong = firebasePongHighScoreTable.length - i - 1;
+    let valueFlip_pong = firebasePongHighScoreTable.length - i - 1;
     // displays highscore table
     text(firebasePongHighScoreTable[i], 20, 160 + 30 * valueFlip_pong);
   }
