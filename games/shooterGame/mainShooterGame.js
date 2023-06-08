@@ -1,8 +1,7 @@
 // Start of Code
-// random vars 
+// game vars 
 var gameOver = false;
 var waveStarted = false;
-var damageText;
 // player and enemy vars
 var player;
 var deadPlayer;
@@ -13,8 +12,10 @@ var enemy3;
 //ablity items
 var doublePointAblity;
 var doublePointAblitySpawned = false;
+// text vars
 var ablityText;
-//deadText vars 
+var damageText;
+var highScoreTitle = 'HIGHSCORES';
 var deadText;
 var deadTextPostionX;
 var deadTextPostionY;
@@ -55,8 +56,6 @@ const ENEMY3DAMAGE = 10;
 
 // main code
 function setup() {
-  // calls highscore function
-  highScoreReader();
   //creats canvas and main player
   cnv = new Canvas(windowWidth, windowHeight);
   player = new Sprite(width / 2, height / 2, 50, 50, "d");
@@ -389,7 +388,7 @@ function buttonDisplay() {
     timer = 3;
     playerHealth = 100;
     score_shooterGame = 0;
-    // removes enitys
+    // removes/clears enitys
     deadPlayer.remove();
     button2.remove();
     button.remove();
@@ -397,8 +396,12 @@ function buttonDisplay() {
     //re-loops game and calls setup
     setup();
     loop();
+    // starts rechecking of scores 
+    fb_readHighScore1();
+    highScoreReader();
   }
 }
+
 
 // function doubles value of enemys and resets them
 function doublePoints() {
@@ -567,9 +570,10 @@ function draw() {
   text(ablityText, 10, 210);
 
   //highscore table
-  for (i = shooterHighScoreTable.length - 1; i>=0; i--){
+  text(highScoreTitle, 10, height / 2 - 30);
+  for (i = shooterHighScoreTable.length - 1; i >= 0; i--) {
     valueFlip = shooterHighScoreTable.length - i - 1;
-    text(shooterHighScoreTable[i], width/2, height/2  + 30 * valueFlip);
+    text(shooterHighScoreTable[i], 10, height / 2 + 30 * valueFlip);
   }
   //damage notification
   fill('red');
