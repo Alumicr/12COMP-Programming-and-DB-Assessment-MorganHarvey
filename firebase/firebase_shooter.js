@@ -1,6 +1,7 @@
 // FIREBASE SHOOTER GAME ITEMS
 // VARS 
 var fb_ShooterHighScore;
+var highScoreNumber = 3;
 // shooter Text 
 var shooterHighScoreTable = [];
 // FIREBASE FUNCTIONS BELOW
@@ -45,7 +46,9 @@ function fb_highScoresTableReader2() {
 
 // saves firebase highscore items to variable
 function savesHighScoreInfo(child) {
-  var fb_data2 = child.val().userDisplayName + ": " + child.val().highScore;
+  var fb_data2 = highScoreNumber + ". " + child.val().userDisplayName + ": " + child.val().highScore;
+    highScoreNumber--;
+
   // asigns items to an array
   shooterHighScoreTable.push(fb_data2);
   console.log(shooterHighScoreTable);

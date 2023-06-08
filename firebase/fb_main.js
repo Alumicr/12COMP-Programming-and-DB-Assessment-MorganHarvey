@@ -1,15 +1,16 @@
 //vars n stuff
+var top10HighScores_shooter = [];
 var userScreenName;
 var userPassword;
 var usersEmail;
 var userID;
-var score;
 var highScore;
 var userName;
 var userPhoto;
-var score;
 let gameDataObject;
 let userDataObject;
+
+
 
 //check to see if user is registerd with database
 function fb_checkRegistration() {
@@ -80,7 +81,7 @@ function fb_register() {
     userDisplayName: userScreenName,
     userPassword: userPassword,
   }
-  // asigns items to object
+  // makes new object and asigns items to object
   gameDataObject = {
     userDisplayName: userScreenName,
     highScore: 0,
@@ -115,7 +116,7 @@ function shooterGamePageSender() {
   console.log("Sending user to shooter game")
   window.location = "games/shooterGame/shooter.html";
 }
-
+// sends user to pong game when button clicked
 function pongGameSender() {
   console.log("Sending user to pong game");
   window.location = "games/pongGame/pong1.html";
@@ -126,5 +127,41 @@ function fb_error(error) {
   console.log("Error found");
   console.error(error);
 }
+
+
+// highscore items below
+// reads highsore from databse
+function displayHighScoreHomePage_shooter() {
+  console.log("Reading top 10 scores");
+  // clears arrray
+  top10HighScores_shooter = [];
+  // pulls the 10 highscores
+  firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(10).once('value', function(snapshot) {
+    console.log(snapshot.val());
+    snapshot.forEach(savetop10HighScores)
+  }, fb_error);
+}
+
+function savetop10HighScores(child) {
+  // asigns to var
+  var fb_highScores10 = child.val().userDisplayName + ": " + child.val().highScore;
+  if (fb_highScores10 == null){
+  fb_highScores10 = " "
+  }
+  // asigns item to array
+  top10HighScores_shooter.push(fb_highScores10);
+  console.log(top10HighScores_shooter)
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // end of code

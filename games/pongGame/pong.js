@@ -29,7 +29,7 @@ function setup() {
     paddle = new Sprite(200, 500, 10, 90, 'k');
     paddle.color = color("white");
     paddle.vel.y = 0;
-
+    
     walls();
     startTimerInterval = setInterval(pre_game, 1000);
     ball.collide(paddle, increaseScore);
@@ -118,18 +118,19 @@ function buttonDisplay_pong() {
   button2_pong.position(width / 4 + 150, 300);
   button2_pong.mousePressed(SendPlayerBack_pong);
 
-
   function restartGame_pong() {
     // rechecks users highscore 
     fb_readHighScore2();
     console.log("RESTARTING GAME");
-    // if reset button clicked resets and remove items 
+    // if reset button clicked resets
     button_pong.remove();
     button2_pong.remove();
     ball.remove();
     paddle.remove();
+    // clears intervals
     clearInterval(startTimerInterval);
     clearInterval(intervalTimer2);
+    // resets values
     gameOver_pong = false;
     timerStart = false;
     gameStarted = false;
@@ -193,8 +194,6 @@ function draw() {
   text("Score: " + score_pong, 20, 42);
   //displays users highscore if greater than 0
   if (fireBasePongHighScore > 0) {
-    fill("white");
-    textSize(25);
     text("HighScore: " + fireBasePongHighScore, 20, 73)
   }
 

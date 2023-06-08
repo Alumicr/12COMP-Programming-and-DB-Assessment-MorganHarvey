@@ -488,7 +488,7 @@ function draw() {
       bullets.remove();
     }
   }
-
+  
   //enemy items
   //enemy 1 movement
   for (i = 0; i < normalEnemy.length; i++) {

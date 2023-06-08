@@ -3,6 +3,7 @@
 var fireBasePongHighScore;
 // HIGHSCORE TABLE
 var firebasePongHighScoreTable = [];
+var highScoreRank = 3;
 
 // FIREBASE FUNCTIONS BELOW
 function fb_readHighScore2() {
@@ -33,8 +34,10 @@ function checkIfHighScoreGreater2() {
 // highscore items below
 // reads highsore from databse
 function fb_highScoresTableReader() {
+  // clears array
   firebasePongHighScoreTable = [];
   console.log("Reading highscores");
+  // reads the top 3 scores
   firebase.database().ref('/userGameScores/pongGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
     console.log(snapshot.val());
     snapshot.forEach(savesHighScoreInfo);
@@ -43,7 +46,8 @@ function fb_highScoresTableReader() {
 
 // saves firebase highscore items to variable
 function savesHighScoreInfo(child) {
-  var fb_data = child.val().userDisplayName + ": " + child.val().highScore;
+  var fb_data = highScoreRank + ". " + child.val().userDisplayName + ": " + child.val().highScore;
+  highScoreRank--;
   // asigns items to array
   firebasePongHighScoreTable.push(fb_data);
   console.log(firebasePongHighScoreTable);
