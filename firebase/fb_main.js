@@ -3,7 +3,6 @@ var userScreenName;
 var userPassword;
 var usersEmail;
 var userID;
-var highScore;
 var userName;
 var userPhoto;
 let gameDataObject;
@@ -17,7 +16,7 @@ function fb_checkRegistration() {
 
 function _readUID(snapshot) {
   console.log(snapshot.val());
-  if (snapshot.val() == null) {
+  if (snapshot  .val() == null) {
     // user has not registered
     // send them to registation page
     console.log("User has not registered");
@@ -90,37 +89,6 @@ function fb_register() {
   console.log(userDataObject);
   fb_saveData();
 }
-// user wants to change there display name
-function userChangeName() {
-  //saves new display name
-  console.log("Returning HTML registration values");
-  userScreenName = (HTML_screen_name.value);
-  console.log(userDataObject);
-  updateFirstBaseNewData();
-}
-
-function updateFirstBaseNewData() {
-    var statusMessage = document.getElementById("statusMessage");
-    statusMessage.textContent = "Updating your screen name.. please wait.."
-  // updates firebase
-  firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/userDisplayName/').set(
-    userScreenName
-  )
-  firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/userDisplayName/').set(
-    userScreenName
-  )
-  firebase.database().ref('userRegDetails/' + userDataObject.userID + '/userDisplayName/').set(
-    userScreenName
-  )
-  setTimeout(function(){
-  statusMessage.textContent = "Your screen name  has been updated!";
-  },2000);
-
-  setTimeout(function() {
-    statusMessage.textContent = "";
-  }, 5000);
-
-}
 
 // save data to database
 function fb_saveData() {
@@ -139,6 +107,44 @@ function fb_saveData() {
   }
 }
 
+// user wants to change there display name
+function userChangeName() {
+  //saves new display name
+  console.log("Returning HTML registration values");
+  userScreenName = (HTML_screen_name.value);
+  console.log(userDataObject);
+  updateFirstBaseNewData();
+}
+
+function updateFirstBaseNewData() {
+  // updates html
+    var statusMessage = document.getElementById("statusMessage");
+    statusMessage.textContent = "Updating your screen name.. please wait.."
+  // updates firebase
+  firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/userDisplayName/').set(
+    userScreenName
+  )
+  firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/userDisplayName/').set(
+    userScreenName
+  )
+  firebase.database().ref('userRegDetails/' + userDataObject.userID + '/userDisplayName/').set(
+    userScreenName
+  )
+  setTimeout(function(){
+    // updates html after a time
+  statusMessage.textContent = "Your screen name  has been updated!";
+  },2000);
+
+  setTimeout(function() {
+    // clears html
+    statusMessage.textContent = "";
+  }, 5000);
+
+}
+
+
+
+
 // send user to game when button clicked
 function shooterGamePageSender() {
   console.log("Sending user to shooter game")
@@ -149,10 +155,16 @@ function pongGameSender() {
   console.log("Sending user to pong game");
   window.location = "games/pongGame/pong1.html";
 }
-
+// sends user to shooter game
 function sendUserToHighScorePage() {
   console.log("Sending user to highscore page");
-  window.location = "highScorepage.html"
+  window.location = "highScorepage.html";
+}
+
+// sends user to log in page (logs user out)
+function logUserOut(){
+  console.log("Logging user out");
+  window.location = "index.html";
 }
 
 //sends out error if rules are wrong

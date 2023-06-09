@@ -48,10 +48,10 @@
 <body>
 
   <h1 class="header"> Random Game Website</h1>
-    <div class="topnav" id="myTopnav">
+  <div class="topnav" id="myTopnav">
     <a href="gameHomePage.html">Home</a>
     <a href="highScorepage.html">Highscore page</a>
-    <a href="changeUserDetails.html"  class="active">Change your screen name</a>
+    <a href="changeUserDetails.html" class="active">Change your screen name</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
@@ -66,11 +66,10 @@
       <input type="text" id="HTML_screen_name" name="name"><br>
       <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit" class="RegisterButton">
     </form>
-    <h3 class ="confirmation_messsage" id="statusMessage"></h3>
+    <h3 class="confirmation_messsage" id="statusMessage"></h3>
   </div>
-    
-  
-  </div>
+  <!--log out button-->
+  <button onclick="logUserOut()" class="LogoutButton"> Log out </button>
 </body>
 
 </html>

@@ -49,6 +49,7 @@ function fb_highScoresTableReader() {
 function savesHighScoreInfo(child) {
   var fb_data = highScoreRank + ". " + child.val().userDisplayName + ": " + child.val().highScore;
   highScoreRank--;
+  
   // asigns items to array
   firebasePongHighScoreTable.push(fb_data);
   console.log(firebasePongHighScoreTable);

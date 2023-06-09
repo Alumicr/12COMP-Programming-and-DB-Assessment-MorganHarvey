@@ -47,25 +47,29 @@
 **************************************************************-->
 
 <body onload="readHighScoreHomePage_shooter(), readHighScoresHomePage_pong()">
-
+  <!--navbar  -->
   <h1 class="header"> Random Game Website</h1>
   <div class="topnav" id="myTopnav">
     <a href="gameHomePage.html">Home</a>
     <a href="highScorepage.html" class="active">Highscore page</a>
-    <a href="changeUserDetails.html">Change your screen name! </a>
+    <a href="changeUserDetails.html">Change your screen name </a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
   </div>
   <h2 class="pageHeader">HIGHSCORES</h2>
+  <!--shooter game highscores-->
   <div class="shooterGameHighScores">
     <h2>Shooter game top 10 highscores</h2>
     <div class="shooterGameHighScoresDisplay" id="shooterGameHighScoresDisplay"></div>
   </div>
+  <!--pong game highscores-->
   <div class="pongHighScores">
     <h2>Pong Game Top 10 highscores</h2>
     <div class="pongGameHighScores" id="pongGameHighScoresDisplay"></div>
   </div>
+  <!--log out button-->
+  <button onclick="logUserOut()" class="LogoutButton"> Log out </button>
 </body>
 
 </html>

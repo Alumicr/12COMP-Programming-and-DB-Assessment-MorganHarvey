@@ -75,7 +75,7 @@ display: none;
   color:black;
   text-align: center;
 }
-
+/* registartion form button */
 .RegisterButton{
   margin-top: 5px;
 }
@@ -98,10 +98,12 @@ display: none;
 .pongIMG:hover{opacity: 0.6}
 
 /*game names*/
+/*shooter header  */
 .shooterHeader{
   padding-top:10px;
   font-family: 'Libre Baskerville', serif;
 }
+/*pong header  */
 .pongHeader{
    font-family: 'Libre Baskerville', serif;
 }
@@ -113,7 +115,8 @@ display: none;
 }
 
 
-/*highscores  */
+/*highscores items*/
+/*shooter game  */
 .shooterGameHighScores{
   margin-left:5%;
   text-align: center;
@@ -122,7 +125,7 @@ display: none;
   box-sizing: border-box;
   width: 40%;
 }
-
+/*pong game */
 .pongHighScores{
   text-align: center;
   margin-right: 5%;
@@ -130,4 +133,11 @@ display: none;
   padding: 20px;
   box-sizing: border-box;
   width: 40%;
+}
+
+/*log out button  */
+.LogoutButton{
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
