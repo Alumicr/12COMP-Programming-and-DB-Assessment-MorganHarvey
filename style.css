@@ -106,3 +106,8 @@ display: none;
    font-family: 'Libre Baskerville', serif;
 }
 
+/*confirmation messsage text */
+.confirmation_messsage{
+  font-family: 'Libre Baskerville', serif;
+  margin-top: 20px;
+}

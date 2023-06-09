@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Game Page</title>
+  <title>Change user details</title>
   <meta charset="UTF-8">
   <meta name="description" content="12COMP assessment">
   <meta name="author" content="Morgan Harvey">
@@ -46,34 +46,32 @@
 **************************************************************-->
 
 <body>
+
   <h1 class="header"> Random Game Website</h1>
-  <div class="topnav" id="myTopnav">
-    <a href="gameHomePage.html" class="active">Home</a>
+    <div class="topnav" id="myTopnav">
+    <a href="gameHomePage.html">Home</a>
     <a href="highScorepage.html">Highscore page</a>
-    <a href="changeUserDetails.html">Change your display name</a>
+    <a href="changeUserDetails.html"  class="active">Change your display name</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
   </div>
-  <h2 class="pageHeader"> Game Selection! </h2>
-  <!--Shooter button items-->
-  <button class="shooterButton">
-    <img src="assets/images/ShooterIMG.png" alt="Shooter Game" class="shooterIMG" onclick="shooterGamePageSender()"
-      style="width :100;">
-    <h1 class="shooterHeader"> Shooter Game</h1>
-    <p> Stay alive for as long as possible, click to shoot. Some enemies do different damage and have different health!
-      The stronger the enemy the more points they are worth. Game starts when the countdown reaches 0! Use WASD/ARROW
-      keys to move around. Collect ablitys by crashing into them to get a random ablity! </p>
-  </button>
 
-
-  <!--pong button -->
-  <button class="pongButton">
-    <img src="assets/images/pongIMG.png" alt="Pong Game" class="pongIMG" onclick="pongGameSender()" style="width :100;">
-    <h1 class="pongHeader"> Pong Game</h1>
-    <p> Hit the ball with a paddle don't let it touch the red wall! Use W and S or Up/Down arrows to move the paddle.
-      Game starts when the countdown reaches 0 and the timer starts when the ball hits your paddle! </p>
-  </button>
+  <div class="registration_form">
+    <!--Registration form -->
+    <h1> Change your details</h1>
+    <p> Change your display name using the form below!</p>
+    <p> Please wait for the confirmation message before leaving this page.</p>
+    <form onsubmit="return false;">
+      <label for="HTML_screen_name">Screen name:</label><br>
+      <input type="text" id="HTML_screen_name" name="name"><br>
+      <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit" class="RegisterButton">
+    </form>
+    <h3 class ="confirmation_messsage" id="statusMessage"></h3>
+  </div>
+    
+  
+  </div>
 </body>
 
 </html>

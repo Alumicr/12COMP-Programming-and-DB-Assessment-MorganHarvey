@@ -92,6 +92,40 @@ function fb_register() {
   console.log(userDataObject);
   fb_saveData();
 }
+// user wants to change there display name
+function userChangeName() {
+  //saves new display name
+  console.log("Returning HTML registration values");
+  userScreenName = (HTML_screen_name.value);
+  console.log(userDataObject);
+  updateFirstBaseNewData();
+}
+
+function updateFirstBaseNewData() {
+    var statusMessage = document.getElementById("statusMessage");
+    statusMessage.textContent = "Updating your displayname.. please wait.."
+
+  
+  // updates firebase
+  firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/userDisplayName/').set(
+    userScreenName
+  )
+  firebase.database().ref('userGameScores/shooterGame/' + userDataObject.userID + '/userDisplayName/').set(
+    userScreenName
+  )
+  firebase.database().ref('userRegDetails/' + userDataObject.userID + '/userDisplayName/').set(
+    userScreenName
+  )
+  setTimeout(function(){
+  statusMessage.textContent = "Your display name has been updated!";
+  },2000);
+
+  setTimeout(function() {
+    statusMessage.textContent = "";
+  }, 5000);
+
+}
+
 
 // save data to database
 function fb_saveData() {
@@ -121,7 +155,7 @@ function pongGameSender() {
   window.location = "games/pongGame/pong1.html";
 }
 
-function sendUserToHighScorePage(){
+function sendUserToHighScorePage() {
   console.log("Sending user to highscore page");
   window.location = "highScorepage.html"
 }

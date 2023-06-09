@@ -13,7 +13,6 @@ function setup() {
   cnv = new Canvas(windowWidth, windowHeight);
 }
 
-
 function draw() {
   fill("black");
   textSize(30);
@@ -25,7 +24,6 @@ function draw() {
   }
   else {
     background(255);
-    return;
   }
   if (highScoresLoaded == true) {
     //highscore table

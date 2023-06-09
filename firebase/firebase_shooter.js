@@ -2,7 +2,7 @@
 // VARS 
 var fb_ShooterHighScore;
 var highScoreNumber = 3;
-// shooter Text 
+// shooter array 
 var shooterHighScoreTable = [];
 // FIREBASE FUNCTIONS BELOW
 
