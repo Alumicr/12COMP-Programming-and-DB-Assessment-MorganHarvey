@@ -37,6 +37,8 @@ function checkIfHighScoreGreater1() {
 // reads highsore from databse
 function fb_highScoresTableReader2() {
   console.log("Reading highscores");
+  // clears array and reset highscore number
+  highScoreNumber = 3;
   shooterHighScoreTable = [];
   firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(3).once('value', function(snapshot) {
     console.log(snapshot.val());

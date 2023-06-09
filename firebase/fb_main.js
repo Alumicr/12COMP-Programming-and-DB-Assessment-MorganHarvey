@@ -1,5 +1,4 @@
 //vars n stuff
-var top10HighScores_shooter = [];
 var userScreenName;
 var userPassword;
 var usersEmail;
@@ -127,36 +126,6 @@ function fb_error(error) {
   console.log("Error found");
   console.error(error);
 }
-
-
-// highscore items below
-// reads highsore from databse
-function displayHighScoreHomePage_shooter() {
-  console.log("Reading top 10 scores");
-  // clears arrray
-  top10HighScores_shooter = [];
-  // pulls the 10 highscores
-  firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(10).once('value', function(snapshot) {
-    console.log(snapshot.val());
-    snapshot.forEach(savetop10HighScores)
-  }, fb_error);
-}
-
-function savetop10HighScores(child) {
-  // asigns to var
-  var fb_highScores10 = child.val().userDisplayName + ": " + child.val().highScore;
-  if (fb_highScores10 == null){
-  fb_highScores10 = " "
-  }
-  // asigns item to array
-  top10HighScores_shooter.push(fb_highScores10);
-  console.log(top10HighScores_shooter)
-}
-
-
-
-
-
 
 
 

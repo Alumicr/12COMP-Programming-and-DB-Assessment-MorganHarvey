@@ -24,13 +24,16 @@ let playerHealth = 100;
 let bulletDamage = 1;
 //normal enemy lets
 let enemy1Health = 2;
+let normalEnemySpawnCount = 6;
 let normalEnemyScoreValue = 2;
 let normalEnemySpeed = 1.7;   //will change these to const/remove if i don't add more ablitys
 //strong enemy lets
+let strongEnemySpawnCount = 3;
 let enemy2Health = 3;
 let strongEnemySpeed = 1.1;
 let strongEnemyScoreValue = 3;
 //speed enemy lets
+let speedEnemySpawnCount = 5;
 let enemy3Health = 1;
 let speedEnemySpeed = 2.9
 let speedEnemyScoreValue = 1;
@@ -168,7 +171,7 @@ function enemy() {
   if (gameOver == false) {
     // calculates spawn sure it is a certain distance from player
     // calculates values
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < normalEnemySpawnCount; i++) {
       let enemyX = random(width);
       let enemyY = random(height);
       let dx = enemyX - player.pos.x;
@@ -198,7 +201,7 @@ function enemyTwo() {
   //runs if set var is correct
   if (gameOver == false) {
     //calculates values
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < strongEnemySpawnCount; i++) {
       let enemyX = random(width);
       let enemyY = random(height);
       let dx = enemyX - player.pos.x;
@@ -227,7 +230,7 @@ function enemyThree() {
   //runs if set var is correct
   if (gameOver == false) {
     // calculates values
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < speedEnemySpawnCount; i++) {
       let enemyX = random(width);
       let enemyY = random(height);
       let dx = enemyX - player.pos.x;
@@ -381,6 +384,9 @@ function buttonDisplay() {
     clearInterval(enemy2Interval);
     clearInterval(enemy3Interval);
     // resets values
+    normalEnemySpawnCount = 6;
+    speedEnemySpawnCount = 5;
+    strongEnemySpawnCount = 3;
     speedEnemyScoreValue = 1;
     normalEnemyScoreValue = 2;
     strongEnemyScoreValue = 3;
@@ -488,8 +494,15 @@ function draw() {
       bullets.remove();
     }
   }
-  
+
   //enemy items
+
+  if (score_shooterGame >= 100) {
+    // makes more enemys spawn at a certain score
+    normalEnemySpawnCount = 8;
+    speedEnemySpawnCount = 7;
+    strongEnemySpawnCount = 5;
+  }
   //enemy 1 movement
   for (i = 0; i < normalEnemy.length; i++) {
     enemy1 = normalEnemy[i];
@@ -599,5 +612,6 @@ function draw() {
       doublePointAblitySpawned = false;
     }, 4000);
   }
+
 }
 //end of code

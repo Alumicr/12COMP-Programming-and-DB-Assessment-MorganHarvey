@@ -34,7 +34,8 @@ function checkIfHighScoreGreater2() {
 // highscore items below
 // reads highsore from databse
 function fb_highScoresTableReader() {
-  // clears array
+  // clears array and resets highscore rank
+  highScoreRank = 3;
   firebasePongHighScoreTable = [];
   console.log("Reading highscores");
   // reads the top 3 scores
