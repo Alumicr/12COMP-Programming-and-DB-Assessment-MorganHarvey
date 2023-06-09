@@ -2,7 +2,9 @@
 // vars
 var top10HighScores_shooter = [];
 var top10HighScores_pong = [];
-var highScoreTableRank =  5;
+var highScoreTableRank_shooter =  10;
+var highScoreTableRank_pong = 10;
+
 
 function setup(){
   //creats canvas and main player
@@ -16,11 +18,23 @@ function draw() {
     fill("black");
     textSize(30);
     // title
-    text("Shooter game highscores", width/2 - 350, height /2 - 370)
+    text("Shooter game top 10 highscores", width/2 - 550, height /2 - 370)
     // flips array 
     let valueFlip_shooter = top10HighScores_shooter.length - i - 1;
     // displays highscore table
-    text(top10HighScores_shooter[i], width/2 - 350, height/2 -340 + 35 * valueFlip_shooter);
+    text(top10HighScores_shooter[i], width/2 - 500, height/2 -330 + 35 * valueFlip_shooter);
+  }
+
+for (i = top10HighScores_pong.length - 1; i >= 0; i--) {
+    fill("black");
+    textSize(30);
+    // title
+    text("Pong game top 10 highscores", width/2 + 240, height /2 - 370);
+    // text("Shooter game highscores", width/2 , height /2 - 370)
+    // flips array 
+    let valueFlip_shooter = top10HighScores_pong.length - i - 1;
+    // displays highscore table
+    text(top10HighScores_pong[i], width/2 + 300, height/2 -330 + 35 * valueFlip_shooter);
   }
 
 }
@@ -41,13 +55,10 @@ function readHighScoreHomePage_shooter() {
 
 function savetop10HighScores(child) {
   // asigns to var
-  var fb_highScores10 = highScoreTableRank+ ". " +child.val().userDisplayName + ": " + child.val().highScore;
-  if (fb_highScores10 == null || child.val().highScore == 0) {
-    fb_highScores10 = " ";
-  }
-  highScoreTableRank--;
+  var fb_highScoresTop10 = highScoreTableRank_shooter+ ". " +child.val().userDisplayName + ": " + child.val().highScore;
+  highScoreTableRank_shooter--;
   // asigns item to array
-  top10HighScores_shooter.push(fb_highScores10);
+  top10HighScores_shooter.push(fb_highScoresTop10);
   console.log(top10HighScores_shooter)
 }
 
@@ -66,10 +77,8 @@ function readHighScoresHomePage_pong() {
 
 // saves firebase highscore items to variable
 function savesHighScoreInfo(child) {
-  var fb_dataHighScoresTop10 = child.val().userDisplayName + ": " + child.val().highScore;
-  if (fb_dataHighScoresTop10 == null) {
-    fb_dataHighScoresTop10 = " ";
-  }
+  var fb_dataHighScoresTop10 = highScoreTableRank_pong+ ". " +child.val().userDisplayName + ": " + child.val().highScore;
+  highScoreTableRank_pong--;
   // asigns items to array
   top10HighScores_pong.push(fb_dataHighScoresTop10);
   console.log(top10HighScores_pong);
