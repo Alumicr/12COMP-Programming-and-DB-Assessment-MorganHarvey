@@ -9,8 +9,6 @@ var userPhoto;
 let gameDataObject;
 let userDataObject;
 
-
-
 //check to see if user is registerd with database
 function fb_checkRegistration() {
   console.log("Checking Registration");
@@ -103,9 +101,7 @@ function userChangeName() {
 
 function updateFirstBaseNewData() {
     var statusMessage = document.getElementById("statusMessage");
-    statusMessage.textContent = "Updating your displayname.. please wait.."
-
-  
+    statusMessage.textContent = "Updating your screen name.. please wait.."
   // updates firebase
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/userDisplayName/').set(
     userScreenName
@@ -117,7 +113,7 @@ function updateFirstBaseNewData() {
     userScreenName
   )
   setTimeout(function(){
-  statusMessage.textContent = "Your display name has been updated!";
+  statusMessage.textContent = "Your screen name  has been updated!";
   },2000);
 
   setTimeout(function() {
@@ -125,7 +121,6 @@ function updateFirstBaseNewData() {
   }, 5000);
 
 }
-
 
 // save data to database
 function fb_saveData() {
@@ -165,12 +160,6 @@ function fb_error(error) {
   console.log("Error found");
   console.error(error);
 }
-
-
-
-
-
-
 
 
 // end of code

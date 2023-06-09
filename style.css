@@ -106,8 +106,28 @@ display: none;
    font-family: 'Libre Baskerville', serif;
 }
 
-/*confirmation messsage text */
+/*confirmation messsage  */
 .confirmation_messsage{
   font-family: 'Libre Baskerville', serif;
   margin-top: 20px;
+}
+
+
+/*highscores  */
+.shooterGameHighScores{
+  margin-left:5%;
+  text-align: center;
+  float:left;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 40%;
+}
+
+.pongHighScores{
+  text-align: center;
+  margin-right: 5%;
+  float:right;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 40%;
 }

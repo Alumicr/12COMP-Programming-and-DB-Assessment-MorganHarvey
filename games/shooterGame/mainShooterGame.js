@@ -387,8 +387,8 @@ function buttonDisplay() {
     normalEnemySpawnCount = 6;
     speedEnemySpawnCount = 5;
     strongEnemySpawnCount = 3;
-    speedEnemyScoreValue = 1;
     normalEnemyScoreValue = 2;
+    speedEnemyScoreValue = 1;
     strongEnemyScoreValue = 3;
     gameOver = false;
     timer = 3;
@@ -474,11 +474,12 @@ function draw() {
     playerDamage();
   });
 
-  // checks player health and stops game
+  // checks player health, changes values and stops game
   if (playerHealth <= 0) {
     ablityText = '';
     console.log("Game over!");
     playerHealth = 0;
+    doublePointAblitySpawned = false;
     gameOver = true;
     waveStarted = false;
     checkIfHighScoreGreater1();

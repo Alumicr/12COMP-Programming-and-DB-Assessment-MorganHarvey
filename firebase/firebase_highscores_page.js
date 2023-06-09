@@ -8,46 +8,26 @@ var loadingText = "Loading highscores..";
 var highScoresLoaded = false
 
 
-function setup() {
-  //creats canvas and main player
-  cnv = new Canvas(windowWidth, windowHeight);
-}
-
 function draw() {
-  fill("black");
-  textSize(30);
-
   if (!highScoresLoaded) {
-    text(loadingText, width / 2 - 500, height / 2 - 370);
-    text(loadingText, width / 2 + 240, height / 2 - 370);
+    document.getElementById("shooterGameHighScoresDisplay").innerHTML = loadingText;
+    document.getElementById('pongGameHighScoresDisplay').innerHTML = loadingText;
     return;
   }
-  else {
-    background(255);
-  }
+
   if (highScoresLoaded == true) {
-    //highscore table
+    document.getElementById("shooterGameHighScoresDisplay").innerHTML = "";
+    document.getElementById("pongGameHighScoresDisplay").innerHTML = "";
+    // shooter game highscores
     for (i = top10HighScores_shooter.length - 1; i >= 0; i--) {
-      // title
-      text("Shooter game top 10 highscores", width / 2 - 550, height / 2 - 370)
-      // flips array 
-      let valueFlip_shooter = top10HighScores_shooter.length - i - 1;
-      // displays highscore table
-
-      text(top10HighScores_shooter[i], width / 2 - 500, height / 2 - 330 + 35 * valueFlip_shooter);
+      // assign info to HTML
+      document.getElementById("shooterGameHighScoresDisplay").innerHTML += "<p>" + top10HighScores_shooter[i] + "</p>";
     }
-
+    // pong game highscores
     for (i = top10HighScores_pong.length - 1; i >= 0; i--) {
-      // title
-      text("Pong game top 10 highscores", width / 2 + 240, height / 2 - 370);
-      // text("Shooter game highscores", width/2 , height /2 - 370)
-      // flips array 
-      let valueFlip_shooter = top10HighScores_pong.length - i - 1;
-      // displays highscore table
-      text(top10HighScores_pong[i], width / 2 + 300, height / 2 - 330 + 35 * valueFlip_shooter);
+      document.getElementById("pongGameHighScoresDisplay").innerHTML += "<p>" + top10HighScores_pong[i] + "</p>";
     }
   }
-
 }
 
 // highscore items below

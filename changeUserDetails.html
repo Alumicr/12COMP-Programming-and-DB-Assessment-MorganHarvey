@@ -51,7 +51,7 @@
     <div class="topnav" id="myTopnav">
     <a href="gameHomePage.html">Home</a>
     <a href="highScorepage.html">Highscore page</a>
-    <a href="changeUserDetails.html"  class="active">Change your display name</a>
+    <a href="changeUserDetails.html"  class="active">Change your screen name</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
@@ -59,11 +59,10 @@
 
   <div class="registration_form">
     <!--Registration form -->
-    <h1> Change your details</h1>
-    <p> Change your display name using the form below!</p>
+    <h3> Change your screen name using the form below!</h3>
     <p> Please wait for the confirmation message before leaving this page.</p>
     <form onsubmit="return false;">
-      <label for="HTML_screen_name">Screen name:</label><br>
+      <label for="HTML_screen_name">New screen name:</label><br>
       <input type="text" id="HTML_screen_name" name="name"><br>
       <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit" class="RegisterButton">
     </form>
