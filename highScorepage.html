@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Game Page</title>
+  <title>Highscore page</title>
   <meta charset="UTF-8">
   <meta name="description" content="12COMP assessment">
   <meta name="author" content="Morgan Harvey">
@@ -37,6 +37,7 @@
   <script src="/firebase/fb_startUp.js"></script>
   <script src="/firebase/script.js"></script>
   <script src="/firebase/fb_main.js"></script>
+  <script src="/firebase/firebase_highscores_page.js"></script>
 
 
 </head>
@@ -45,34 +46,19 @@
   BODY
 **************************************************************-->
 
-<body>
+<body onload="readHighScoreHomePage_shooter(), readHighScoresHomePage_pong()">
+
   <h1 class="header"> Random Game Website</h1>
-  <div class="topnav" id="myTopnav">
-    <a href="gameHomePage.html" class="active">Home</a>
-    <a href="highScorepage.html">Highscore page</a>
+   <div class="topnav" id="myTopnav">
+    <a href="gameHomePage.html">Home</a>
+    <a href="highScorepage.html" class="active">Highscore page</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
   </div>
-  <h2 class="pageHeader"> Game Selection! </h2>
-  <!--Shooter button items-->
-  <button class="shooterButton">
-    <img src="assets/images/ShooterIMG.png" alt="Shooter Game" class="shooterIMG" onclick="shooterGamePageSender()"
-      style="width :100;">
-    <h1 class="shooterHeader"> Shooter Game</h1>
-    <p> Stay alive for as long as possible, click to shoot. Some enemies do different damage and have different health!
-      The stronger the enemy the more points they are worth. Game starts when the countdown reaches 0! Use WASD/ARROW
-      keys to move around. Collect ablitys by crashing into them to get a random ablity! </p>
-  </button>
 
 
-  <!--pong button -->
-  <button class="pongButton">
-    <img src="assets/images/pongIMG.png" alt="Pong Game" class="pongIMG" onclick="pongGameSender()" style="width :100;">
-    <h1 class="pongHeader"> Pong Game</h1>
-    <p> Hit the ball with a paddle don't let it touch the red wall! Use W and S or Up/Down arrows to move the paddle.
-      Game starts when the countdown reaches 0 and the timer starts when the ball hits your paddle! </p>
-  </button>
+  </div>
 </body>
 
 </html>

@@ -17,7 +17,7 @@ function fb_readHighScore2() {
 
 function checkIfHighScoreGreater2() {
   console.log("fb, users high score is " + fireBasePongHighScore);
-  // saves score to firebase
+  // saves score to firebase  
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/lastScore/').set(
     score_pong
   );

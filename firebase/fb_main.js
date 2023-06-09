@@ -121,11 +121,17 @@ function pongGameSender() {
   window.location = "games/pongGame/pong1.html";
 }
 
+function sendUserToHighScorePage(){
+  console.log("Sending user to highscore page");
+  window.location = "highScorepage.html"
+}
+
 //sends out error if rules are wrong
 function fb_error(error) {
   console.log("Error found");
   console.error(error);
 }
+
 
 
 

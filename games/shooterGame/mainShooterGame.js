@@ -419,7 +419,7 @@ function doublePoints() {
     strongEnemyScoreValue = 6;
   }
   // resets the values
-  if (doublePointTimer >= 10 && gamerOver == false) {
+  if (doublePointTimer >= 10 && gameOver == false) {
     speedEnemyScoreValue = 1;
     normalEnemyScoreValue = 2;
     strongEnemyScoreValue = 3;
