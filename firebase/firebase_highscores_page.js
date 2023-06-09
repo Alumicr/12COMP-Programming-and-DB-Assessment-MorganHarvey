@@ -2,17 +2,25 @@
 // vars
 var top10HighScores_shooter = [];
 var top10HighScores_pong = [];
+var highScoreTableRank =  5;
+
+function setup(){
+  //creats canvas and main player
+  cnv = new Canvas(windowWidth, windowHeight);
+}
+
 
 function draw() {
   //highscore table
   for (i = top10HighScores_shooter.length - 1; i >= 0; i--) {
+    fill("black");
+    textSize(30);
     // title
+    text("Shooter game highscores", width/2 - 350, height /2 - 370)
     // flips array 
     let valueFlip_shooter = top10HighScores_shooter.length - i - 1;
     // displays highscore table
-    fill("black");
-    textSize(30);
-    text(top10HighScores_shooter[i], width/2, height / 2 + 50 * valueFlip_shooter);
+    text(top10HighScores_shooter[i], width/2 - 350, height/2 -340 + 35 * valueFlip_shooter);
   }
 
 }
@@ -33,10 +41,11 @@ function readHighScoreHomePage_shooter() {
 
 function savetop10HighScores(child) {
   // asigns to var
-  var fb_highScores10 = child.val().userDisplayName + ": " + child.val().highScore;
-  if (fb_highScores10 == null) {
+  var fb_highScores10 = highScoreTableRank+ ". " +child.val().userDisplayName + ": " + child.val().highScore;
+  if (fb_highScores10 == null || child.val().highScore == 0) {
     fb_highScores10 = " ";
   }
+  highScoreTableRank--;
   // asigns item to array
   top10HighScores_shooter.push(fb_highScores10);
   console.log(top10HighScores_shooter)
