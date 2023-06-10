@@ -26,7 +26,7 @@ let bulletDamage = 1;
 let enemy1Health = 2;
 let normalEnemySpawnCount = 6;
 let normalEnemyScoreValue = 2;
-let normalEnemySpeed = 1.7;   //will change these to const/remove if i don't add more ablitys
+let normalEnemySpeed = 1.7;
 //strong enemy lets
 let strongEnemySpawnCount = 3;
 let enemy2Health = 3;
@@ -384,12 +384,15 @@ function buttonDisplay() {
     clearInterval(enemy2Interval);
     clearInterval(enemy3Interval);
     // resets values
+    normalEnemyScoreValue = 2;
+    normalEnemySpeed = 1.7;
     normalEnemySpawnCount = 6;
     speedEnemySpawnCount = 5;
-    strongEnemySpawnCount = 3;
-    normalEnemyScoreValue = 2;
-    speedEnemyScoreValue = 1;
     strongEnemyScoreValue = 3;
+    strongEnemySpawnCount = 3;
+    strongEnemySpeed = 1.1;
+    speedEnemyScoreValue = 1;
+    speedEnemySpeed = 2.9;
     gameOver = false;
     timer = 3;
     playerHealth = 100;
@@ -497,8 +500,15 @@ function draw() {
   }
 
   //enemy items
-
+  // makes game harder
   if (score_shooterGame >= 100) {
+    // speeds enemys up
+    strongEnemySpeed = 1.35;
+    speedEnemySpeed = 3;
+    normalEnemySpeed = 2;
+  }
+  // makes game harder
+  if (score_shooterGame >= 150) {
     // makes more enemys spawn at a certain score
     normalEnemySpawnCount = 8;
     speedEnemySpawnCount = 7;
@@ -613,6 +623,5 @@ function draw() {
       doublePointAblitySpawned = false;
     }, 4000);
   }
-
 }
 //end of code

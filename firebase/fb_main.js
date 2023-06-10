@@ -142,9 +142,6 @@ function updateFirstBaseNewData() {
 
 }
 
-
-
-
 // send user to game when button clicked
 function shooterGamePageSender() {
   console.log("Sending user to shooter game")

@@ -2,20 +2,21 @@
 // vars
 var top10HighScores_shooter = [];
 var top10HighScores_pong = [];
-var highScoreTableRank_shooter = 10;
-var highScoreTableRank_pong = 10;
+var highScoreTableRank_shooter = 4;
+var highScoreTableRank_pong = 4;
 var loadingText = "Loading highscores..";
-var highScoresLoaded = false
+var highScoresLoaded = false;
 
 
 function draw() {
   if (!highScoresLoaded) {
+      // displays loading text
     document.getElementById("shooterGameHighScoresDisplay").innerHTML = loadingText;
     document.getElementById('pongGameHighScoresDisplay').innerHTML = loadingText;
     return;
   }
-
   if (highScoresLoaded == true) {
+    // removes text
     document.getElementById("shooterGameHighScoresDisplay").innerHTML = "";
     document.getElementById("pongGameHighScoresDisplay").innerHTML = "";
     // shooter game highscores
@@ -41,7 +42,7 @@ function readHighScoreHomePage_shooter() {
   // pulls the 10 highscores
   firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(10).once('value', function(snapshot) {
     console.log(snapshot.val());
-    snapshot.forEach(savetop10HighScores)
+    snapshot.forEach(savetop10HighScores);
     highScoresLoaded = true;
   }, fb_error);
 }
@@ -52,7 +53,7 @@ function savetop10HighScores(child) {
   highScoreTableRank_shooter--;
   // asigns item to array
   top10HighScores_shooter.push(fb_highScoresTop10);
-  console.log(top10HighScores_shooter)
+  console.log(top10HighScores_shooter);
 }
 
 //HIGHSCORE PONG GAME
