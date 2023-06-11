@@ -226,5 +226,4 @@ function draw() {
   textSize(50);
   text(timer_pong, width - 65, 60);
 }
-
 // end of code

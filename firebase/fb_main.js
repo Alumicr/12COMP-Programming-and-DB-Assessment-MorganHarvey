@@ -1,4 +1,5 @@
 //vars n stuff
+var FbHasUpdated = false;
 var userScreenName;
 var userPassword;
 var usersEmail;
@@ -8,6 +9,14 @@ var userPhoto;
 let gameDataObject;
 let userDataObject;
 
+
+//FIREBASE ERROR
+//sends out error message
+function fb_error(error) {
+  console.log("Error found");
+  console.error(error);
+}
+
 //check to see if user is registerd with database
 function fb_checkRegistration() {
   console.log("Checking Registration");
@@ -16,7 +25,7 @@ function fb_checkRegistration() {
 
 function _readUID(snapshot) {
   console.log(snapshot.val());
-  if (snapshot  .val() == null) {
+  if (snapshot.val() == null) {
     // user has not registered
     // send them to registation page
     console.log("User has not registered");
@@ -106,20 +115,19 @@ function fb_saveData() {
     window.location = "gameHomePage.html";
   }
 }
-
+//USER CHANGING DISPLAYNAME FUNCTIONS BELOW
 // user wants to change there display name
 function userChangeName() {
+  FbHasUpdated = false;
   //saves new display name
   console.log("Returning HTML registration values");
   userScreenName = (HTML_screen_name.value);
   console.log(userDataObject);
-  updateFirstBaseNewData();
+  updateHTML();
+  updateFireBaseNewScreenName()
 }
 
-function updateFirstBaseNewData() {
-  // updates html
-    var statusMessage = document.getElementById("statusMessage");
-    statusMessage.textContent = "Updating your screen name.. please wait.."
+function updateFireBaseNewScreenName() {
   // updates firebase
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/userDisplayName/').set(
     userScreenName
@@ -130,10 +138,22 @@ function updateFirstBaseNewData() {
   firebase.database().ref('userRegDetails/' + userDataObject.userID + '/userDisplayName/').set(
     userScreenName
   )
-  setTimeout(function(){
-    // updates html after a time
-  statusMessage.textContent = "Your screen name  has been updated!";
-  },2000);
+  // updates var
+  console.log("Firebase has updated");
+  FbHasUpdated = true;
+  updateHTML();
+}
+function updateHTML() {
+  // updates html
+  var statusMessage = document.getElementById("statusMessage");
+  statusMessage.textContent = "Updating your screen name.. please wait.."
+
+  if (FbHasUpdated == true) {
+    setTimeout(function() {
+      //if var is set shows confermation text
+      statusMessage.textContent = "Your screen name  has been updated!";
+    }, 2000);
+  }
 
   setTimeout(function() {
     // clears html
@@ -142,6 +162,7 @@ function updateFirstBaseNewData() {
 
 }
 
+//BUTTON FUNCTIONS BELOW
 // send user to game when button clicked
 function shooterGamePageSender() {
   console.log("Sending user to shooter game")
@@ -159,16 +180,9 @@ function sendUserToHighScorePage() {
 }
 
 // sends user to log in page (logs user out)
-function logUserOut(){
+function logUserOut() {
   console.log("Logging user out");
   window.location = "index.html";
 }
-
-//sends out error if rules are wrong
-function fb_error(error) {
-  console.log("Error found");
-  console.error(error);
-}
-
 
 // end of code
