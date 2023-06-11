@@ -7,13 +7,16 @@ var highScoreTableRank_pong = 10;
 var loadingText = "Loading highscores..";
 var highScoresLoaded = false;
 
+// draw function
 function draw() {
+  // checks if var is false
   if (!highScoresLoaded) {
-      // displays loading text
+    // displays loading text
     document.getElementById("shooterGameHighScoresDisplay").innerHTML = loadingText;
     document.getElementById('pongGameHighScoresDisplay').innerHTML = loadingText;
     return;
   }
+  // checks if var is true
   if (highScoresLoaded == true) {
     // removes text
     document.getElementById("shooterGameHighScoresDisplay").innerHTML = "";

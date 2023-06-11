@@ -100,9 +100,9 @@ function walls() {
 
 //pre game function
 function pre_game() {
-  countDownStarted = true;
   // minus 1 from timer (allows user to have a safe period)
   if (waveStarted == false && gameOver == false) {
+    countDownStarted = true;
     timer -= 1;
     console.log("Game starting in " + timer);
   }
@@ -152,7 +152,7 @@ function playerDamage() {
 
 //players gun when clicked
 function mouseClicked() {
-  if (countDownStarted == true) {
+  if (countDownStarted == true && gameOver == false) {
     //Calculates values (making sure it spawns a certain distance from the player)
     let dx = mouseX - player.pos.x;
     let dy = mouseY - player.pos.y;

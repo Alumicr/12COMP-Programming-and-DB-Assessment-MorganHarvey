@@ -18,6 +18,7 @@ function setup() {
     // creats canvas and ball
     cnv = new Canvas(windowWidth, windowHeight - 10);
     ball = new Sprite(width - 50, height / 2, 50, "d");
+    // asigns properties
     ball.color = color("white");
     ball.bounciness = 1;
     ball.friction = 0;
@@ -31,19 +32,23 @@ function setup() {
     paddle.vel.y = 0;
 
     walls();
+    // interval timers
     startTimerInterval = setInterval(pre_game, 1000);
     ball.collide(paddle, increaseScore);
 
     // paddle movement
+    // up movement
     document.addEventListener("keydown", function(event) {
       if (event.code == 'ArrowUp' || event.code == "KeyW") {
         paddle.vel.y = paddleSpeedUp;
       }
+      //down movment
       else if (event.code == 'ArrowDown' || event.code == "KeyS") {
         paddle.vel.y = paddleSpeedDown;
       }
     })
 
+    // stops movement
     document.addEventListener("keyup", function(event) {
       if (event.code === 'ArrowUp' || event.code == "KeyS" || event.code == "KeyW" || event.code == 'ArrowDown') {
         paddle.vel.y = 0;
@@ -53,7 +58,7 @@ function setup() {
 }
 
 function walls() {
-  // Function creates walls and colours them
+  // Function creates walls and asigns properties
   wallRH = new Sprite(width, height / 2, 8, height, 'k');
   wallRH.color = color('white');
   wallRH.bounciness = 1;
@@ -63,6 +68,7 @@ function walls() {
   wallTop.color = color('white');
   wallBot = new Sprite(width / 2, height + 4, width * 2, 8, 'k');
   wallBot.color = color('white');
+  // adds to group
   wallGroup.add(wallRH);
   wallGroup.add(wallLH);
   wallGroup.add(wallTop);
@@ -75,7 +81,9 @@ function pre_game() {
     timer_pong -= 1;
   }
   if (timer_pong <= 0 && gameStarted == false) {
+    // calls function
     gameStarter();
+    // gives ball movement properties
     ball.vel.x = -5;
     ball.vel.y = 8;
   }
@@ -101,6 +109,7 @@ function gameStarter() {
 // game timer
 function gameTimer() {
   if (gameOver_pong == false && timerStart == true) {
+    //adds to timer
     timer_pong += 1;
   }
 }

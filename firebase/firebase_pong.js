@@ -4,7 +4,6 @@ var fireBasePongHighScore;
 var firebasePongHighScoreTable = [];
 var highScoreRank = 3;
 
-
 // PONG GAME FIREBASE FUNCTIONS
 function fb_readHighScore2() {
   // reads high score
