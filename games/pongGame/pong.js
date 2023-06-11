@@ -1,8 +1,8 @@
 //  start of code 
 // vars
 var gameOver_pong = false;
+var countDownText_pong;
 var highScoreTitle_pong = "HIGHSCORES";
-var timerStart = false;
 var gameStarted = false;
 // lets
 let score_pong = 0;
@@ -94,10 +94,6 @@ function pre_game() {
 function increaseScore() {
   score_pong++;
   console.log("players score is " + score_pong);
-
-  //starts timer 
-  timerStart = true;
-
 }
 // starts timer 
 function gameStarter() {
@@ -108,7 +104,7 @@ function gameStarter() {
 }
 // game timer
 function gameTimer() {
-  if (gameOver_pong == false && timerStart == true) {
+  if (gameOver_pong == false) {
     //adds to timer
     timer_pong += 1;
   }
@@ -141,7 +137,6 @@ function buttonDisplay_pong() {
     clearInterval(intervalTimer2);
     // resets values
     gameOver_pong = false;
-    timerStart = false;
     gameStarted = false;
     score_pong = 0;
     paddleSpeedUp = -8;
@@ -206,6 +201,17 @@ function draw() {
     text("HighScore: " + fireBasePongHighScore, 20, 73)
   }
 
+  //displays countdown text 
+  if (gameOver_pong == false && gameStarted == false) {
+    countDownText_pong = " ";
+    countDownText_pong = "Game Starting in...";
+    text(countDownText_pong + " " + timer_pong, width / 2 - 120, height / 2);
+  }
+  else {
+    //removes countdown text
+    countDownText_pong = " ";
+  }
+
   // HIGHSCORE TABLE
   for (i = firebasePongHighScoreTable.length - 1; i >= 0; i--) {
     // title
@@ -218,7 +224,6 @@ function draw() {
 
   //timer text
   textSize(50);
-  fill('white');
   text(timer_pong, width - 65, 60);
 }
 

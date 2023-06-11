@@ -63,6 +63,7 @@ function enemy() {
       enemy1.color = color("red");
       enemy1.health = enemy1Health;
       normalEnemy.add(enemy1);
+      console.log("Spawning normal enemys");
     }
   }
 }
@@ -92,6 +93,7 @@ function enemyTwo() {
       enemy2.color = color("red");
       enemy2.health = enemy2Health;
       strongEnemy.add(enemy2);
+      console.log("Spawning strong enemys");
     }
   }
 }
@@ -125,6 +127,7 @@ function enemyThree() {
       enemy3.health = enemy3Health;
       enemy3.color = color("red");
       speedEnemy.add(enemy3);
+      console.log("Spawning speed enemys");
     }
   }
 }

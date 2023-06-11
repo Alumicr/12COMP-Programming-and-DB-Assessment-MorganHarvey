@@ -480,6 +480,7 @@ function draw() {
   if (doublePointAblitySpawned == true || healthPackSpawned == true) {
     setTimeout(function() {
       abltyGroup.remove();
+      console.log("Removing ablity spawned, player took to long");
       healthPackSpawned = false;
       doublePointAblitySpawned = false;
     }, 4000);
