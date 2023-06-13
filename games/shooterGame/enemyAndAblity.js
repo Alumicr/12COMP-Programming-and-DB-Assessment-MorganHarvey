@@ -56,7 +56,6 @@ function enemy() {
         i--;
         continue;
       }
-
       //creates enemies with random postions using values from above
       //asigns properties 
       enemy1 = new Sprite(enemyX, enemyY, 29, 29, "d");
@@ -80,7 +79,6 @@ function enemyTwo() {
       let dx = enemyX - player.pos.x;
       let dy = enemyY - player.pos.y
       let distance = sqrt(dx * dx + dy * dy);
-
       //checks if distance from player is allowed
       if (distance < PLAYERSAFESPAWNINGZONE) {
         console.log("Enemy spawn too close, remaking");
@@ -110,7 +108,6 @@ function enemyThree() {
       let dx = enemyX - player.pos.x;
       let dy = enemyY - player.pos.y;
       let distance = sqrt(dx * dx + dy * dy);
-
       //checks if distance from plyer is allowed
       if (distance < PLAYERSAFESPAWNINGZONE) {
         console.log("Enemy spawn too close, remaking");
@@ -141,7 +138,7 @@ function ablityOne() {
     let randomNumberGenerator = Math.random();
     // rounds random number
     randomNumberGenerator = Math.floor(randomNumberGenerator * 100);
-    console.log(randomNumberGenerator);
+    console.log("Random number generated is "+randomNumberGenerator);
     // calculates values
     for (i = 0; i < 1; i++) {
       let ablityX = random(width);
@@ -149,14 +146,13 @@ function ablityOne() {
       let dx = ablityX - player.pos.x;
       let dy = ablityY - player.pos.y;
       let distance = sqrt(dx * dx + dy * dy);
-
       //checks if distance from plyer is allowed so player has to move for ablity
       if (distance < PLAYERSAFESPAWNINGZONE) {
         console.log("Ablity spawn too close, remaking");
         i--;
         continue;
       }
-      // IF TIMER IS EVEN SPAWNS DOUBLE POINT ABLITY
+      // IF RANDOM NUMBER IS EVEN SPAWNS DOUBLE POINT ABLITY
       if (randomNumberGenerator % 2 == 0) {
         console.log("Spawning double point ablity");
         // creates spawns using values above and sets items below + add to group
@@ -167,7 +163,7 @@ function ablityOne() {
         abltyGroup.add(ablitySprite);
         doublePointAblitySpawned = true;
       }
-      // IF TIMER IS ODD SPAWNS HEALTH PACK
+      // IF RANDOM NUMBER IS ODD SPAWNS HEALTH PACK
       else {
         console.log("Spawning health pack");
         // creates spawns using values above and sets items below + add to group

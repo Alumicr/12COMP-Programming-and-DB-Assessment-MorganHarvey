@@ -1,9 +1,9 @@
 //  start of code 
 // vars
 var gameOver_pong = false;
+var gameStarted = false;
 var countDownText_pong;
 var highScoreTitle_pong = "HIGHSCORES";
-var gameStarted = false;
 // lets
 let score_pong = 0;
 let paddleSpeedUp = -8;
@@ -25,17 +25,15 @@ function setup() {
     ball.drag = 0;
     // groups
     wallGroup = new Group();
-
     // makes the paddle
     paddle = new Sprite(200, 500, 10, 90, 'k');
     paddle.color = color("white");
     paddle.vel.y = 0;
-
+    
     walls();
     // interval timers
     startTimerInterval = setInterval(pre_game, 1000);
     ball.collide(paddle, increaseScore);
-
     // paddle movement
     // up movement
     document.addEventListener("keydown", function(event) {
@@ -89,7 +87,6 @@ function pre_game() {
   }
 }
 
-
 //players score
 function increaseScore() {
   score_pong++;
@@ -111,7 +108,6 @@ function gameTimer() {
 }
 
 // BUTTON FUNCTIONS
-
 function buttonDisplay_pong() {
   // displays buttons
   // reset button

@@ -106,6 +106,7 @@ function pre_game() {
     timer -= 1;
     console.log("Game starting in " + timer);
   }
+  // once timer reaches 0 runs below
   if (timer <= 0 && waveStarted == false && gameOver == false) {
     //calls functions to start game
     console.log("Wave starting");
@@ -147,7 +148,7 @@ function playerDamage() {
   setTimeout(function() {
     // resets colour after time
     player.color = color("white");
-  }, 0500);
+  }, 0555);
 }
 
 //players gun when clicked
@@ -212,12 +213,12 @@ function buttonDisplay() {
   // displays reset button
   button = createButton('Play again!');
   button.position(deadTextPostionX, deadTextPostionY + 140);
-  button.mousePressed(restartGame);
   // displays home button
   button2 = createButton('Return to home page!');
   button2.position(deadTextPostionX + 150, deadTextPostionY + 140);
+  // runs function if button is pressed
+  button.mousePressed(restartGame);  
   button2.mousePressed(SendPlayerBack);
-
   // if home button presssed sends user back to home page
   function SendPlayerBack() {
     console.log("Sending user to home Page");
@@ -236,7 +237,7 @@ function buttonDisplay() {
     clearInterval(enemy1Interval);
     clearInterval(enemy2Interval);
     clearInterval(enemy3Interval);
-    // resets values
+    // resets the rest of the values
     normalEnemyScoreValue = 2;
     normalEnemySpeed = 1.7;
     normalEnemySpawnCount = 6;
@@ -250,7 +251,7 @@ function buttonDisplay() {
     timer = 3;
     playerHealth = 100;
     score_shooterGame = 0;
-    // removes/clears enitys
+    // removes/clears the rest of the enitys
     deadPlayer.remove();
     button2.remove();
     button.remove();
@@ -297,7 +298,7 @@ function draw() {
     playerDamage();
   });
 
-  // checks player health, changes values and stops game
+  // checks player health, changes some values and stops game
   if (playerHealth <= 0) {
     countDownStarted = false;
     ablityText = '';
@@ -320,7 +321,7 @@ function draw() {
     }
   }
 
-  //enemy items
+  //ENEMY ITEMS
   //enemy 1 movement
   for (i = 0; i < normalEnemy.length; i++) {
     enemy1 = normalEnemy[i];
@@ -376,8 +377,8 @@ function draw() {
       bullet.remove();
       enemy.health -= bulletDamage;
     }
-  });
-
+  });  
+  
   // makes game harder
   if (score_shooterGame >= 100) {
     // speeds enemys up
@@ -415,7 +416,7 @@ function draw() {
         playerHealth = 100;
       }
       console.log("Player has " + playerHealth + " health.")
-      ablityText = "You have gained 50 health";
+      ablityText = "You have collected a healthpack!\nYou have gained 50 health";
       healthPackSpawned = false;
     }
   });
@@ -430,7 +431,7 @@ function draw() {
   if (countDownStarted == true && waveStarted == false) {
     countDownText = " ";
     countDownText = "Game Starting in...";
-    text(countDownText + " " + timer, width / 2 - 120, height / 2);
+    text(countDownText + " " + timer, width / 2.5, height / 2);
   }
   else {
     //removes countdown text
@@ -480,7 +481,6 @@ function draw() {
   if (doublePointAblitySpawned == true || healthPackSpawned == true) {
     setTimeout(function() {
       abltyGroup.remove();
-      console.log("Removing ablity spawned, player took to long");
       healthPackSpawned = false;
       doublePointAblitySpawned = false;
     }, 4000);
