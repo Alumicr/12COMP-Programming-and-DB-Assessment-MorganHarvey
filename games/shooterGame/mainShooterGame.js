@@ -126,7 +126,7 @@ function waveStarter() {
     enemy1Interval = setInterval(enemy, 5000);
     enemy2Interval = setInterval(enemyTwo, 8000);
     enemy3Interval = setInterval(enemyThree, 11000);
-    ablity1Interval = setInterval(ablityOne, 16500);
+    ablity1Interval = setInterval(ablityOne, 13000);
   }
 }
 

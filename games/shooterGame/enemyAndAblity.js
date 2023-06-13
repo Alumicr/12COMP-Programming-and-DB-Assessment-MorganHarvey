@@ -13,7 +13,7 @@ var healthPackSpawned = false;
 let enemy1Health = 2;
 let normalEnemySpawnCount = 6;
 let normalEnemyScoreValue = 2;
-let normalEnemySpeed = 1.7;
+let normalEnemySpeed = 1.7; 
 //strong enemy lets
 let strongEnemySpawnCount = 3;
 let enemy2Health = 3;

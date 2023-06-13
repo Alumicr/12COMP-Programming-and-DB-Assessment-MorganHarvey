@@ -1,5 +1,6 @@
 //vars 
 var FbHasUpdated = false;
+var screenNameError = false;
 var userScreenName;
 var userPassword;
 var usersEmail;
@@ -18,10 +19,10 @@ function fb_error(error) {
   console.log("Error found");
   console.error(error);
 }
+
 //CHECK REGISTARTION
 function fb_checkRegistration() {
   console.log("Checking Registration");
-  document.getElementById("logInButtonMessage").innerHTML = "Checking user registartion...";
   //displays html text
   firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
 }
@@ -95,6 +96,7 @@ function fb_authenticator(_DOTHIS) {
 }
 
 function fb_register() {
+  //updates html text
   document.getElementById("registartionConfermationMessage").innerHTML = "Saving registration data... ";
   // saves users data from HTML form
   console.log("Returning HTML registration values");
@@ -102,7 +104,14 @@ function fb_register() {
   console.log(HTML_password.value);
   userScreenName = (HTML_screen_name.value);
   userPassword = (HTML_password.value);
-
+  //checks if display name is over 10 charcaters
+  if (userScreenName.length > 10){
+    //displays error message
+document.getElementById("registartionConfermationMessage").innerHTML = "Your screen name is too long! Please enter a valid screen name.";
+    
+  }
+  //checks if display name is under 10 charcaters
+  else if (userScreenName.length < 10){
   // saves data to new object
   let webDataObject = {
     userDisplayName: userScreenName,
@@ -119,10 +128,12 @@ function fb_register() {
   Object.assign(userDataObject, webDataObject);
   console.log(userDataObject);
   fb_saveData();
+  }
 }
 
-// save data to database
+
 function fb_saveData() {
+  // save data to database
   console.log("Saving users data to database");
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/').set(
     gameDataObject,
@@ -134,8 +145,10 @@ function fb_saveData() {
     userDataObject,
   ).then(_DOTHIS);
   function _DOTHIS() {
+    //updates html text
     document.getElementById("registartionConfermationMessage").innerHTML = "Welcome " + userDataObject.userDisplayName + "! Sending you to the game page..";
     setTimeout(function() {
+      //sends user to game page after a while
       window.location = "gameHomePage.html";
     }, 1500);
   }
@@ -148,11 +161,20 @@ function userChangeName() {
   console.log("Returning HTML registration values");
   userScreenName = (HTML_screen_name.value);
   console.log(userDataObject);
-  updateFireBaseNewScreenName();
+
+  //limits screen name to a certain size
+  if (userScreenName.length > 10) {
+    screenNameError = true;
+    updateHTML();
+  }
+
+  else if (userScreenName.length <= 10) {
+  fb_updateFireBaseNewScreenName();
   updateHTML();
+  }
 }
 
-function updateFireBaseNewScreenName() {
+function fb_updateFireBaseNewScreenName() {
   // updates firebase
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/userDisplayName/').set(
     userScreenName
@@ -168,10 +190,17 @@ function updateFireBaseNewScreenName() {
   FbHasUpdated = true;
   updateHTML();
 }
+
+//HTML CHANGE FUNCTIONS BELOW
 function updateHTML() {
   // updates html
   var statusMessage = document.getElementById("statusMessage");
   statusMessage.textContent = "Updating your screen name.. please wait.."
+  //displays error message if screen name to long
+  if (screenNameError == true) {
+    console.log("INAVLID SCREENNAME");
+    statusMessage.textContent = "Your screen name is too long! Max character count is 10 characters! Please enter a valid screen name!"
+  }
 
   if (FbHasUpdated == true) {
     setTimeout(function() {
@@ -187,6 +216,11 @@ function updateHTML() {
 
 }
 
+//CHANGES HTML TEXT
+function changeLandingHTMLText() {
+  //changes HTML text instantly when button is pressed to loading message
+  document.getElementById("logInButtonMessage").innerHTML = "Checking user registartion...";
+}
 //BUTTON FUNCTIONS BELOW
 // send user to game when button clicked
 function shooterGamePageSender() {
