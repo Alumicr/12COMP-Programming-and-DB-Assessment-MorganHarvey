@@ -1,5 +1,4 @@
 //vars 
-var fb_usersDisplayName;
 var FbHasUpdated = false;
 var userScreenName;
 var userPassword;
@@ -7,6 +6,7 @@ var usersEmail;
 var userID;
 var userName;
 var userPhoto;
+var fb_usersDisplayName;
 //lets
 let gameDataObject;
 let userDataObject;
@@ -32,28 +32,29 @@ function _readUID(snapshot) {
     // user has not registered
     console.log("User has not registered");
     //displays html text
-    document.getElementById("logInButtonMessage").innerHTML = "You are new here! You will have to register! ";
+    document.getElementById("logInButtonMessage").innerHTML = "You are new here so you will have to register!   Sending you to the Registration page... ";
     // send them to registation page after a certin time
     setTimeout(function() {
-      window.location = "register_page.html"
+      window.location = "register_page.html";
     }, 1500);
   } else {
+    //if users is registered
     //reads the user display name
     firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/userDisplayName/').once('value',
       function(snapshot) {
+        //asigns to var
         fb_usersDisplayName = snapshot.val();
         console.log(fb_usersDisplayName);
         displayHTML();
-        // user is registered
         console.log("User is registered");
       }, fb_error);
 
     function displayHTML() {
-      //displays html text
-      document.getElementById("logInButtonMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "!\nSending you to the game page!";
-      //sends them to game page after  a certin time
+      //displays html text with the plays displayname
+      document.getElementById("logInButtonMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "! Sending you to the game page...";
+      //sends them to game page after a certin time
       setTimeout(function() {
-        window.location = "gameHomePage.html"
+        window.location = "gameHomePage.html";
       }, 1500);
     }
   }
@@ -94,6 +95,7 @@ function fb_authenticator(_DOTHIS) {
 }
 
 function fb_register() {
+  document.getElementById("registartionConfermationMessage").innerHTML = "Saving registration data... ";
   // saves users data from HTML form
   console.log("Returning HTML registration values");
   console.log(HTML_screen_name.value);
@@ -132,7 +134,10 @@ function fb_saveData() {
     userDataObject,
   ).then(_DOTHIS);
   function _DOTHIS() {
-    window.location = "gameHomePage.html";
+    document.getElementById("registartionConfermationMessage").innerHTML = "Welcome " + userDataObject.userDisplayName + "! Sending you to the game page..";
+    setTimeout(function() {
+      window.location = "gameHomePage.html";
+    }, 1500);
   }
 }
 //USER CHANGING DISPLAYNAME FUNCTIONS BELOW

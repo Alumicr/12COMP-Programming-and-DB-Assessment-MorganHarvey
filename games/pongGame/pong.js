@@ -183,7 +183,7 @@ function draw() {
     wallRH.bounciness = 1.2;
   }
   if (score_pong == 8) {
-    wallRH.bounciness = 1.5;
+    wallRH.bounciness = 2;
     paddleSpeedDown = 10;
     paddleSpeedUp = -10;
   }
