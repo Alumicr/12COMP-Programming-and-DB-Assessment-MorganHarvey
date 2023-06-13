@@ -44,12 +44,12 @@ function readHighScoreHomePage_shooter() {
   // pulls the 10 highscores
   firebase.database().ref('/userGameScores/shooterGame/').orderByChild('highScore').limitToLast(10).once('value', function(snapshot) {
     console.log(snapshot.val());
-    snapshot.forEach(savetop10HighScores);
+    snapshot.forEach(top10HighScoreShooterAsign);
     highScoresLoaded = true;
   }, fb_error);
 }
 
-function savetop10HighScores(child) {
+function top10HighScoreShooterAsign(child) {
   // asigns to var
   var fb_highScoresTop10 = highScoreTableRank_shooter + ". " + child.val().userDisplayName + ": " + child.val().highScore;
   highScoreTableRank_shooter--;
@@ -67,13 +67,13 @@ function readHighScoresHomePage_pong() {
   // reads the top 3 scores
   firebase.database().ref('/userGameScores/pongGame/').orderByChild('highScore').limitToLast(10).once('value', function(snapshot) {
     console.log(snapshot.val());
-    snapshot.forEach(savesHighScoreInfo);
+    snapshot.forEach(top10HighScorePongAsign);
     highScoresLoaded = true;
   }, fb_error);
 }
 
 // saves firebase highscore items to variable
-function savesHighScoreInfo(child) {
+function top10HighScorePongAsign(child) {
   var fb_dataHighScoresTop10 = highScoreTableRank_pong + ". " + child.val().userDisplayName + ": " + child.val().highScore;
   highScoreTableRank_pong--;
   // asigns items to array

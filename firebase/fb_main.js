@@ -1,4 +1,5 @@
-//vars n stuff
+//vars 
+var fb_usersDisplayName;
 var FbHasUpdated = false;
 var userScreenName;
 var userPassword;
@@ -6,20 +7,22 @@ var usersEmail;
 var userID;
 var userName;
 var userPhoto;
+//lets
 let gameDataObject;
 let userDataObject;
 
-
-//FIREBASE ERROR
-//sends out error message
+//START OF CODE
+//FIREBASE ERROR FUNCTION
 function fb_error(error) {
+  //sends out error message
   console.log("Error found");
   console.error(error);
 }
-
-//check to see if user is registerd with database
+//CHECK REGISTARTION
 function fb_checkRegistration() {
   console.log("Checking Registration");
+  document.getElementById("logInButtonMessage").innerHTML = "Checking user registartion...";
+  //displays html text
   firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
 }
 
@@ -27,14 +30,32 @@ function _readUID(snapshot) {
   console.log(snapshot.val());
   if (snapshot.val() == null) {
     // user has not registered
-    // send them to registation page
     console.log("User has not registered");
-    window.location = "register_page.html"
+    //displays html text
+    document.getElementById("logInButtonMessage").innerHTML = "You are new here! You will have to register! ";
+    // send them to registation page after a certin time
+    setTimeout(function() {
+      window.location = "register_page.html"
+    }, 1500);
   } else {
-    // user is registered
-    // send them to the game page
-    console.log("User is registered");
-    window.location = "gameHomePage.html"
+    //reads the user display name
+    firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/userDisplayName/').once('value',
+      function(snapshot) {
+        fb_usersDisplayName = snapshot.val();
+        console.log(fb_usersDisplayName);
+        displayHTML();
+        // user is registered
+        console.log("User is registered");
+      }, fb_error);
+
+    function displayHTML() {
+      //displays html text
+      document.getElementById("logInButtonMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "!\nSending you to the game page!";
+      //sends them to game page after  a certin time
+      setTimeout(function() {
+        window.location = "gameHomePage.html"
+      }, 1500);
+    }
   }
 }
 
@@ -42,7 +63,6 @@ function _readUID(snapshot) {
 // runs functions through it
 function fb_authenticator(_DOTHIS) {
   console.log("Handling Google login");
-
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // asigns users to object
@@ -123,8 +143,8 @@ function userChangeName() {
   console.log("Returning HTML registration values");
   userScreenName = (HTML_screen_name.value);
   console.log(userDataObject);
+  updateFireBaseNewScreenName();
   updateHTML();
-  updateFireBaseNewScreenName()
 }
 
 function updateFireBaseNewScreenName() {

@@ -145,9 +145,11 @@ function ablityOne() {
       let ablityY = random(height);
       let dx = ablityX - player.pos.x;
       let dy = ablityY - player.pos.y;
+      // calculates distance between ablity and player
       let distance = sqrt(dx * dx + dy * dy);
-      //checks if distance from plyer is allowed so player has to move for ablity
+      //checks if distance from player is allowed so player has to move for ablity
       if (distance < PLAYERSAFESPAWNINGZONE) {
+      //if to close removes it and makes it again
         console.log("Ablity spawn too close, remaking");
         i--;
         continue;
@@ -157,7 +159,7 @@ function ablityOne() {
         console.log("Spawning double point ablity");
         // creates spawns using values above and sets items below + add to group
         ablitySprite = new Sprite(ablityX, ablityY, 60, 'd');
-        // asigns properties
+        // asigns properties and changes value
         ablitySprite.color = color("white");
         ablitySprite.text = "x2";
         abltyGroup.add(ablitySprite);
@@ -172,7 +174,7 @@ function ablityOne() {
         ablitySprite.color = color("white");
         ablitySprite.text = "50HP";
         abltyGroup.add(ablitySprite);
-        // changes var to true
+        // changes value to true
         healthPackSpawned = true;
       }
     }

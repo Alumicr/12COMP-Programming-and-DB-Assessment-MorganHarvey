@@ -4,7 +4,7 @@
 var gameOver = false;
 var countDownStarted = false;
 var waveStarted = false;
-// player and enemy vars
+// player vars
 var player;
 var deadPlayer;
 var bullet;
@@ -247,10 +247,11 @@ function buttonDisplay() {
     speedEnemySpawnCount = 5;
     speedEnemyScoreValue = 1;
     speedEnemySpeed = 2.9;
-    gameOver = false;
     timer = 3;
     playerHealth = 100;
     score_shooterGame = 0;
+    doublePointTimer = 0;
+    gameOver = false;
     // removes/clears the rest of the enitys
     deadPlayer.remove();
     button2.remove();
