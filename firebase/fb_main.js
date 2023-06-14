@@ -218,6 +218,7 @@ function updateHTML() {
     document.getElementById("ChangeScreenNameButton").disabled = false;
     updatingFireBaseNewScreenName = false;
     screenNameError = false;
+    clearText();
   }
   //displays confermation text a certain time after var is changed
   if (FbHasUpdated == true) {
@@ -227,13 +228,16 @@ function updateHTML() {
       updatingFireBaseNewScreenName = false;
       document.getElementById("ChangeScreenNameButton").disabled = false;
     }, 2000);
+    clearText();
 
-    setTimeout(function() {
-      if (updatingFireBaseNewScreenName == false) {
-        // clears html text after a certain time and if var is set
-        statusMessage.textContent = "";
-      }
-    }, 4000);
+    function clearText() {
+      setTimeout(function() {
+        if (updatingFireBaseNewScreenName == false) {
+          // clears html text after a certain time and if var is set
+          statusMessage.textContent = "";
+        }
+      }, 3000);
+    }
   }
 }
 
