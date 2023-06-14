@@ -96,8 +96,11 @@ function fb_authenticator(_DOTHIS) {
 }
 
 function fb_register() {
+  //disables button
+  document.getElementById("registrationButton").disabled = true;
+  var registrationnText = document.getElementById("registartionConfermationMessage");
   //updates html text
-  document.getElementById("registartionConfermationMessage").innerHTML = "Saving registration data... ";
+  registrationnText.textContent = "Saving registration data... ";
   // saves users data from HTML form
   console.log("Returning HTML registration values");
   console.log(HTML_screen_name.value);
@@ -106,10 +109,16 @@ function fb_register() {
   userPassword = (HTML_password.value);
   //checks if display name is over 10 charcaters
   if (userScreenName.length > 10) {
+    //unlocks button
+    document.getElementById("registrationButton").disabled = false;
     //displays error message
-    document.getElementById("registartionConfermationMessage").innerHTML = "Your screen name is too long! Please enter a valid screen name.";
+    registrationnText.textContent = "Your screen name is too long! Please enter a valid screen name.";
+    setTimeout(function() {
+      //removes the text after a certain time
+      registrationnText.textContent = " ";
+    }, 2000)
   }
-  //checks if display name is under 10 charcaters
+
   else {
     // saves data to new object
     let webDataObject = {
@@ -197,7 +206,7 @@ function updateHTML() {
   // updates html
   var statusMessage = document.getElementById("statusMessage");
   statusMessage.textContent = "Updating your screen name.. please wait.."
-
+  
   //displays error message if screen name to long
   if (screenNameError == true) {
     console.log("INAVLID SCREENNAME");
