@@ -1,6 +1,7 @@
 //vars 
 var FbHasUpdated = false;
 var screenNameError = false;
+var updatingFireBaseNewScreenName = false;
 var userScreenName;
 var userPassword;
 var usersEmail;
@@ -97,6 +98,7 @@ function fb_authenticator(_DOTHIS) {
 
 function fb_register() {
   //disables button
+  updatingFireBaseNewScreenName = true;
   document.getElementById("registrationButton").disabled = true;
   var registrationnText = document.getElementById("registartionConfermationMessage");
   //updates html text
@@ -178,14 +180,14 @@ function userChangeName() {
     updateHTML();
   }
 
-  else if (userScreenName.length <= 10) {
+  else {
     fb_updateFireBaseNewScreenName();
     updateHTML();
   }
 }
 
 function fb_updateFireBaseNewScreenName() {
-  // updates firebase
+  // updates firebase with users screen name
   firebase.database().ref('userGameScores/pongGame/' + userDataObject.userID + '/userDisplayName/').set(
     userScreenName
   )
@@ -198,6 +200,7 @@ function fb_updateFireBaseNewScreenName() {
   // updates var
   console.log("Firebase has updated");
   FbHasUpdated = true;
+  //calls update html function
   updateHTML();
 }
 
@@ -213,27 +216,26 @@ function updateHTML() {
     statusMessage.textContent = "Your screen name is too long! Max character count is 10 characters! Please enter a valid screen name!"
     //enables the button
     document.getElementById("ChangeScreenNameButton").disabled = false;
+    updatingFireBaseNewScreenName = false;
+    screenNameError = false;
   }
   //displays confermation text a certain time after var is changed
   if (FbHasUpdated == true) {
     setTimeout(function() {
       statusMessage.textContent = "Your screen name  has been updated!";
       //enables the button
+      updatingFireBaseNewScreenName = false;
       document.getElementById("ChangeScreenNameButton").disabled = false;
     }, 2000);
   }
-
-  setTimeout(function() {
-    // clears html
-    statusMessage.textContent = "";
-  }, 4000);
+   if (updatingFireBaseNewScreenName = false){
+   setTimeout(function() {
+      // clears html text after a certain time
+      statusMessage.textContent = "";
+    }, 4000);
+  }
 }
 
-//CHANGES HTML TEXT
-function changeLandingHTMLText() {
-  //changes HTML text instantly when button is pressed to loading message
-  document.getElementById("logInButtonMessage").innerHTML = "Checking user registartion...";
-}
 //BUTTON FUNCTIONS BELOW
 // send user to game when button clicked
 function shooterGamePageSender() {
@@ -253,8 +255,17 @@ function sendUserToHighScorePage() {
 
 // sends user to log in page (logs user out)
 function logUserOut() {
+  //disables button
+  document.getElementById("logOutButonID").disabled = true;
   console.log("Logging user out");
+  //logs user out
   window.location = "index.html";
+}
+
+//CHANGES HTML TEXT
+function changeLandingHTMLText() {
+  //changes HTML text instantly when button is pressed to loading message
+  document.getElementById("logInButtonMessage").innerHTML = "Checking user registration...";
 }
 
 // end of code

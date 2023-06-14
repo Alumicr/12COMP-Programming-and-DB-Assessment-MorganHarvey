@@ -184,7 +184,7 @@ function draw() {
   // makes game harder when score reaches an amount
   if (score_pong == 3) {
     paddleSpeedDown = 9;
-    paddleSpeedUp = -9'
+    paddleSpeedUp = -9;
   }
   if (score_pong == 8) {
     wallRH.bounciness = 2;
