@@ -209,7 +209,7 @@ function updateHTML() {
   // updates html
   var statusMessage = document.getElementById("statusMessage");
   statusMessage.textContent = "Updating your screen name.. please wait.."
-  
+
   //displays error message if screen name to long
   if (screenNameError == true) {
     console.log("INAVLID SCREENNAME");
@@ -227,11 +227,12 @@ function updateHTML() {
       updatingFireBaseNewScreenName = false;
       document.getElementById("ChangeScreenNameButton").disabled = false;
     }, 2000);
-  }
-   if (updatingFireBaseNewScreenName = false){
-   setTimeout(function() {
-      // clears html text after a certain time
-      statusMessage.textContent = "";
+
+    setTimeout(function() {
+      if (updatingFireBaseNewScreenName == false) {
+        // clears html text after a certain time and if var is set
+        statusMessage.textContent = "";
+      }
     }, 4000);
   }
 }
