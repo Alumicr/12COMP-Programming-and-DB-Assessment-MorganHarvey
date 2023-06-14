@@ -63,12 +63,12 @@
     <form onsubmit="return false;">
       <label for="HTML_screen_name">New screen name:</label><br>
       <input type="text" id="HTML_screen_name" name="name"><br>
-      <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit"  class="RegisterButton">
+      <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit" id="ChangeScreenNameButton" class="RegisterButton">
     </form>
     <h3 class="confirmation_messsage" id="statusMessage"></h3>
   </div>
   <!--log out button-->
-  <button onclick="logUserOut()" class="LogoutButton"> Log out </button>
+  <button id="changeUserScreenNameButton" onclick="logUserOut()" class="LogoutButton"> Log out </button>
 </body>
 
 </html>

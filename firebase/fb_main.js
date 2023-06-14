@@ -105,29 +105,28 @@ function fb_register() {
   userScreenName = (HTML_screen_name.value);
   userPassword = (HTML_password.value);
   //checks if display name is over 10 charcaters
-  if (userScreenName.length > 10){
+  if (userScreenName.length > 10) {
     //displays error message
-document.getElementById("registartionConfermationMessage").innerHTML = "Your screen name is too long! Please enter a valid screen name.";
-    
+    document.getElementById("registartionConfermationMessage").innerHTML = "Your screen name is too long! Please enter a valid screen name.";
   }
   //checks if display name is under 10 charcaters
-  else if (userScreenName.length < 10){
-  // saves data to new object
-  let webDataObject = {
-    userDisplayName: userScreenName,
-    userPassword: userPassword,
-  }
-  // makes new object and asigns items to object
-  gameDataObject = {
-    userDisplayName: userScreenName,
-    highScore: 0,
-    lastScore: 0,
-  }
+  else {
+    // saves data to new object
+    let webDataObject = {
+      userDisplayName: userScreenName,
+      userPassword: userPassword,
+    }
+    // makes new object and asigns items to object
+    gameDataObject = {
+      userDisplayName: userScreenName,
+      highScore: 0,
+      lastScore: 0,
+    }
 
-  // combines the objects into one
-  Object.assign(userDataObject, webDataObject);
-  console.log(userDataObject);
-  fb_saveData();
+    // combines the objects into one
+    Object.assign(userDataObject, webDataObject);
+    console.log(userDataObject);
+    fb_saveData();
   }
 }
 
@@ -156,6 +155,8 @@ function fb_saveData() {
 //USER CHANGING DISPLAYNAME FUNCTIONS BELOW
 // user wants to change there display name
 function userChangeName() {
+  //disables the button
+  document.getElementById("ChangeScreenNameButton").disabled = true;
   FbHasUpdated = false;
   //saves new display name
   console.log("Returning HTML registration values");
@@ -169,8 +170,8 @@ function userChangeName() {
   }
 
   else if (userScreenName.length <= 10) {
-  fb_updateFireBaseNewScreenName();
-  updateHTML();
+    fb_updateFireBaseNewScreenName();
+    updateHTML();
   }
 }
 
@@ -196,24 +197,27 @@ function updateHTML() {
   // updates html
   var statusMessage = document.getElementById("statusMessage");
   statusMessage.textContent = "Updating your screen name.. please wait.."
+
   //displays error message if screen name to long
   if (screenNameError == true) {
     console.log("INAVLID SCREENNAME");
     statusMessage.textContent = "Your screen name is too long! Max character count is 10 characters! Please enter a valid screen name!"
+    //enables the button
+    document.getElementById("ChangeScreenNameButton").disabled = false;
   }
-
+  //displays confermation text a certain time after var is changed
   if (FbHasUpdated == true) {
     setTimeout(function() {
-      //if var is set shows confermation text
       statusMessage.textContent = "Your screen name  has been updated!";
+      //enables the button
+      document.getElementById("ChangeScreenNameButton").disabled = false;
     }, 2000);
   }
 
   setTimeout(function() {
     // clears html
     statusMessage.textContent = "";
-  }, 5000);
-
+  }, 4000);
 }
 
 //CHANGES HTML TEXT

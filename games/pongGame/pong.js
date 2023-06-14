@@ -29,7 +29,7 @@ function setup() {
     paddle = new Sprite(200, 500, 10, 90, 'k');
     paddle.color = color("white");
     paddle.vel.y = 0;
-    
+
     walls();
     // interval timers
     startTimerInterval = setInterval(pre_game, 1000);
@@ -134,6 +134,7 @@ function buttonDisplay_pong() {
     // resets values
     gameOver_pong = false;
     gameStarted = false;
+    wallRH.bounciness = 1;
     score_pong = 0;
     paddleSpeedUp = -8;
     paddleSpeedDown = 8;
@@ -165,10 +166,12 @@ function draw() {
       textSize(30);
       ball.color = color("red");
       fill("red");
+      // if new highscore displays new highscore text
       if (fireBasePongHighScore < score_pong) {
         text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!\nYou have a new Highscore!", width / 4, 200);
       }
       else {
+        //else displays normal text
         text("Game over! You got a score of: " + score_pong + "!\nThe game lasted " + timer_pong + " seconds!", width / 4, 200);
       }
       buttonDisplay_pong();
@@ -180,7 +183,8 @@ function draw() {
 
   // makes game harder when score reaches an amount
   if (score_pong == 3) {
-    wallRH.bounciness = 1.2;
+    paddleSpeedDown = 9;
+    paddleSpeedUp = -9'
   }
   if (score_pong == 8) {
     wallRH.bounciness = 2;
@@ -219,7 +223,7 @@ function draw() {
   }
 
   //timer text
-  textSize(50);
-  text(timer_pong, width - 65, 60);
+  textSize(40);
+  text(timer_pong, width - 70, 60);
 }
 // end of code
