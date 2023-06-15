@@ -62,9 +62,10 @@
     <p> Please wait for the confirmation message before leaving this page. Max characters for your screen name is 10!</p>
     <form onsubmit="return false;">
       <label for="HTML_screen_name">New screen name:</label><br>
-      <input type="text" id="HTML_screen_name" name="name"><br>
+      <input maxLength = "10" type="text" id="HTML_screen_name" name="name"><br>
       <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit" id="ChangeScreenNameButton" class="RegisterButton">
     </form>
+     <!--html text (changes in fb_main.js)-->
     <h3 class="confirmation_messsage" id="statusMessage"></h3>
   </div>
   <!--log out button-->

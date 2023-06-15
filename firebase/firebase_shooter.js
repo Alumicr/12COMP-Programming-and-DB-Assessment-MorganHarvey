@@ -48,7 +48,7 @@ function fb_highScoresTableReader2() {
 // saves firebase highscore items to variable
 function savesHighScoreInfo(child) {
   var fb_data2 = highScoreNumber + ". " + child.val().userDisplayName + ": " + child.val().highScore;
-    highScoreNumber--;
+  highScoreNumber--;
 
   // asigns items to an array
   shooterHighScoreTable.push(fb_data2);

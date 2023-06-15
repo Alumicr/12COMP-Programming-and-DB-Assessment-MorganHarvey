@@ -51,12 +51,14 @@
     <h1> Registration page:</h1>
     <p> Please register to continue to game page! Max characters for your screen name is 10!</p>
     <form onsubmit="return false;">
-      <label for="HTML_screen_name">Screen name:</label><br>
+      <label maxLength="10" for="HTML_screen_name">Screen name:</label><br>
       <input type="text" id="HTML_screen_name" name="name"><br>
       <label for="HTML_password">Password: </label> <br>
       <input id="HTML_password" name="password" type="password" <br><br>
-      <input id="registrationButton" onclick="fb_authenticator(fb_register)" type="submit" value="Submit" class="RegisterButton">
-        <h3 class="confirmation_messsage" id="registartionConfermationMessage"></h3>
+      <input id="registrationButton" onclick="fb_authenticator(fb_register)" type="submit" value="Submit"
+        class="RegisterButton">
+           <!--html text (changes in fb_main.js)-->
+      <h3 class="confirmation_messsage" id="registartionConfermationMessage"></h3>
     </form>
   </div>
 </body>

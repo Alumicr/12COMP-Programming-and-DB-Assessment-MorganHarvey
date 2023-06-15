@@ -49,7 +49,6 @@ function enemy() {
       let dx = enemyX - player.pos.x;
       let dy = enemyY - player.pos.y
       let distance = sqrt(dx * dx + dy * dy);
-
       //checks if distance from player is allowed
       if (distance < PLAYERSAFESPAWNINGZONE) {
         console.log("Enemy spawn too close, remaking");

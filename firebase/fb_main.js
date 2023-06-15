@@ -1,6 +1,7 @@
 //vars 
 var FbHasUpdated = false;
 var screenNameError = false;
+var screenNameError1 = false;
 var updatingFireBaseNewScreenName = false;
 var userScreenName;
 var userPassword;
@@ -17,7 +18,7 @@ let userDataObject;
 //FIREBASE ERROR FUNCTION
 function fb_error(error) {
   //sends out error message
-  console.log("Error found");
+  console.error("Error found");
   console.error(error);
 }
 
@@ -100,45 +101,70 @@ function fb_register() {
   //disables button
   updatingFireBaseNewScreenName = true;
   document.getElementById("registrationButton").disabled = true;
-  var registrationnText = document.getElementById("registartionConfermationMessage");
+  var registrationText = document.getElementById("registartionConfermationMessage");
   //updates html text
-  registrationnText.textContent = "Saving registration data... ";
+  registrationText.textContent = "Saving registration data... ";
   // saves users data from HTML form
   console.log("Returning HTML registration values");
   console.log(HTML_screen_name.value);
   console.log(HTML_password.value);
-  userScreenName = (HTML_screen_name.value);
-  userPassword = (HTML_password.value);
+  userScreenName = HTML_screen_name.value;
+  userPassword = HTML_password.value;
   //checks if display name is over 10 charcaters
   if (userScreenName.length > 10) {
+    console.error("INVALID SCREEN NAME")
     //unlocks button
     document.getElementById("registrationButton").disabled = false;
     //displays error message
-    registrationnText.textContent = "Your screen name is too long! Please enter a valid screen name.";
+    registrationText.textContent = "Your screen name is too long! Please enter a valid screen name.";
     setTimeout(function() {
       //removes the text after a certain time
-      registrationnText.textContent = " ";
-    }, 2000)
+      registrationText.textContent = " ";
+    }, 2000);
+  }
+
+  else if (userScreenName.length == 0) {
+      console.error("INVALID SCREEN NAME")
+    //unlocks button
+    document.getElementById("registrationButton").disabled = false;
+    //dispalsy error message
+    registrationText.textContent = "Your screen name is too short! Please enter a valid screen name.";
+    setTimeout(function() {
+      //removes the text after a certain time
+      registrationText.textContent = " ";
+    }, 2000);
+  }
+
+  else if (userPassword.length == 0) {
+        console.error("INVALID PASSWORD")
+    //unlocks button
+    document.getElementById("registrationButton").disabled = false;
+    //dispalsy error message
+    registrationText.textContent = "Your password is too short! Please enter a valid password.";
+    setTimeout(function() {
+      //removes the text after a certain time
+      registrationText.textContent = " ";
+    }, 2000);
   }
 
   else {
-    // saves data to new object
-    let webDataObject = {
-      userDisplayName: userScreenName,
-      userPassword: userPassword,
-    }
-    // makes new object and asigns items to object
-    gameDataObject = {
-      userDisplayName: userScreenName,
-      highScore: 0,
-      lastScore: 0,
-    }
-
-    // combines the objects into one
-    Object.assign(userDataObject, webDataObject);
-    console.log(userDataObject);
-    fb_saveData();
+  // saves data to new object
+  let webDataObject = {
+    userDisplayName: userScreenName,
+    userPassword: userPassword,
   }
+  // makes new object and asigns items to object
+  gameDataObject = {
+    userDisplayName: userScreenName,
+    highScore: 0,
+    lastScore: 0,
+  }
+
+  // combines the objects into one
+  Object.assign(userDataObject, webDataObject);
+  console.log(userDataObject);
+  fb_saveData();
+}
 }
 
 
@@ -179,6 +205,10 @@ function userChangeName() {
     screenNameError = true;
     updateHTML();
   }
+  if (userScreenName.length == 0) {
+    screenNameError1 = true;
+    updateHTML();
+  }
 
   else {
     fb_updateFireBaseNewScreenName();
@@ -212,7 +242,7 @@ function updateHTML() {
 
   //displays error message if screen name to long
   if (screenNameError == true) {
-    console.log("INAVLID SCREENNAME");
+    console.error("INAVLID SCREENNAME");
     statusMessage.textContent = "Your screen name is too long! Max character count is 10 characters! Please enter a valid screen name!"
     //enables the button
     document.getElementById("ChangeScreenNameButton").disabled = false;
@@ -220,26 +250,39 @@ function updateHTML() {
     screenNameError = false;
     clearText();
   }
+
+  if (screenNameError1 == true) {
+    console.error("INAVLID SCREENNAME");
+    statusMessage.textContent = "Your screen name is too short! Max character count is 10 characters! Please enter a valid screen name!"
+    //enables the button
+    document.getElementById("ChangeScreenNameButton").disabled = false;
+    updatingFireBaseNewScreenName = false;
+    screenNameError = false;
+    clearText();
+  }
+
   //displays confermation text a certain time after var is changed
   if (FbHasUpdated == true) {
     setTimeout(function() {
       statusMessage.textContent = "Your screen name  has been updated!";
       //enables the button
-      updatingFireBaseNewScreenName = false;
       document.getElementById("ChangeScreenNameButton").disabled = false;
+      updatingFireBaseNewScreenName = false;
     }, 2000);
     clearText();
-
-    function clearText() {
-      setTimeout(function() {
-        if (updatingFireBaseNewScreenName == false) {
-          // clears html text after a certain time and if var is set
-          statusMessage.textContent = "";
-        }
-      }, 3000);
-    }
   }
 }
+
+function clearText() {
+  // clears the html text for registartion page
+  setTimeout(function() {
+    if (updatingFireBaseNewScreenName == false) {
+      // clears html text after a certain time and if var is set
+      statusMessage.textContent = "";
+    }
+  }, 3000);
+}
+
 
 //BUTTON FUNCTIONS BELOW
 // send user to game when button clicked

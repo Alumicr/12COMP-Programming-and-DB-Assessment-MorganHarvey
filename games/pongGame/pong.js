@@ -98,15 +98,14 @@ function gameStarter() {
   if (gameOver_pong == false) {
     intervalTimer2 = setInterval(gameTimer, 1000);
   }
-}
-// game timer
-function gameTimer() {
-  if (gameOver_pong == false) {
-    //adds to timer
-    timer_pong += 1;
+  // game timer
+  function gameTimer() {
+    if (gameOver_pong == false) {
+      //adds to timer
+      timer_pong += 1;
+    }
   }
 }
-
 // BUTTON FUNCTIONS
 function buttonDisplay_pong() {
   // displays buttons
