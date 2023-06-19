@@ -150,7 +150,7 @@ function fb_saveData() {
     document.getElementById("registartionConfermationMessage").innerHTML = "Welcome " + userDataObject.userDisplayName + "! Sending you to the game page..";
     setTimeout(function() {
       //sends user to game page after a while
-      window.location = "/html/gameHomePage.html";
+      window.location = "/html/home_page.html";
     }, 1500);
   }
 }
@@ -166,7 +166,7 @@ function userChangeName() {
   console.log(userDataObject);
   //small valdation
   //limits screen name to a certain size
-  if (userScreenName.length > 10) {
+  if (userScreenName.length > 15) {
     screenNameError = true;
     updateHTML();
   }

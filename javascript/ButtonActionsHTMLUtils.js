@@ -98,7 +98,7 @@ function validationForRegistrationPage() {
     document.getElementById("registrationButton").disabled = false;
   }
   //checks if display name is over 10 charcaters
-  else if (userScreenName.length > 10) {
+  else if (userScreenName.length > 15) {
     console.error("INVALID SCREEN NAME")
     //unlocks button
     document.getElementById("registrationButton").disabled = false;

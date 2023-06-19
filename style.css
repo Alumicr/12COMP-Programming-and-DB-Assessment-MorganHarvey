@@ -11,6 +11,30 @@
   /*background*/
   background: white;
 }
+/*landing page  */
+.landingPage{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid black;
+  padding: 120px;
+}
+/*landing page header  */
+.landingPageHeader{
+  color:black;
+  font-family: 'Libre Baskerville', serif;
+  text-align: center;
+  font-size: 50px;
+}
+/*login page button and text*/
+.loginPageButton{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  color:black;
+  text-align: center;
+}
 
 /*navbar below*/
 .topnav {
@@ -42,15 +66,8 @@
 .topnav .icon { 
   display: none;
 }
-/*login page button and text*/
-.login_page_button{
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-  color:black;
-  text-align: center;
-}
-/* page headers*/
+
+/* website name header*/
 .header{
   color:black;
   font-family: 'Libre Baskerville', serif;
@@ -65,7 +82,7 @@
 }
 
 /*registartion form css*/
-.registration_form{
+.registrationForm{
   margin: auto;
   width: 50%;
   padding: 10px;
@@ -107,7 +124,7 @@
 }
 
 /*confirmation messsage*/
-.confirmation_messsage{
+.confirmationMesssage{
   font-family: 'Libre Baskerville', serif;
   margin-top: 20px;
 }

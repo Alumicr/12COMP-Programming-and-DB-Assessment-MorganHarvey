@@ -24,12 +24,12 @@ function draw() {
     // shooter game highscores
     for (i = top10HighScores_shooter.length - 1; i >= 0; i--) {
       // assign info to HTML
-      document.getElementById("shooterGameHighScoresDisplay").innerHTML += "<h5>" + top10HighScores_shooter[i] + "</h5>";
+      document.getElementById("shooterGameHighScoresDisplay").innerHTML += "<h4>" + top10HighScores_shooter[i] + "</h4>";
     }
     // pong game highscores
     for (i = top10HighScores_pong.length - 1; i >= 0; i--) {
       // asigns into to html
-      document.getElementById("pongGameHighScoresDisplay").innerHTML += "<h5>" + top10HighScores_pong[i] + "</h5>";
+      document.getElementById("pongGameHighScoresDisplay").innerHTML += "<h4>" + top10HighScores_pong[i] + "</h4>";
     }
   }
 }
