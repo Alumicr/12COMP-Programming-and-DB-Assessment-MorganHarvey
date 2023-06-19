@@ -110,42 +110,9 @@ function fb_register() {
   console.log(HTML_password.value);
   userScreenName = HTML_screen_name.value;
   userPassword = HTML_password.value;
-  //checks if display name is over 10 charcaters
-  if (userScreenName.length > 10) {
-    console.error("INVALID SCREEN NAME")
-    //unlocks button
-    document.getElementById("registrationButton").disabled = false;
-    //displays error message
-    registrationText.textContent = "Your screen name is too long! Please enter a valid screen name.";
-    setTimeout(function() {
-      //removes the text after a certain time
-      registrationText.textContent = " ";
-    }, 2000);
-  }
-   if (userScreenName.length == 0) {
-    console.error("INVALID SCREEN NAME")
-    //unlocks button
-    document.getElementById("registrationButton").disabled = false;
-    //dispalsy error message
-    registrationText.textContent = "Your screen name is too short! Please enter a valid screen name.";
-    setTimeout(function() {
-      //removes the text after a certain time
-      registrationText.textContent = " ";
-    }, 2000);
-  }
-
-   if (userPassword.length == 0) {
-    console.error("INVALID PASSWORD")
-    //unlocks button
-    document.getElementById("registrationButton").disabled = false;
-    //dispalsy error message
-    registrationText.textContent = "Your password is too short! Please enter a valid password.";
-    setTimeout(function() {
-      //removes the text after a certain time
-      registrationText.textContent = " ";
-    }, 2000);
-  }
-  else {
+  validationForRegistrationPage();
+  //waits for value to be changed from registration validation function above
+  if (validationPassed == true) {
     // saves data to new object
     let webDataObject = {
       userDisplayName: userScreenName,
@@ -196,7 +163,7 @@ function userChangeName() {
   console.log("Returning HTML registration values");
   userScreenName = (HTML_screen_name.value);
   console.log(userDataObject);
-
+  //small valdation
   //limits screen name to a certain size
   if (userScreenName.length > 10) {
     screenNameError = true;
@@ -231,91 +198,6 @@ function fb_updateFireBaseNewScreenName() {
   updateHTML();
 }
 
-//HTML CHANGE FUNCTIONS BELOW
-function updateHTML() {
-  // updates html
-  var statusMessage = document.getElementById("statusMessage");
-  //shows status message 
-  statusMessage.textContent = "Updating your screen name.. please wait.."
 
-  //ERROR MESSAGES BELOW
-  if (screenNameError == true) {
-    console.error("INAVLID SCREENNAME");
-    //SHOWS IF SCREEN NAME IS TOO LONG
-    statusMessage.textContent = "Your screen name is too long! Max character count is 10 characters! Please enter a valid screen name!"
-    //enables the button and resets button
-    document.getElementById("ChangeScreenNameButton").disabled = false;
-    updatingFireBaseNewScreenName = false;
-    screenNameError = false;
-    clearText();
-  }
-
-  if (screenNameError1 == true) {
-    console.error("INAVLID SCREENNAME");
-    //SHOWS IF SCREEN NAME IS TOO SHORT
-    statusMessage.textContent = "Your screen name is too short! Max character count is 10 characters! Please enter a valid screen name!"
-    //enables the button and resets values
-    document.getElementById("ChangeScreenNameButton").disabled = false;
-    updatingFireBaseNewScreenName = false;
-    screenNameError1 = false;
-    clearText();
-  }
-  //CONFERMATION MESSAGE
-  //displays confermation text a certain time after var is changed
-  if (fb_HasUpdated == true) {
-    setTimeout(function() {
-      //SHOWS THAT THERE SCREEN NAME HAS BEEN UPDATED
-      statusMessage.textContent = "Your screen name has been updated!";
-      //enables the button and value
-      document.getElementById("ChangeScreenNameButton").disabled = false;
-      updatingFireBaseNewScreenName = false;
-    }, 2000);
-    //clears text function
-    clearText();
-  }
-}
-
-function clearText() {
-  // clears the html text for new screen naem page
-  setTimeout(function() {
-    if (updatingFireBaseNewScreenName == false) {
-      // clears html text after a certain time and if var is set
-      statusMessage.textContent = "";
-    }
-  }, 3000);
-}
-
-
-//BUTTON FUNCTIONS BELOW
-// send user to game when button clicked
-function shooterGamePageSender() {
-  console.log("Sending user to shooter game")
-  window.location = "/../games/shooterGame/shooter.html";
-}
-// sends user to pong game when button clicked
-function pongGameSender() {
-  console.log("Sending user to pong game");
-  window.location = "/../games/pongGame/pong1.html";
-}
-// sends user to shooter game
-function sendUserToHighScorePage() {
-  console.log("Sending user to highscore page");
-  window.location = "/html/highScorepage.html";
-}
-
-// sends user to log in page (logs user out)
-function logUserOut() {
-  //disables button
-  document.getElementById("logOutButtonID").disabled = true;
-  console.log("Logging user out");
-  //logs user out
-  window.location = "/../index.html";
-}
-
-//CHANGES HTML TEXT
-function changeLandingHTMLText() {
-  //changes HTML text instantly when button is pressed to loading message
-  document.getElementById("logInButtonMessage").innerHTML = "Checking user registration...";
-}
 
 // end of code
