@@ -4,10 +4,7 @@
 var gameOver = false;
 var countDownStarted = false;
 var waveStarted = false;
-// player vars
-var player;
 var deadPlayer;
-var bullet;
 // text vars
 var countDownText;
 var ablityText;
@@ -17,9 +14,6 @@ var deadTextPostionX;
 var deadTextPostionY;
 var highScoreTitle = 'HIGHSCORES';
 //LETS
-//player lets
-let playerHealth = 100;
-let bulletDamage = 1;
 // interval lets
 let timerInterval_shooter;
 let preGameTimerInterval;
@@ -139,38 +133,9 @@ function gameTimer() {
   }
 }
 
-// PLAYER FUNCTIONS BELOW
+// PLAYER DEATH FUNCTIONS BELOW
 
-function playerDamage() {
-  //flashes player red when damge is taken
-  console.log("player health is now " + playerHealth);
-  player.color = color("red");
-  setTimeout(function() {
-    // resets colour after time
-    player.color = color("white");
-  }, 0555);
-}
-
-//players gun when clicked
-function mouseClicked() {
-  if (countDownStarted == true && gameOver == false) {
-    //Calculates values (making sure it spawns a certain distance from the player)
-    let dx = mouseX - player.pos.x;
-    let dy = mouseY - player.pos.y;
-    let angle = atan2(dy, dx);
-    let bulletX = player.pos.x + cos(angle) * 40;
-    let bulletY = player.pos.y + sin(angle) * 40;
-    let bulletSpeed = createVector(dx, dy).setMag(8);
-    //Creates bullet (using values above)
-    bullet = new Sprite(bulletX, bulletY, 13);
-    // asigns properties
-    bullet.vel = bulletSpeed;
-    bullet.color = color("white");
-    playerBullets.add(bullet);
-  }
-}
-
-function playerDeath() {
+function playerHasDied() {
   // runs if player is dead
   if (gameOver == true) {
     // calculates deadText spawn postions
@@ -308,7 +273,7 @@ function draw() {
     gameOver = true;
     waveStarted = false;
     checkIfHighScoreGreater1();
-    playerDeath();
+    playerHasDied();
     noLoop();
   }
 

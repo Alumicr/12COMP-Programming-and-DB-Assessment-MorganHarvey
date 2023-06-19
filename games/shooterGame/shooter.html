@@ -34,17 +34,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <!-- Your modules ******************************************-->
+  <!--FIREBASE MODULES  -->
   <script src="/firebase/fb_startUp.js"></script>
   <script src="/firebase/script.js"></script>
   <script src="/firebase/fb_main.js"></script>
   <script src="/firebase/firebase_shooter.js"></script>
+  <!--GAME MODULES  -->
   <script src="/games/shooterGame/mainShooterGame.js"> </script>
-  <script src="/games/shooterGame/enemyAndAblity.js"> </script>
+  <script src="/games/shooterGame/enemyAndAblitys.js"> </script>
+  <script src="/games/shooterGame/player_shooter.js"> </script>
 </head>
 <!--*************************************************************
   BODY
 **************************************************************-->
-
+<!--runs log in function, collects player highscore and reads top 3 highscores-->
 <body onLoad="fb_authenticator(fb_readHighScore1), fb_highScoresTableReader2()">
 </body>
 
