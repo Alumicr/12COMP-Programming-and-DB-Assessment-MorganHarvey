@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Change screen name</title>
+  <title>Highscore page</title>
   <meta charset="UTF-8">
   <meta name="description" content="12COMP assessment">
   <meta name="author" content="Morgan Harvey">
@@ -35,41 +35,37 @@
 
   <!-- Your modules ******************************************-->
   <script src="/firebase/fb_startUp.js"></script>
-  <script src="/firebase/script.js"></script>
+  <script src="/firebase/fb_initializer.js"></script>
   <script src="/firebase/fb_main.js"></script>
+  <script src="/firebase/fb_top10HighScore.js"></script>
   <script src='/javascript/ButtonActionsHTMLUtils.js'></script>
 </head>
 
 <!--*************************************************************
   BODY
 **************************************************************-->
-
-<body>
-  <!--header  -->
-  <h1 class="header"> Random Game Website</h1>
-  <!--top nav  -->
+<!--calls the functions that reads the highscores from the database  -->
+<body onload="readHighScoreHomePage_shooter(), readHighScoresHomePage_pong()">
+  <!--navbar -->
+  <h1 class="header">Random Game Website</h1>
   <div class="topnav" id="myTopnav">
-    <a href="/html/gameHomePage.html">Game Page</a>
-    <a href="/html/highScorepage.html">Highscore page</a>
-    <a href="/html/changeUserDetails.html" class="active">Change your screen name</a>
+    <a href="/html/home_page.html">Game Page</a>
+    <a href="/html/high_score_page.html" class="active">Highscore page</a>
+    <a href="/html/change_screen_name.html">Change your screen name </a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
   </div>
-
-  <div class="registration_form">
-    <!--change screen name form -->
-    <h2 class="pageHeader"> Change screen name</h2>
-    <p> Change your scren name using the form below. Please wait for the confirmation message before leaving
-      this page. Max characters for your screen name is 10!</p>
-    <form onsubmit="return false;">
-      <label for="HTML_screen_name">New screen name:</label><br>
-      <input maxLength="10" type="text" id="HTML_screen_name" name="name"><br>
-      <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit" id="ChangeScreenNameButton"
-        class="RegisterButton">
-    </form>
-    <!--html text (changes in fb_main.js)-->
-    <h3 class="confirmation_messsage" id="statusMessage"></h3>
+  <h2 class="pageHeader">LEADERBOARDS</h2>
+  <!--shooter game highscores-->
+  <div class="shooterGameHighScores">
+    <h2>Shooter game top 10 highscores</h2>
+    <div class="shooterGameHighScoresDisplay" id="shooterGameHighScoresDisplay"></div>
+  </div>
+  <!--pong game highscores-->
+  <div class="pongHighScores">
+    <h2>Pong game top 10 highscores</h2>
+    <div class="pongGameHighScores" id="pongGameHighScoresDisplay"></div>
   </div>
   <!--log out button-->
   <button id="logOutButtonID" onclick="logUserOut()" class="LogOutButton"> Log out </button>

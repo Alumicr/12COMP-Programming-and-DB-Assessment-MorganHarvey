@@ -58,7 +58,7 @@ function _readUID(snapshot) {
       document.getElementById("logInButtonMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "! Sending you to the game page...";
       //sends them to game page after a certin time
       setTimeout(function() {
-        window.location = "/html/gameHomePage.html";
+        window.location = "/html/home_page.html";
       }, 1200);
     }
   }

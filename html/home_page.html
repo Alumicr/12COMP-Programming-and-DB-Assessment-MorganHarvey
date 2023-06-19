@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Highscore page</title>
+  <title>Game Page</title>
   <meta charset="UTF-8">
   <meta name="description" content="12COMP assessment">
   <meta name="author" content="Morgan Harvey">
@@ -35,38 +35,47 @@
 
   <!-- Your modules ******************************************-->
   <script src="/firebase/fb_startUp.js"></script>
-  <script src="/firebase/fb_ initializer.js"></script>
+  <script src="/firebase/fb_initializer.js"></script>
   <script src="/firebase/fb_main.js"></script>
-  <script src="/firebase/fb_top10HighScore.js"></script>
   <script src='/javascript/ButtonActionsHTMLUtils.js'></script>
 </head>
 
 <!--*************************************************************
   BODY
 **************************************************************-->
-<!--calls the functions that reads the highscores from the database  -->
-<body onload="readHighScoreHomePage_shooter(), readHighScoresHomePage_pong()">
-  <!--navbar -->
-  <h1 class="header">Random Game Website</h1>
+
+<body>
+  <!--header  -->
+  <h1 class="header"> Random Game Website</h1>
+  <!--top nav  -->
   <div class="topnav" id="myTopnav">
-    <a href="gameHomePage.html">Game Page</a>
-    <a href="highScorepage.html" class="active">Highscore page</a>
-    <a href="changeUserDetails.html">Change your screen name </a>
+    <a href="/html/home_page.html" class="active">Game Page</a>
+    <a href="/html/high_score_page.html">Highscore page</a>
+    <a href="/html/change_screen_name.html">Change your screen name</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
   </div>
-  <h2 class="pageHeader">LEADERBOARDS</h2>
-  <!--shooter game highscores-->
-  <div class="shooterGameHighScores">
-    <h2>Shooter game top 10 highscores</h2>
-    <div class="shooterGameHighScoresDisplay" id="shooterGameHighScoresDisplay"></div>
-  </div>
-  <!--pong game highscores-->
-  <div class="pongHighScores">
-    <h2>Pong game top 10 highscores</h2>
-    <div class="pongGameHighScores" id="pongGameHighScoresDisplay"></div>
-  </div>
+  <h2 class="pageHeader"> Game Selection! </h2>
+  <!--Shooter button items-->
+  <button class="shooterButton">
+    <img src="/../assets/images/ShooterIMG.png" alt="Shooter Game" class="shooterIMG" onclick="shooterGamePageSender()"
+      style="width :100;">
+    <h1 class="shooterHeader"> Shooter Game</h1>
+    <p> Stay alive for as long as possible, click to shoot. Some enemies do different damage and have different health!
+      The stronger the enemy the more points they are worth. Game starts when the countdown reaches 0! Use WASD/ARROW
+      keys to move around. The max health you can have is 100, so be carefull as the game gets harder when you kill more
+      enemys. Collect ablitys by crashing into them to get a random ablity! </p>
+  </button>
+
+  <!--pong button -->
+  <button class="pongButton">
+    <img src="/../assets/images/pongIMG.png" alt="Pong Game" class="pongIMG" onclick="pongGameSender()"
+      style="width :100;">
+    <h1 class="pongHeader"> Pong Game</h1>
+    <p> Hit the ball with a paddle don't let it touch the red wall! Use W and S or Up/Down arrows to move the paddle.
+      Game starts when the countdown reaches 0! </p>
+  </button>
   <!--log out button-->
   <button id="logOutButtonID" onclick="logUserOut()" class="LogOutButton"> Log out </button>
 </body>
