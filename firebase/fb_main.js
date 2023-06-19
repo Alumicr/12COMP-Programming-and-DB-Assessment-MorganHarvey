@@ -48,11 +48,12 @@ function _readUID(snapshot) {
         //asigns to var
         fb_usersDisplayName = snapshot.val();
         console.log(fb_usersDisplayName);
-        displayHTML();
         console.log("User is registered");
+        //cals HTML function
+        _DOTHIS();
       }, fb_error);
-
-    function displayHTML() {
+    
+    function _DOTHIS() {
       //displays html text with the plays displayname
       document.getElementById("logInButtonMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "! Sending you to the game page...";
       //sends them to game page after a certin time

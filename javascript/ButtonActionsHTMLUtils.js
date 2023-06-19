@@ -1,9 +1,5 @@
+//vars
 var validationPassed = false;
-//shows firebase is initialised
-console.log("Initialising Firebase");
-fb_initialise();
-console.log("Firebase initialise finished");
-
 
 //BUTTON FUNCTIONS BELOW
 // send user to game when button clicked
@@ -37,6 +33,7 @@ function changeLandingHTMLText() {
   //changes HTML text instantly when button is pressed to loading message for log in page
   document.getElementById("logInButtonMessage").innerHTML = "Checking user registration...";
 }
+
 
 //UPDATES HTML FOR changeUserDetails.html
 function updateHTML() {
@@ -81,7 +78,6 @@ function updateHTML() {
     clearText();
   }
 }
-
 function clearText() {
   // clears the html text for new screen naem page
   setTimeout(function() {
