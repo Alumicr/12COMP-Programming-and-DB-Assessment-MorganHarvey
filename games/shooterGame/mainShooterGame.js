@@ -126,7 +126,7 @@ function waveStarter() {
     enemy1Interval = setInterval(enemy, 5000);
     enemy2Interval = setInterval(enemyTwo, 8000);
     enemy3Interval = setInterval(enemyThree, 11000);
-    ablity1Interval = setInterval(ablityOne, 13000);
+    ablity1Interval = setInterval(ablityOne, 16000);
   }
 }
 
@@ -161,7 +161,6 @@ function mouseClicked() {
     let bulletX = player.pos.x + cos(angle) * 40;
     let bulletY = player.pos.y + sin(angle) * 40;
     let bulletSpeed = createVector(dx, dy).setMag(8);
-
     //Creates bullet (using values above)
     bullet = new Sprite(bulletX, bulletY, 13);
     // asigns properties
@@ -217,12 +216,12 @@ function buttonDisplay() {
   button2 = createButton('Return to home page!');
   button2.position(deadTextPostionX + 150, deadTextPostionY + 140);
   // runs function if button is pressed
-  button.mousePressed(restartGame);  
+  button.mousePressed(restartGame);
   button2.mousePressed(SendPlayerBack);
   // if home button presssed sends user back to home page
   function SendPlayerBack() {
     console.log("Sending user to home Page");
-    window.location = "/../gameHomePage.html";
+    window.location = "/html/gameHomePage.html";
   }
 
   // if button clicked restarts game
@@ -378,8 +377,8 @@ function draw() {
       bullet.remove();
       enemy.health -= bulletDamage;
     }
-  });  
-  
+  });
+
   // makes game harder
   if (score_shooterGame >= 100) {
     // speeds enemys up

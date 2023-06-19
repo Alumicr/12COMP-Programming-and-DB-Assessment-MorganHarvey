@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Registration page</title>
+  <title>Change screen name</title>
   <meta charset="UTF-8">
   <meta name="description" content="12COMP assessment">
   <meta name="author" content="Morgan Harvey">
@@ -11,7 +11,7 @@
 
   <!-- stylesheets *******************************************-->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/../style.css">
 
   <!-- P5.js & P5.play ***************************************-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"></script>
@@ -46,21 +46,32 @@
 <body>
   <!--header  -->
   <h1 class="header"> Random Game Website</h1>
-  <div class="registration_form">
-    <!--Registration form -->
-    <h1> Registration page:</h1>
-    <p> Please register to continue to game page! Max characters for your screen name is 10!</p>
-    <form onsubmit="return false;">
-      <label maxLength="10" for="HTML_screen_name">Screen name:</label><br>
-      <input type="text" id="HTML_screen_name" name="name"><br>
-      <label for="HTML_password">Password: </label> <br>
-      <input id="HTML_password" name="password" type="password" <br><br>
-      <input id="registrationButton" onclick="fb_authenticator(fb_register)" type="submit" value="Submit"
-        class="RegisterButton">
-           <!--html text (changes in fb_main.js)-->
-      <h3 class="confirmation_messsage" id="registartionConfermationMessage"></h3>
-    </form>
+  <!--top nav  -->
+  <div class="topnav" id="myTopnav">
+    <a href="/html/gameHomePage.html">Game Page</a>
+    <a href="/html/highScorepage.html">Highscore page</a>
+    <a href="/html/changeUserDetails.html" class="active">Change your screen name</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
   </div>
+
+  <div class="registration_form">
+    <!--change screen name form -->
+    <h2 class="pageHeader"> Change screen name</h2>
+    <p> Change your scren name using the form below. Please wait for the confirmation message before leaving
+      this page. Max characters for your screen name is 10!</p>
+    <form onsubmit="return false;">
+      <label for="HTML_screen_name">New screen name:</label><br>
+      <input maxLength="10" type="text" id="HTML_screen_name" name="name"><br>
+      <input onclick="fb_authenticator(userChangeName)" type="submit" value="Submit" id="ChangeScreenNameButton"
+        class="RegisterButton">
+    </form>
+    <!--html text (changes in fb_main.js)-->
+    <h3 class="confirmation_messsage" id="statusMessage"></h3>
+  </div>
+  <!--log out button-->
+  <button id="logOutButtonID" onclick="logUserOut()" class="LogOutButton"> Log out </button>
 </body>
 
 </html>

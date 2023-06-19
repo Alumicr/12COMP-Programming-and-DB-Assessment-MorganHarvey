@@ -1,5 +1,5 @@
 //vars 
-var FbHasUpdated = false;
+var fb_HasUpdated = false;
 var screenNameError = false;
 var screenNameError1 = false;
 var updatingFireBaseNewScreenName = false;
@@ -38,8 +38,8 @@ function _readUID(snapshot) {
     document.getElementById("logInButtonMessage").innerHTML = "You are new here so you will have to register!   Sending you to the Registration page... ";
     // send them to registation page after a certin time
     setTimeout(function() {
-      window.location = "register_page.html";
-    }, 1500);
+      window.location = "/html/register_page.html";
+    }, 1200);
   } else {
     //if users is registered
     //reads the user display name
@@ -57,8 +57,8 @@ function _readUID(snapshot) {
       document.getElementById("logInButtonMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "! Sending you to the game page...";
       //sends them to game page after a certin time
       setTimeout(function() {
-        window.location = "gameHomePage.html";
-      }, 1500);
+        window.location = "/html/gameHomePage.html";
+      }, 1200);
     }
   }
 }
@@ -122,9 +122,8 @@ function fb_register() {
       registrationText.textContent = " ";
     }, 2000);
   }
-
-  else if (userScreenName.length == 0) {
-      console.error("INVALID SCREEN NAME")
+   if (userScreenName.length == 0) {
+    console.error("INVALID SCREEN NAME")
     //unlocks button
     document.getElementById("registrationButton").disabled = false;
     //dispalsy error message
@@ -135,8 +134,8 @@ function fb_register() {
     }, 2000);
   }
 
-  else if (userPassword.length == 0) {
-        console.error("INVALID PASSWORD")
+   if (userPassword.length == 0) {
+    console.error("INVALID PASSWORD")
     //unlocks button
     document.getElementById("registrationButton").disabled = false;
     //dispalsy error message
@@ -146,27 +145,25 @@ function fb_register() {
       registrationText.textContent = " ";
     }, 2000);
   }
-
   else {
-  // saves data to new object
-  let webDataObject = {
-    userDisplayName: userScreenName,
-    userPassword: userPassword,
-  }
-  // makes new object and asigns items to object
-  gameDataObject = {
-    userDisplayName: userScreenName,
-    highScore: 0,
-    lastScore: 0,
-  }
+    // saves data to new object
+    let webDataObject = {
+      userDisplayName: userScreenName,
+      userPassword: userPassword,
+    }
+    // makes new object and asigns items to object
+    gameDataObject = {
+      userDisplayName: userScreenName,
+      highScore: 0,
+      lastScore: 0,
+    }
 
-  // combines the objects into one
-  Object.assign(userDataObject, webDataObject);
-  console.log(userDataObject);
-  fb_saveData();
+    // combines the objects into one
+    Object.assign(userDataObject, webDataObject);
+    console.log(userDataObject);
+    fb_saveData();
+  }
 }
-}
-
 
 function fb_saveData() {
   // save data to database
@@ -185,7 +182,7 @@ function fb_saveData() {
     document.getElementById("registartionConfermationMessage").innerHTML = "Welcome " + userDataObject.userDisplayName + "! Sending you to the game page..";
     setTimeout(function() {
       //sends user to game page after a while
-      window.location = "gameHomePage.html";
+      window.location = "/html/gameHomePage.html";
     }, 1500);
   }
 }
@@ -194,7 +191,7 @@ function fb_saveData() {
 function userChangeName() {
   //disables the button
   document.getElementById("ChangeScreenNameButton").disabled = true;
-  FbHasUpdated = false;
+  fb_HasUpdated = false;
   //saves new display name
   console.log("Returning HTML registration values");
   userScreenName = (HTML_screen_name.value);
@@ -229,7 +226,7 @@ function fb_updateFireBaseNewScreenName() {
   )
   // updates var
   console.log("Firebase has updated");
-  FbHasUpdated = true;
+  fb_HasUpdated = true;
   //calls update html function
   updateHTML();
 }
@@ -238,13 +235,15 @@ function fb_updateFireBaseNewScreenName() {
 function updateHTML() {
   // updates html
   var statusMessage = document.getElementById("statusMessage");
+  //shows status message 
   statusMessage.textContent = "Updating your screen name.. please wait.."
 
-  //displays error message if screen name to long
+  //ERROR MESSAGES BELOW
   if (screenNameError == true) {
     console.error("INAVLID SCREENNAME");
+    //SHOWS IF SCREEN NAME IS TOO LONG
     statusMessage.textContent = "Your screen name is too long! Max character count is 10 characters! Please enter a valid screen name!"
-    //enables the button
+    //enables the button and resets button
     document.getElementById("ChangeScreenNameButton").disabled = false;
     updatingFireBaseNewScreenName = false;
     screenNameError = false;
@@ -253,28 +252,31 @@ function updateHTML() {
 
   if (screenNameError1 == true) {
     console.error("INAVLID SCREENNAME");
+    //SHOWS IF SCREEN NAME IS TOO SHORT
     statusMessage.textContent = "Your screen name is too short! Max character count is 10 characters! Please enter a valid screen name!"
-    //enables the button
+    //enables the button and resets values
     document.getElementById("ChangeScreenNameButton").disabled = false;
     updatingFireBaseNewScreenName = false;
-    screenNameError = false;
+    screenNameError1 = false;
     clearText();
   }
-
+  //CONFERMATION MESSAGE
   //displays confermation text a certain time after var is changed
-  if (FbHasUpdated == true) {
+  if (fb_HasUpdated == true) {
     setTimeout(function() {
-      statusMessage.textContent = "Your screen name  has been updated!";
-      //enables the button
+      //SHOWS THAT THERE SCREEN NAME HAS BEEN UPDATED
+      statusMessage.textContent = "Your screen name has been updated!";
+      //enables the button and value
       document.getElementById("ChangeScreenNameButton").disabled = false;
       updatingFireBaseNewScreenName = false;
     }, 2000);
+    //clears text function
     clearText();
   }
 }
 
 function clearText() {
-  // clears the html text for registartion page
+  // clears the html text for new screen naem page
   setTimeout(function() {
     if (updatingFireBaseNewScreenName == false) {
       // clears html text after a certain time and if var is set
@@ -288,26 +290,26 @@ function clearText() {
 // send user to game when button clicked
 function shooterGamePageSender() {
   console.log("Sending user to shooter game")
-  window.location = "games/shooterGame/shooter.html";
+  window.location = "/../games/shooterGame/shooter.html";
 }
 // sends user to pong game when button clicked
 function pongGameSender() {
   console.log("Sending user to pong game");
-  window.location = "games/pongGame/pong1.html";
+  window.location = "/../games/pongGame/pong1.html";
 }
 // sends user to shooter game
 function sendUserToHighScorePage() {
   console.log("Sending user to highscore page");
-  window.location = "highScorepage.html";
+  window.location = "/html/highScorepage.html";
 }
 
 // sends user to log in page (logs user out)
 function logUserOut() {
   //disables button
-  document.getElementById("logOutButonID").disabled = true;
+  document.getElementById("logOutButtonID").disabled = true;
   console.log("Logging user out");
   //logs user out
-  window.location = "index.html";
+  window.location = "/../index.html";
 }
 
 //CHANGES HTML TEXT
