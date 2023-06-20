@@ -35,7 +35,8 @@ function _readUID(snapshot) {
     // user has not registered
     console.log("User has not registered");
     //displays html text
-    document.getElementById("logInButtonMessage").innerHTML = "You are new here so you will have to register!   Sending you to the Registration page... ";
+    document.getElementById("logInMessage").innerHTML = "You are new here so you will have to register!<br>Sending you to the Registration page... ";
+
     // send them to registation page after a certin time
     setTimeout(function() {
       window.location = "/html/register_page.html";
@@ -52,10 +53,10 @@ function _readUID(snapshot) {
         //cals HTML function
         _DOTHIS();
       }, fb_error);
-    
+
     function _DOTHIS() {
       //displays html text with the plays displayname
-      document.getElementById("logInButtonMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "! Sending you to the game page...";
+      document.getElementById("logInMessage").innerHTML = "Welcome back " + fb_usersDisplayName + "!<br>Sending you to the game page...";
       //sends them to game page after a certin time
       setTimeout(function() {
         window.location = "/html/home_page.html";
@@ -147,7 +148,7 @@ function fb_saveData() {
   ).then(_DOTHIS);
   function _DOTHIS() {
     //updates html text
-    document.getElementById("registartionConfermationMessage").innerHTML = "Welcome " + userDataObject.userDisplayName + "! Sending you to the game page..";
+    document.getElementById("registartionConfermationMessage").innerHTML = "Welcome " + userDataObject.userDisplayName + "!<br>Sending you to the game page..";
     setTimeout(function() {
       //sends user to game page after a while
       window.location = "/html/home_page.html";

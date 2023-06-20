@@ -4,18 +4,14 @@ var validationPassed = false;
 //BUTTON FUNCTIONS BELOW
 // send user to game when button clicked
 function shooterGamePageSender() {
+  // sends user to shooter game
   console.log("Sending user to shooter game")
-  window.location = "/../games/shooterGame/shooter.html";
+  window.location = "/games/shooterGame/shooter.html";
 }
 // sends user to pong game when button clicked
 function pongGameSender() {
   console.log("Sending user to pong game");
-  window.location = "/../games/pongGame/pong1.html";
-}
-// sends user to shooter game
-function sendUserToHighScorePage() {
-  console.log("Sending user to highscore page");
-  window.location = "/html/highScorepage.html";
+  window.location = "/games/pongGame/pong1.html";
 }
 
 // sends user to log in page (logs user out)
@@ -31,7 +27,7 @@ function logUserOut() {
 function changeLandingHTMLText() {
   //CHANGES HTML TEXT
   //changes HTML text instantly when button is pressed to loading message for log in page
-  document.getElementById("logInButtonMessage").innerHTML = "Checking user registration...";
+  document.getElementById("logInMessage").innerHTML = "Checking user registration...";
 }
 
 
