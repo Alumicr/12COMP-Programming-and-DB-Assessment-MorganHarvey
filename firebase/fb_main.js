@@ -15,20 +15,47 @@ let gameDataObject;
 let userDataObject;
 
 //START OF CODE
-//FIREBASE ERROR FUNCTION
-function fb_error(error) {
-  //sends out error message
-  console.error("Error found");
-  console.error(error);
+// log in with goggle
+// runs functions through it
+function fb_authenticator(_DOTHIS) {
+  console.log("Handling Google login");
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // asigns users to object
+      userDataObject = {
+        userID: user.uid,
+        usersEmail: user.email,
+        userName: user.displayName,
+        userPhoto: user.photoURL,
+      }
+
+      console.log(userDataObject);
+      // If user is already logged in, check that
+      console.log("Logged in");
+      _DOTHIS();
+    } else {
+      console.log("Not logged in");
+      // User is signed out, using a popup
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        console.log("Signing in with pop");
+        // This gives you a Google access token
+        var token = result.credential.accessToken;
+        // The signed-in user info
+        var user = result.user;
+        _DOTHIS();
+      });
+    }
+  });
 }
 
-//CHECK REGISTARTION
+//GETS REGISTARTION INFORMATION
 function fb_checkRegistration() {
   console.log("Checking Registration");
   //displays html text
   firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
 }
-
+//CHECKS IF USER IS IN DATABSAE
 function _readUID(snapshot) {
   console.log(snapshot.val());
   if (snapshot.val() == null) {
@@ -65,39 +92,6 @@ function _readUID(snapshot) {
   }
 }
 
-// log in with goggle
-// runs functions through it
-function fb_authenticator(_DOTHIS) {
-  console.log("Handling Google login");
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // asigns users to object
-      userDataObject = {
-        userID: user.uid,
-        usersEmail: user.email,
-        userName: user.displayName,
-        userPhoto: user.photoURL,
-      }
-
-      console.log(userDataObject);
-      // If user is already logged in, check that
-      console.log("Logged in");
-      _DOTHIS();
-    } else {
-      console.log("Not logged in");
-      // User is signed out, using a popup
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        console.log("Signing in with pop");
-        // This gives you a Google access token
-        var token = result.credential.accessToken;
-        // The signed-in user info
-        var user = result.user;
-        _DOTHIS();
-      });
-    }
-  });
-}
 
 function fb_register() {
   //disables button
@@ -171,13 +165,15 @@ function userChangeName() {
     screenNameError = true;
     updateHTML();
   }
+  //checks if screen name length is not 0
   if (userScreenName.length == 0) {
     screenNameError1 = true;
     updateHTML();
   }
-
   else {
+    //updates firebase
     fb_updateFireBaseNewScreenName();
+    //updates HTML
     updateHTML();
   }
 }
@@ -200,6 +196,11 @@ function fb_updateFireBaseNewScreenName() {
   updateHTML();
 }
 
-
+//FIREBASE ERROR FUNCTION
+function fb_error(error) {
+  //sends out error message
+  console.error("Error found");
+  console.error(error);
+}
 
 // end of code

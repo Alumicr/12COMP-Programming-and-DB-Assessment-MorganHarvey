@@ -11,7 +11,7 @@ function shooterGamePageSender() {
 // sends user to pong game when button clicked
 function pongGameSender() {
   console.log("Sending user to pong game");
-  window.location = "/games/pongGame/pong1.html";
+  window.location = "/games/pongGame/pong_game.html";
 }
 
 // sends user to log in page (logs user out)
@@ -36,7 +36,7 @@ function updateHTML() {
   // updates html
   var statusMessage = document.getElementById("statusMessage");
   //shows status message 
-  statusMessage.textContent = "Updating your screen name.. please wait.."
+  statusMessage.textContent = "Updating your screen name!Pleae wait.."
 
   //ERROR MESSAGES BELOW
   if (screenNameError == true) {

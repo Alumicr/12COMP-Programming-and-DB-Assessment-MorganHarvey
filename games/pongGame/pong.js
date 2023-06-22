@@ -149,7 +149,7 @@ function buttonDisplay_pong() {
   // if return to game home button clicked sends user back to home page
   function SendPlayerBack_pong() {
     console.log("Sending user to game Page");
-    window.location = "/html/gameHomePage.html";
+    window.location = "/html/home_page.html.html";
   }
 }
 

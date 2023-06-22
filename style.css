@@ -1,4 +1,4 @@
-.html {
+.html {  
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -11,7 +11,7 @@
   /*background*/
   background: white;
 }
-/*landing page  */
+/*landing page*/
 .landingPage{
   position: absolute;
   top: 50%;
@@ -21,14 +21,14 @@
   padding: 120px;
   text-align: center;
 }
-/*landing page header  */
+/*landing page header*/
 .landingPageHeader{
   color:black;
   font-family: 'Libre Baskerville', serif;
   text-align: center;
   font-size: 50px;
 }
-/*landing page confermation text  */
+/*landing page confermation text*/
 .confirmationMesssage{
   position: absolute;
   left: 50%;
@@ -79,7 +79,7 @@
   display: none;
 }
 
-/* website name header*/
+/*website name header*/
 .header{
   color:black;
   font-family: 'Libre Baskerville', serif;
@@ -102,7 +102,7 @@
   color:black;
   text-align: center;
 }
-/* registartion form button*/
+/*registartion form button*/
 .RegisterButton{
   margin-top: 5px;
 }
