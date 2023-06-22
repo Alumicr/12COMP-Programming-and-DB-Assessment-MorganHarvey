@@ -1,5 +1,6 @@
 //vars
 var validationPassed = false;
+var errorHasDisabled = false;
 
 //BUTTON FUNCTIONS BELOW
 // send user to game when button clicked
@@ -36,13 +37,13 @@ function updateHTML() {
   // updates html
   var statusMessage = document.getElementById("statusMessage");
   //shows status message 
-  statusMessage.textContent = "Updating your screen name!Pleae wait.."
+  statusMessage.innerHTML = "Updating your screen name!<br>Please wait..";
 
   //ERROR MESSAGES BELOW
   if (screenNameError == true) {
     console.error("INAVLID SCREENNAME");
     //SHOWS IF SCREEN NAME IS TOO LONG
-    statusMessage.textContent = "Your screen name is too long! Max character count is 10 characters! Please enter a valid screen name!"
+    statusMessage.textContent = "Your screen name is too long! Max character count is 15 characters! Please enter a valid screen name!"
     //enables the button and resets button
     document.getElementById("ChangeScreenNameButton").disabled = false;
     updatingFireBaseNewScreenName = false;
@@ -53,7 +54,7 @@ function updateHTML() {
   if (screenNameError1 == true) {
     console.error("INAVLID SCREENNAME");
     //SHOWS IF SCREEN NAME IS TOO SHORT
-    statusMessage.textContent = "Your screen name is too short! Max character count is 10 characters! Please enter a valid screen name!"
+    statusMessage.innerHTML = "Your screen name is too short!<br>Please enter a valid screen name!"
     //enables the button and resets values
     document.getElementById("ChangeScreenNameButton").disabled = false;
     updatingFireBaseNewScreenName = false;
@@ -86,12 +87,15 @@ function clearText() {
 
 //VALDATION FOR REGISTRATION PAGE
 function validationForRegistrationPage() {
+  errorHasDisabled = false;
   //collects the ID for the html text
   var registrationText = document.getElementById("registartionConfermationMessage");
   //checks if both are 0
   if (userScreenName.length == 0 && userPassword.length == 0) {
-    registrationText.textContent = "Your screen name and password are too short. Please enter a a valid password and screen name!"
+    registrationText.innerHTML = "Your screen name and password are too short.<br>Please enter a a valid password and screen name!"
     document.getElementById("registrationButton").disabled = false;
+    errorHasDisabled = true;
+    textClear();
   }
   //checks if display name is over 10 charcaters
   else if (userScreenName.length > 15) {
@@ -99,7 +103,8 @@ function validationForRegistrationPage() {
     //unlocks button
     document.getElementById("registrationButton").disabled = false;
     //displays error message
-    registrationText.textContent = "Your screen name is too long! Please enter a valid screen name.";
+    registrationText.innerHTML = "Your screen name is too long!<br>Please enter a valid screen name.";
+    errorHasDisabled = true;
     textClear();
   }
   //checks display name and displays error message if display name is 0
@@ -108,7 +113,8 @@ function validationForRegistrationPage() {
     //unlocks button
     document.getElementById("registrationButton").disabled = false;
     //dispalsy error message
-    registrationText.textContent = "Your screen name is too short! Please enter a valid screen name.";
+    registrationText.innerHTML = "Your screen name is too short!<br>Please enter a valid screen name.";
+    errorHasDisabled = true;
     textClear();
   }
   //checks password and displays error if password is 0 charcters
@@ -117,7 +123,8 @@ function validationForRegistrationPage() {
     //unlocks button
     document.getElementById("registrationButton").disabled = false;
     //dispalsy error message
-    registrationText.textContent = "Your password is too short! Please enter a valid password.";
+    registrationText.innerHTML = "Your password is too short!<br>Please enter a valid password.";
+    errorHasDisabled = true;
     textClear();
   }
   else {
@@ -125,9 +132,12 @@ function validationForRegistrationPage() {
   }
   function textClear() {
     setTimeout(function() {
-      //removes the text after a certain time
-      registrationText.textContent = " ";
-    }, 2000);
+      if (errorHasDisabled == true) {
+        //removes the text after a certain time
+        registrationText.textContent = " ";
+        errorHasDisabled = false;
+      }
+    }, 3000);
   }
 }
 

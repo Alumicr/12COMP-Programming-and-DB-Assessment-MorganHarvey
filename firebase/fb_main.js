@@ -62,7 +62,7 @@ function _readUID(snapshot) {
     // user has not registered
     console.log("User has not registered");
     //displays html text
-    document.getElementById("logInMessage").innerHTML = "You are new here so you will have to register!<br>Sending you to the Registration page... ";
+    document.getElementById("logInMessage").innerHTML = "You are new here so you will have to register!<br>Sending you to the registration page... ";
 
     // send them to registation page after a certin time
     setTimeout(function() {
