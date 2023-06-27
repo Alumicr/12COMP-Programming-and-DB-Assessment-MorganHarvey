@@ -45,24 +45,29 @@
 **************************************************************-->
 
 <body>
-  <div class 
-  <!--header  -->
-  <h1 class="header"> Random Game Website</h1>
-  <div class="registrationForm">
-    <!--Registration form -->
-    <h1> Registration page:</h1>
-    <p> Please register to continue to game page! Max characters for your screen name is 15!</p>
-    <form onsubmit="return false;">
-      <label for="HTML_screen_name">Screen name:</label><br>
-      <input maxLength="15" type="text" id="HTML_screen_name" name="name"><br>
-      <label for="HTML_password">Password: </label> <br>
-      <input id="HTML_password" name="password" type="password" <br><br>
-      <input id="registrationButton" onclick="fb_authenticator(fb_register)" type="submit" value="Submit"
-        class="RegisterButton">
-      <!--html text (changes in fb_main.js)-->
-      <h3 class="confirmation_messsage" id="registartionConfermationMessage"></h3>
-    </form>
-  </div>
+  <div class <!--header -->
+    <h1 class="header"> Random Game Website</h1>
+    <div class="registrationForm">
+      <!--Registration form -->
+      <h1> Registration page:</h1>
+      <p> Please register to continue to game page! Max characters for your screen name is 15!</p>
+      <form onsubmit="return false;">
+        <!--Screen name  -->
+        <label for="HTML_screen_name">Screen name:</label><br>
+        <input maxLength="15" type="text" id="HTML_screen_name" name="name"><br>
+        <!--password  -->
+        <label for="HTML_password">Password: </label> <br>
+        <input id="HTML_password" name="password" type="password" <br><br>
+        <!--age  -->
+        <label for="HTML_age">Age:</label><br>
+         <input id="HTML_age" name="age" type="age" <br><br>
+        <!--submit button -->
+        <input id="registrationButton" onclick="fb_authenticator(fb_register)" type="submit" value="Submit"
+          class="RegisterButton">
+        <!--html text (changes in fb_main.js)-->
+        <h3 class="confirmation_messsage" id="registartionConfermationMessage"></h3>
+      </form>
+    </div>
 </body>
 
 </html>

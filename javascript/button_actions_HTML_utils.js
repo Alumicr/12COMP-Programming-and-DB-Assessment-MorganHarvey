@@ -1,6 +1,6 @@
 //vars
 var validationPassed = false;
-var errorHasDisabled = false;
+var errorHasDisplayed = false;
 
 //BUTTON FUNCTIONS BELOW
 // send user to game when button clicked
@@ -87,14 +87,14 @@ function clearText() {
 
 //VALDATION FOR REGISTRATION PAGE
 function validationForRegistrationPage() {
-  errorHasDisabled = false;
+  errorHasDisplayed = false;
   //collects the ID for the html text
   var registrationText = document.getElementById("registartionConfermationMessage");
   //checks if both are 0
-  if (userScreenName.length == 0 && userPassword.length == 0) {
-    registrationText.innerHTML = "Your screen name and password are too short.<br>Please enter a a valid password and screen name!"
+  if (userScreenName.length == 0 && userPassword.length == 0 && usersAge.length == 0) {
+    registrationText.innerHTML = "Your screen name, age and password are too short.<br>Please enter a a valid password, age and screen name!"
     document.getElementById("registrationButton").disabled = false;
-    errorHasDisabled = true;
+    errorHasDisplayed = true;
     textClear();
   }
   //checks if display name is over 10 charcaters
@@ -104,7 +104,7 @@ function validationForRegistrationPage() {
     document.getElementById("registrationButton").disabled = false;
     //displays error message
     registrationText.innerHTML = "Your screen name is too long!<br>Please enter a valid screen name.";
-    errorHasDisabled = true;
+    errorHasDisplayed = true;
     textClear();
   }
   //checks display name and displays error message if display name is 0
@@ -114,7 +114,7 @@ function validationForRegistrationPage() {
     document.getElementById("registrationButton").disabled = false;
     //dispalsy error message
     registrationText.innerHTML = "Your screen name is too short!<br>Please enter a valid screen name.";
-    errorHasDisabled = true;
+    errorHasDisplayed = true;
     textClear();
   }
   //checks password and displays error if password is 0 charcters
@@ -124,18 +124,25 @@ function validationForRegistrationPage() {
     document.getElementById("registrationButton").disabled = false;
     //dispalsy error message
     registrationText.innerHTML = "Your password is too short!<br>Please enter a valid password.";
-    errorHasDisabled = true;
+    errorHasDisplayed = true;
+    textClear();
+  }
+  else if (isNaN(usersAge) || usersAge < 10 || usersAge > 90) {
+    document.getElementById("registrationButton").disabled = false;
+    registrationText.innerHTML = "Invalid age!<br>Please enter a valid age between 10 and 90.";
+    errorHasDisplayed = true;
     textClear();
   }
   else {
     validationPassed = true;
   }
+  //clears the text 
   function textClear() {
     setTimeout(function() {
-      if (errorHasDisabled == true) {
+      if (errorHasDisplayed == true) {
         //removes the text after a certain time
         registrationText.textContent = " ";
-        errorHasDisabled = false;
+        errorHasDisplayed = false;
       }
     }, 3000);
   }

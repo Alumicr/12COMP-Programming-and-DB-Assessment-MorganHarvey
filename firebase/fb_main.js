@@ -5,6 +5,7 @@ var screenNameError1 = false;
 var updatingFireBaseNewScreenName = false;
 var userScreenName;
 var userPassword;
+var usersAge;
 var usersEmail;
 var userID;
 var userName;
@@ -28,7 +29,6 @@ function fb_authenticator(_DOTHIS) {
         userName: user.displayName,
         userPhoto: user.photoURL,
       }
-
       console.log(userDataObject);
       // If user is already logged in, check that
       console.log("Logged in");
@@ -55,6 +55,7 @@ function fb_checkRegistration() {
   //displays html text
   firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
 }
+
 //CHECKS IF USER IS IN DATABSAE
 function _readUID(snapshot) {
   console.log(snapshot.val());
@@ -104,8 +105,10 @@ function fb_register() {
   console.log("Returning HTML registration values");
   console.log(HTML_screen_name.value);
   console.log(HTML_password.value);
+  console.log(HTML_age.value);
   userScreenName = HTML_screen_name.value;
   userPassword = HTML_password.value;
+  usersAge = HTML_age.value;
   validationForRegistrationPage();
   //waits for value to be changed from registration validation function above
   if (validationPassed == true) {
@@ -113,6 +116,7 @@ function fb_register() {
     let webDataObject = {
       userDisplayName: userScreenName,
       userPassword: userPassword,
+      usersAge: usersAge,
     }
     // makes new object and asigns items to object
     gameDataObject = {
@@ -202,5 +206,4 @@ function fb_error(error) {
   console.error("Error found");
   console.error(error);
 }
-
 // end of code

@@ -43,6 +43,7 @@
 .loginPageButton{
   margin: auto;
   width: 50%;
+  float: center;
   padding: 10px;
   color:black;
   text-align: center;

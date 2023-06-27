@@ -106,52 +106,6 @@ function gameStarter() {
     }
   }
 }
-// BUTTON FUNCTIONS
-function buttonDisplay_pong() {
-  // displays buttons
-  // reset button
-  button_pong = createButton('Play again!');
-  button_pong.position(width / 4, 300);
-  button_pong.mousePressed(restartGame_pong);
-  // return to game page button
-  button2_pong = createButton('Return to home page!');
-  button2_pong.position(width / 4 + 150, 300);
-  button2_pong.mousePressed(SendPlayerBack_pong);
-
-  function restartGame_pong() {
-    // rechecks users highscore 
-    fb_readHighScore2();
-    console.log("RESTARTING GAME");
-    // if reset button clicked resets
-    button_pong.remove();
-    button2_pong.remove();
-    ball.remove();
-    paddle.remove();
-    // clears intervals
-    clearInterval(startTimerInterval);
-    clearInterval(intervalTimer2);
-    // resets values
-    gameOver_pong = false;
-    gameStarted = false;
-    wallRH.bounciness = 1;
-    score_pong = 0;
-    paddleSpeedUp = -8;
-    paddleSpeedDown = 8;
-    timer_pong = 3;
-    //re-loops game and calls setup
-    loop();
-    setup();
-    // rechecks players score 
-    fb_readHighScore2();
-    fb_highScoresTableReader();
-  }
-
-  // if return to game home button clicked sends user back to home page
-  function SendPlayerBack_pong() {
-    console.log("Sending user to game Page");
-    window.location = "/html/home_page.html.html";
-  }
-}
 
 // draw function
 function draw() {
@@ -224,5 +178,52 @@ function draw() {
   //timer text
   textSize(40);
   text(timer_pong, width - 70, 60);
+}
+
+// BUTTON FUNCTIONS
+//DISPLAYS WHEN GAME IS OVER
+function buttonDisplay_pong() {
+  // displays buttons
+  // reset button
+  button_pong = createButton('Play again!');
+  button_pong.position(width / 4, 300);
+  button_pong.mousePressed(restartGame_pong);
+  // return to game page button
+  button2_pong = createButton('Return to home page!');
+  button2_pong.position(width / 4 + 150, 300);
+  button2_pong.mousePressed(SendPlayerBack_pong);
+
+  function restartGame_pong() {
+    // rechecks users highscore 
+    fb_readHighScore2();
+    console.log("RESTARTING GAME");
+    // if reset button clicked resets
+    button_pong.remove();
+    button2_pong.remove();
+    ball.remove();
+    paddle.remove();
+    // clears intervals
+    clearInterval(startTimerInterval);
+    clearInterval(intervalTimer2);
+    // resets values
+    gameOver_pong = false;
+    gameStarted = false;
+    wallRH.bounciness = 1;
+    score_pong = 0;
+    paddleSpeedUp = -8;
+    paddleSpeedDown = 8;
+    timer_pong = 3;
+    //re-loops game and calls setup
+    loop();
+    setup();
+    // rechecks players score 
+    fb_readHighScore2();
+    fb_highScoresTableReader();
+  }
+  // if return to game home button clicked sends user back to home page
+  function SendPlayerBack_pong() {
+    console.log("Sending user to game Page");
+    window.location = "/html/home_page.html";
+  }
 }
 // end of code

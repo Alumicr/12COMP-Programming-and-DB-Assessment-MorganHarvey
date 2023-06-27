@@ -186,7 +186,7 @@ function buttonDisplay() {
   // if home button presssed sends user back to home page
   function SendPlayerBack() {
     console.log("Sending user to home Page");
-    window.location = "/html/home_page.html.html";
+    window.location = "/html/home_page.html";
   }
 
   // if button clicked restarts game
