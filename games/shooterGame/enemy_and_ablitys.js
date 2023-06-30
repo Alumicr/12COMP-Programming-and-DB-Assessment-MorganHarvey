@@ -24,7 +24,7 @@ let speedEnemySpawnCount = 5;
 let enemy3Health = 1;
 let speedEnemySpeed = 2.9
 let speedEnemyScoreValue = 1;
-//ablity items
+//ablity lets
 let doublePointTimer = 0;
 // CONSTS
 //normal enemy consts

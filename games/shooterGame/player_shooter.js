@@ -7,6 +7,7 @@ var bullet;
 let bulletDamage = 1;
 
 //START OF CODE
+
 function playerDamage() {
   //flashes player red when damge is taken
   console.log("player health is now " + playerHealth);
@@ -16,7 +17,6 @@ function playerDamage() {
     player.color = color("white");
   }, 0555);
 }
-
 
 function mouseClicked() {
   //players gun when clicked

@@ -1,3 +1,4 @@
+/*start of css  */
 .html {  
   margin: 0;
   padding: 0;
@@ -107,13 +108,16 @@
 .RegisterButton{
   margin-top: 5px;
 }
-/*game button items*/
+
+/*shooter button  */
 .shooterButton {
   margin-left:5%;
   background-color: transparent;
   width: 40%;
   border: none;
 }
+.shooterIMG:hover{opacity: 0.6}
+/*shooter button */
 .pongButton{
   float:right;
   border: none;
@@ -122,7 +126,6 @@
   width: 40%;
   margin-right: 5%;
 }
-.shooterIMG:hover{opacity: 0.6}
 .pongIMG:hover{opacity: 0.6}
 
 /*game names*/
@@ -169,3 +172,4 @@
   top: 10px;
   left: 10px;
 }
+/*end of css*/

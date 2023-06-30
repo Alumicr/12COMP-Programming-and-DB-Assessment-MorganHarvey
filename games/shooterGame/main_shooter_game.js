@@ -156,13 +156,13 @@ function playerHasDied() {
     } else {
       deadText = text("You have died!\nYou survived for " + timer + " seconds\nYou had a score of: " + score_shooterGame + "!", deadTextPostionX, deadTextPostionY);
     }
-    // removes all entities
-    normalEnemy.remove();
-    strongEnemy.remove();
-    speedEnemy.remove();
-    abltyGroup.remove();
-    player.remove();
-    playerBullets.remove();
+      // removes all entities
+      normalEnemy.remove();
+      strongEnemy.remove();
+      speedEnemy.remove();
+      abltyGroup.remove();
+      player.remove();
+      playerBullets.remove();
     // calls DeadPlayerSpawn function
     buttonDisplay();
     // creats dead player next to text

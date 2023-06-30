@@ -53,11 +53,11 @@ function fb_authenticator(_DOTHIS) {
 function fb_checkRegistration() {
   console.log("Checking Registration");
   //displays html text
-  firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', _readUID, fb_error);
+  firebase.database().ref('/userRegDetails/' + userDataObject.userID + '/').once('value', fb_readUID, fb_error);
 }
 
 //CHECKS IF USER IS IN DATABSAE
-function _readUID(snapshot) {
+function fb_readUID(snapshot) {
   console.log(snapshot.val());
   if (snapshot.val() == null) {
     // user has not registered

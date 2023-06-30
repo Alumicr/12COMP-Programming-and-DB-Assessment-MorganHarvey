@@ -6,7 +6,7 @@ var errorHasDisplayed = false;
 // send user to game when button clicked
 function shooterGamePageSender() {
   // sends user to shooter game
-  console.log("Sending user to shooter game")
+  console.log("Sending user to shooter game");
   window.location = "/games/shooterGame/shooter.html";
 }
 // sends user to pong game when button clicked
@@ -26,11 +26,9 @@ function logUserOut() {
 
 //HTML TEXTS BELOW
 function changeLandingHTMLText() {
-  //CHANGES HTML TEXT
   //changes HTML text instantly when button is pressed to loading message for log in page
   document.getElementById("logInMessage").innerHTML = "Checking user registration...";
 }
-
 
 //UPDATES HTML FOR changeUserDetails.html
 function updateHTML() {
@@ -41,7 +39,7 @@ function updateHTML() {
 
   //ERROR MESSAGES BELOW
   if (screenNameError == true) {
-    console.error("INAVLID SCREENNAME");
+    console.log("INAVLID SCREENNAME");
     //SHOWS IF SCREEN NAME IS TOO LONG
     statusMessage.textContent = "Your screen name is too long! Max character count is 15 characters! Please enter a valid screen name!"
     //enables the button and resets button
@@ -52,7 +50,7 @@ function updateHTML() {
   }
 
   if (screenNameError1 == true) {
-    console.error("INAVLID SCREENNAME");
+    console.log("INAVLID SCREENNAME");
     //SHOWS IF SCREEN NAME IS TOO SHORT
     statusMessage.innerHTML = "Your screen name is too short!<br>Please enter a valid screen name!"
     //enables the button and resets values
@@ -93,44 +91,47 @@ function validationForRegistrationPage() {
   //checks if both are 0
   if (userScreenName.length == 0 && userPassword.length == 0 && usersAge.length == 0) {
     registrationText.innerHTML = "Your screen name, age and password are too short.<br>Please enter a a valid password, age and screen name!"
-    document.getElementById("registrationButton").disabled = false;
     errorHasDisplayed = true;
+    // unlocks button
+    document.getElementById("registrationButton").disabled = false;
     textClear();
   }
   //checks if display name is over 10 charcaters
   else if (userScreenName.length > 15) {
-    console.error("INVALID SCREEN NAME")
-    //unlocks button
-    document.getElementById("registrationButton").disabled = false;
+    console.log("INVALID SCREEN NAME");
     //displays error message
     registrationText.innerHTML = "Your screen name is too long!<br>Please enter a valid screen name.";
     errorHasDisplayed = true;
+    //unlocks button
+    document.getElementById("registrationButton").disabled = false;
     textClear();
   }
   //checks display name and displays error message if display name is 0
   else if (userScreenName.length == 0) {
-    console.error("INVALID SCREEN NAME")
-    //unlocks button
-    document.getElementById("registrationButton").disabled = false;
+    console.log("INVALID SCREEN NAME");
     //dispalsy error message
     registrationText.innerHTML = "Your screen name is too short!<br>Please enter a valid screen name.";
     errorHasDisplayed = true;
+    //unlocks button
+    document.getElementById("registrationButton").disabled = false;
     textClear();
   }
   //checks password and displays error if password is 0 charcters
   else if (userPassword.length == 0) {
-    console.error("INVALID PASSWORD")
-    //unlocks button
-    document.getElementById("registrationButton").disabled = false;
+    console.log("INVALID PASSWORD");
     //dispalsy error message
     registrationText.innerHTML = "Your password is too short!<br>Please enter a valid password.";
     errorHasDisplayed = true;
+    //unlocks button
+    document.getElementById("registrationButton").disabled = false;
     textClear();
   }
   else if (isNaN(usersAge) || usersAge < 10 || usersAge > 90) {
-    document.getElementById("registrationButton").disabled = false;
+    //displays error message
     registrationText.innerHTML = "Invalid age!<br>Please enter a valid age between 10 and 90.";
     errorHasDisplayed = true;
+    // unlocks button
+    document.getElementById("registrationButton").disabled = false;
     textClear();
   }
   else {

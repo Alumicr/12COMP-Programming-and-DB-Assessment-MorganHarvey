@@ -10,7 +10,7 @@ var highScoresLoaded = false;
 // draw function
 function draw() {
   // checks if var is false
-  if (!highScoresLoaded) {
+  if (highScoresLoaded == false) {
     // displays loading text
     document.getElementById("shooterGameHighScoresDisplay").innerHTML = loadingText;
     document.getElementById('pongGameHighScoresDisplay').innerHTML = loadingText;
